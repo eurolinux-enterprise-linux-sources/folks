@@ -7,8 +7,8 @@
 <package name="folks-tracker"/>
 <c:include name="folks/folks-tracker.h"/>
 <namespace name="FolksTracker" version="0.6" c:prefix="Trf">
-	<annotation key="ccode.gir-version" value="0.6"/>
-	<annotation key="ccode.gir-namespace" value="FolksTracker"/>
+	<attribute name="ccode.gir-version" value="0.6"/>
+	<attribute name="ccode.gir-namespace" value="FolksTracker"/>
 	<class name="Persona" c:type="TrfPersona" glib:type-name="TrfPersona" glib:get-type="trf_persona_get_type" glib:type-struct="PersonaClass" parent="Folks.Persona">
 		<implements name="Folks.AvatarDetails"/>
 		<implements name="Folks.BirthdayDetails"/>

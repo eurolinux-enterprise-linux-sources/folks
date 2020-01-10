@@ -944,23 +944,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/linkable-properties.c: $(srcdir)/linkable_properties_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/linkable_properties_vala.stamp; fi
+$(srcdir)/search-view.c: $(srcdir)/search_view_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/search_view_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/linkable_properties_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/search_view_vala.stamp; \
 	fi
-$(srcdir)/linkable_properties_vala.stamp: linkable-properties.vala
+$(srcdir)/search_view_vala.stamp: search-view.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C linkable-properties.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
-	fi
-$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C search-view.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/add-persona.c: $(srcdir)/add_persona_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/add_persona_vala.stamp; fi
@@ -971,14 +962,23 @@ $(srcdir)/add_persona_vala.stamp: add-persona.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-persona.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/search-view.c: $(srcdir)/search_view_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/search_view_vala.stamp; fi
+$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/search_view_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
 	fi
-$(srcdir)/search_view_vala.stamp: search-view.vala
+$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C search-view.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/linkable-properties.c: $(srcdir)/linkable_properties_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/linkable_properties_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/linkable_properties_vala.stamp; \
+	fi
+$(srcdir)/linkable_properties_vala.stamp: linkable-properties.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C linkable-properties.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

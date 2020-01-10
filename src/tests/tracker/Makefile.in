@@ -2069,303 +2069,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/default-contact.c: $(srcdir)/default_contact_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/default_contact_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/default_contact_vala.stamp; \
-	fi
-$(srcdir)/default_contact_vala.stamp: default-contact.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C default-contact.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/url-details-interface.c: $(srcdir)/url_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/url_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/url_details_interface_vala.stamp; \
-	fi
-$(srcdir)/url_details_interface_vala.stamp: url-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C url-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/emails-updates.c: $(srcdir)/emails_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/emails_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/emails_updates_vala.stamp; \
-	fi
-$(srcdir)/emails_updates_vala.stamp: emails-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C emails-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/phones-updates.c: $(srcdir)/phones_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/phones_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phones_updates_vala.stamp; \
-	fi
-$(srcdir)/phones_updates_vala.stamp: phones-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phones-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/add-persona.c: $(srcdir)/add_persona_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/add_persona_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_persona_vala.stamp; \
-	fi
-$(srcdir)/add_persona_vala.stamp: add-persona.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-persona.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/match-im-addresses.c: $(srcdir)/match_im_addresses_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/match_im_addresses_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_im_addresses_vala.stamp; \
-	fi
-$(srcdir)/match_im_addresses_vala.stamp: match-im-addresses.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-im-addresses.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-structured-name.c: $(srcdir)/set_structured_name_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_structured_name_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_structured_name_vala.stamp; \
-	fi
-$(srcdir)/set_structured_name_vala.stamp: set-structured-name.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-structured-name.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/email-details-interface.c: $(srcdir)/email_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/email_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/email_details_interface_vala.stamp; \
-	fi
-$(srcdir)/email_details_interface_vala.stamp: email-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C email-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/duplicated-emails.c: $(srcdir)/duplicated_emails_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/duplicated_emails_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/duplicated_emails_vala.stamp; \
-	fi
-$(srcdir)/duplicated_emails_vala.stamp: duplicated-emails.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C duplicated-emails.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-gender.c: $(srcdir)/set_gender_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_gender_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_gender_vala.stamp; \
-	fi
-$(srcdir)/set_gender_vala.stamp: set-gender.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-gender.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/fullname-updates.c: $(srcdir)/fullname_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/fullname_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/fullname_updates_vala.stamp; \
-	fi
-$(srcdir)/fullname_updates_vala.stamp: fullname-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C fullname-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/avatar-details-interface.c: $(srcdir)/avatar_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/avatar_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_details_interface_vala.stamp; \
-	fi
-$(srcdir)/avatar_details_interface_vala.stamp: avatar-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/given-name-updates.c: $(srcdir)/given_name_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/given_name_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/given_name_updates_vala.stamp; \
-	fi
-$(srcdir)/given_name_updates_vala.stamp: given-name-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C given-name-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/remove-persona.c: $(srcdir)/remove_persona_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/remove_persona_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_persona_vala.stamp; \
-	fi
-$(srcdir)/remove_persona_vala.stamp: remove-persona.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-persona.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/match-known-emails.c: $(srcdir)/match_known_emails_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/match_known_emails_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_known_emails_vala.stamp; \
-	fi
-$(srcdir)/match_known_emails_vala.stamp: match-known-emails.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-known-emails.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/link-personas-via-local-ids.c: $(srcdir)/link_personas_via_local_ids_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_via_local_ids_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_via_local_ids_vala.stamp; \
-	fi
-$(srcdir)/link_personas_via_local_ids_vala.stamp: link-personas-via-local-ids.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas-via-local-ids.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/birthday-details-interface.c: $(srcdir)/birthday_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/birthday_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/birthday_details_interface_vala.stamp; \
-	fi
-$(srcdir)/birthday_details_interface_vala.stamp: birthday-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C birthday-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-emails.c: $(srcdir)/set_emails_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_emails_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_emails_vala.stamp; \
-	fi
-$(srcdir)/set_emails_vala.stamp: set-emails.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-emails.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/favourite-details-interface.c: $(srcdir)/favourite_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/favourite_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/favourite_details_interface_vala.stamp; \
-	fi
-$(srcdir)/favourite_details_interface_vala.stamp: favourite-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C favourite-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/match-phone-number.c: $(srcdir)/match_phone_number_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/match_phone_number_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_phone_number_vala.stamp; \
-	fi
-$(srcdir)/match_phone_number_vala.stamp: match-phone-number.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-phone-number.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/gender-details-interface.c: $(srcdir)/gender_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/gender_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/gender_details_interface_vala.stamp; \
-	fi
-$(srcdir)/gender_details_interface_vala.stamp: gender-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C gender-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-roles.c: $(srcdir)/set_roles_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_roles_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_roles_vala.stamp; \
-	fi
-$(srcdir)/set_roles_vala.stamp: set-roles.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-roles.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-postal-addresses.c: $(srcdir)/set_postal_addresses_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_postal_addresses_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_postal_addresses_vala.stamp; \
-	fi
-$(srcdir)/set_postal_addresses_vala.stamp: set-postal-addresses.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-postal-addresses.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/postal-address-details-interface.c: $(srcdir)/postal_address_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/postal_address_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/postal_address_details_interface_vala.stamp; \
-	fi
-$(srcdir)/postal_address_details_interface_vala.stamp: postal-address-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C postal-address-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-notes.c: $(srcdir)/set_notes_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_notes_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_notes_vala.stamp; \
-	fi
-$(srcdir)/set_notes_vala.stamp: set-notes.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-notes.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/role-details-interface.c: $(srcdir)/role_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/role_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/role_details_interface_vala.stamp; \
-	fi
-$(srcdir)/role_details_interface_vala.stamp: role-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C role-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/note-details-interface.c: $(srcdir)/note_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/note_details_interface_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/note_details_interface_vala.stamp; \
-	fi
-$(srcdir)/note_details_interface_vala.stamp: note-details-interface.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C note-details-interface.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-birthday.c: $(srcdir)/set_birthday_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_birthday_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_birthday_vala.stamp; \
-	fi
-$(srcdir)/set_birthday_vala.stamp: set-birthday.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-birthday.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/remove-contact.c: $(srcdir)/remove_contact_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/remove_contact_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_contact_vala.stamp; \
-	fi
-$(srcdir)/remove_contact_vala.stamp: remove-contact.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-contact.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/add-contact.c: $(srcdir)/add_contact_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/add_contact_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_contact_vala.stamp; \
-	fi
-$(srcdir)/add_contact_vala.stamp: add-contact.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-contact.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-avatar.c: $(srcdir)/set_avatar_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_avatar_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_avatar_vala.stamp; \
-	fi
-$(srcdir)/set_avatar_vala.stamp: set-avatar.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-avatar.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/prefix-name-updates.c: $(srcdir)/prefix_name_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/prefix_name_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/prefix_name_updates_vala.stamp; \
-	fi
-$(srcdir)/prefix_name_updates_vala.stamp: prefix-name-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C prefix-name-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/suffix-name-updates.c: $(srcdir)/suffix_name_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/suffix_name_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/suffix_name_updates_vala.stamp; \
-	fi
-$(srcdir)/suffix_name_updates_vala.stamp: suffix-name-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C suffix-name-updates.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/set-full-name.c: $(srcdir)/set_full_name_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/set_full_name_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -2374,69 +2077,6 @@ $(srcdir)/set-full-name.c: $(srcdir)/set_full_name_vala.stamp
 $(srcdir)/set_full_name_vala.stamp: set-full-name.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-full-name.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-nickname.c: $(srcdir)/set_nickname_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_nickname_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_nickname_vala.stamp; \
-	fi
-$(srcdir)/set_nickname_vala.stamp: set-nickname.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-nickname.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/link-personas.c: $(srcdir)/link_personas_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_vala.stamp; \
-	fi
-$(srcdir)/link_personas_vala.stamp: link-personas.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/additional-names-updates.c: $(srcdir)/additional_names_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/additional_names_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/additional_names_updates_vala.stamp; \
-	fi
-$(srcdir)/additional_names_updates_vala.stamp: additional-names-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C additional-names-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/favourite-updates.c: $(srcdir)/favourite_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/favourite_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/favourite_updates_vala.stamp; \
-	fi
-$(srcdir)/favourite_updates_vala.stamp: favourite-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C favourite-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/family-name-updates.c: $(srcdir)/family_name_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/family_name_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/family_name_updates_vala.stamp; \
-	fi
-$(srcdir)/family_name_updates_vala.stamp: family-name-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C family-name-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/birthday-updates.c: $(srcdir)/birthday_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/birthday_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/birthday_updates_vala.stamp; \
-	fi
-$(srcdir)/birthday_updates_vala.stamp: birthday-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C birthday-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/avatar-updates.c: $(srcdir)/avatar_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/avatar_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_updates_vala.stamp; \
-	fi
-$(srcdir)/avatar_updates_vala.stamp: avatar-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-updates.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/nickname-updates.c: $(srcdir)/nickname_updates_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/nickname_updates_vala.stamp; fi
@@ -2447,59 +2087,23 @@ $(srcdir)/nickname_updates_vala.stamp: nickname-updates.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C nickname-updates.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/name-details-interface.c: $(srcdir)/name_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/name_details_interface_vala.stamp; fi
+$(srcdir)/set-nickname.c: $(srcdir)/set_nickname_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_nickname_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/name_details_interface_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_nickname_vala.stamp; \
 	fi
-$(srcdir)/name_details_interface_vala.stamp: name-details-interface.vala
+$(srcdir)/set_nickname_vala.stamp: set-nickname.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C name-details-interface.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-nickname.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-favourite.c: $(srcdir)/set_favourite_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_favourite_vala.stamp; fi
+$(srcdir)/default-contact.c: $(srcdir)/default_contact_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/default_contact_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_favourite_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/default_contact_vala.stamp; \
 	fi
-$(srcdir)/set_favourite_vala.stamp: set-favourite.vala
+$(srcdir)/default_contact_vala.stamp: default-contact.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-favourite.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/match-email-addresses.c: $(srcdir)/match_email_addresses_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/match_email_addresses_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_email_addresses_vala.stamp; \
-	fi
-$(srcdir)/match_email_addresses_vala.stamp: match-email-addresses.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-email-addresses.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-urls.c: $(srcdir)/set_urls_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_urls_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_urls_vala.stamp; \
-	fi
-$(srcdir)/set_urls_vala.stamp: set-urls.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-urls.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/website-updates.c: $(srcdir)/website_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/website_updates_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/website_updates_vala.stamp; \
-	fi
-$(srcdir)/website_updates_vala.stamp: website-updates.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C website-updates.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-phones.c: $(srcdir)/set_phones_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_phones_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_phones_vala.stamp; \
-	fi
-$(srcdir)/set_phones_vala.stamp: set-phones.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-phones.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C default-contact.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/set-im-addresses.c: $(srcdir)/set_im_addresses_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/set_im_addresses_vala.stamp; fi
@@ -2510,59 +2114,68 @@ $(srcdir)/set_im_addresses_vala.stamp: set-im-addresses.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-im-addresses.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/im-details-interface.c: $(srcdir)/im_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/im_details_interface_vala.stamp; fi
+$(srcdir)/set-roles.c: $(srcdir)/set_roles_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_roles_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/im_details_interface_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_roles_vala.stamp; \
 	fi
-$(srcdir)/im_details_interface_vala.stamp: im-details-interface.vala
+$(srcdir)/set_roles_vala.stamp: set-roles.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C im-details-interface.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-roles.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-duplicate-email.c: $(srcdir)/set_duplicate_email_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_duplicate_email_vala.stamp; fi
+$(srcdir)/set-emails.c: $(srcdir)/set_emails_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_emails_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_duplicate_email_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_emails_vala.stamp; \
 	fi
-$(srcdir)/set_duplicate_email_vala.stamp: set-duplicate-email.vala
+$(srcdir)/set_emails_vala.stamp: set-emails.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-duplicate-email.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-emails.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/match-name.c: $(srcdir)/match_name_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/match_name_vala.stamp; fi
+$(srcdir)/note-details-interface.c: $(srcdir)/note_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/note_details_interface_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_name_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/note_details_interface_vala.stamp; \
 	fi
-$(srcdir)/match_name_vala.stamp: match-name.vala
+$(srcdir)/note_details_interface_vala.stamp: note-details-interface.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-name.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C note-details-interface.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/duplicated-phones.c: $(srcdir)/duplicated_phones_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/duplicated_phones_vala.stamp; fi
+$(srcdir)/email-details-interface.c: $(srcdir)/email_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/email_details_interface_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/duplicated_phones_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/email_details_interface_vala.stamp; \
 	fi
-$(srcdir)/duplicated_phones_vala.stamp: duplicated-phones.vala
+$(srcdir)/email_details_interface_vala.stamp: email-details-interface.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C duplicated-phones.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C email-details-interface.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-null-avatar.c: $(srcdir)/set_null_avatar_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_null_avatar_vala.stamp; fi
+$(srcdir)/set-postal-addresses.c: $(srcdir)/set_postal_addresses_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_postal_addresses_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_null_avatar_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_postal_addresses_vala.stamp; \
 	fi
-$(srcdir)/set_null_avatar_vala.stamp: set-null-avatar.vala
+$(srcdir)/set_postal_addresses_vala.stamp: set-postal-addresses.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-null-avatar.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-postal-addresses.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/phone-details-interface.c: $(srcdir)/phone_details_interface_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/phone_details_interface_vala.stamp; fi
+$(srcdir)/set-structured-name.c: $(srcdir)/set_structured_name_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_structured_name_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_details_interface_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_structured_name_vala.stamp; \
 	fi
-$(srcdir)/phone_details_interface_vala.stamp: phone-details-interface.vala
+$(srcdir)/set_structured_name_vala.stamp: set-structured-name.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-details-interface.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-structured-name.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/add-contact.c: $(srcdir)/add_contact_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/add_contact_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_contact_vala.stamp; \
+	fi
+$(srcdir)/add_contact_vala.stamp: add-contact.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-contact.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/match-all.c: $(srcdir)/match_all_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/match_all_vala.stamp; fi
@@ -2573,14 +2186,68 @@ $(srcdir)/match_all_vala.stamp: match-all.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-all.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/imaddresses-updates.c: $(srcdir)/imaddresses_updates_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/imaddresses_updates_vala.stamp; fi
+$(srcdir)/remove-contact.c: $(srcdir)/remove_contact_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/remove_contact_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/imaddresses_updates_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_contact_vala.stamp; \
 	fi
-$(srcdir)/imaddresses_updates_vala.stamp: imaddresses-updates.vala
+$(srcdir)/remove_contact_vala.stamp: remove-contact.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C imaddresses-updates.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-contact.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/suffix-name-updates.c: $(srcdir)/suffix_name_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/suffix_name_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/suffix_name_updates_vala.stamp; \
+	fi
+$(srcdir)/suffix_name_updates_vala.stamp: suffix-name-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C suffix-name-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-phones.c: $(srcdir)/set_phones_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_phones_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_phones_vala.stamp; \
+	fi
+$(srcdir)/set_phones_vala.stamp: set-phones.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-phones.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-notes.c: $(srcdir)/set_notes_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_notes_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_notes_vala.stamp; \
+	fi
+$(srcdir)/set_notes_vala.stamp: set-notes.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-notes.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-null-avatar.c: $(srcdir)/set_null_avatar_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_null_avatar_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_null_avatar_vala.stamp; \
+	fi
+$(srcdir)/set_null_avatar_vala.stamp: set-null-avatar.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-null-avatar.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/url-details-interface.c: $(srcdir)/url_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/url_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/url_details_interface_vala.stamp; \
+	fi
+$(srcdir)/url_details_interface_vala.stamp: url-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C url-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/link-personas-via-local-ids.c: $(srcdir)/link_personas_via_local_ids_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_via_local_ids_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_via_local_ids_vala.stamp; \
+	fi
+$(srcdir)/link_personas_via_local_ids_vala.stamp: link-personas-via-local-ids.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas-via-local-ids.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
@@ -2590,6 +2257,339 @@ $(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
 $(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/website-updates.c: $(srcdir)/website_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/website_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/website_updates_vala.stamp; \
+	fi
+$(srcdir)/website_updates_vala.stamp: website-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C website-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/link-personas.c: $(srcdir)/link_personas_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_vala.stamp; \
+	fi
+$(srcdir)/link_personas_vala.stamp: link-personas.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/role-details-interface.c: $(srcdir)/role_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/role_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/role_details_interface_vala.stamp; \
+	fi
+$(srcdir)/role_details_interface_vala.stamp: role-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C role-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/favourite-updates.c: $(srcdir)/favourite_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/favourite_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/favourite_updates_vala.stamp; \
+	fi
+$(srcdir)/favourite_updates_vala.stamp: favourite-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C favourite-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-duplicate-email.c: $(srcdir)/set_duplicate_email_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_duplicate_email_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_duplicate_email_vala.stamp; \
+	fi
+$(srcdir)/set_duplicate_email_vala.stamp: set-duplicate-email.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-duplicate-email.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-avatar.c: $(srcdir)/set_avatar_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_avatar_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_avatar_vala.stamp; \
+	fi
+$(srcdir)/set_avatar_vala.stamp: set-avatar.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-avatar.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/match-name.c: $(srcdir)/match_name_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/match_name_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_name_vala.stamp; \
+	fi
+$(srcdir)/match_name_vala.stamp: match-name.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-name.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/postal-address-details-interface.c: $(srcdir)/postal_address_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/postal_address_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/postal_address_details_interface_vala.stamp; \
+	fi
+$(srcdir)/postal_address_details_interface_vala.stamp: postal-address-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C postal-address-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/emails-updates.c: $(srcdir)/emails_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/emails_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/emails_updates_vala.stamp; \
+	fi
+$(srcdir)/emails_updates_vala.stamp: emails-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C emails-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/prefix-name-updates.c: $(srcdir)/prefix_name_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/prefix_name_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/prefix_name_updates_vala.stamp; \
+	fi
+$(srcdir)/prefix_name_updates_vala.stamp: prefix-name-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C prefix-name-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/birthday-updates.c: $(srcdir)/birthday_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/birthday_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/birthday_updates_vala.stamp; \
+	fi
+$(srcdir)/birthday_updates_vala.stamp: birthday-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C birthday-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/phones-updates.c: $(srcdir)/phones_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/phones_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phones_updates_vala.stamp; \
+	fi
+$(srcdir)/phones_updates_vala.stamp: phones-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phones-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/match-im-addresses.c: $(srcdir)/match_im_addresses_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/match_im_addresses_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_im_addresses_vala.stamp; \
+	fi
+$(srcdir)/match_im_addresses_vala.stamp: match-im-addresses.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-im-addresses.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/match-email-addresses.c: $(srcdir)/match_email_addresses_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/match_email_addresses_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_email_addresses_vala.stamp; \
+	fi
+$(srcdir)/match_email_addresses_vala.stamp: match-email-addresses.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-email-addresses.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/duplicated-phones.c: $(srcdir)/duplicated_phones_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/duplicated_phones_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/duplicated_phones_vala.stamp; \
+	fi
+$(srcdir)/duplicated_phones_vala.stamp: duplicated-phones.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C duplicated-phones.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-birthday.c: $(srcdir)/set_birthday_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_birthday_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_birthday_vala.stamp; \
+	fi
+$(srcdir)/set_birthday_vala.stamp: set-birthday.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-birthday.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/name-details-interface.c: $(srcdir)/name_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/name_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/name_details_interface_vala.stamp; \
+	fi
+$(srcdir)/name_details_interface_vala.stamp: name-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C name-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/avatar-details-interface.c: $(srcdir)/avatar_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/avatar_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_details_interface_vala.stamp; \
+	fi
+$(srcdir)/avatar_details_interface_vala.stamp: avatar-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-urls.c: $(srcdir)/set_urls_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_urls_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_urls_vala.stamp; \
+	fi
+$(srcdir)/set_urls_vala.stamp: set-urls.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-urls.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/imaddresses-updates.c: $(srcdir)/imaddresses_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/imaddresses_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/imaddresses_updates_vala.stamp; \
+	fi
+$(srcdir)/imaddresses_updates_vala.stamp: imaddresses-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C imaddresses-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/remove-persona.c: $(srcdir)/remove_persona_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/remove_persona_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_persona_vala.stamp; \
+	fi
+$(srcdir)/remove_persona_vala.stamp: remove-persona.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-persona.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/phone-details-interface.c: $(srcdir)/phone_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/phone_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_details_interface_vala.stamp; \
+	fi
+$(srcdir)/phone_details_interface_vala.stamp: phone-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/add-persona.c: $(srcdir)/add_persona_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/add_persona_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_persona_vala.stamp; \
+	fi
+$(srcdir)/add_persona_vala.stamp: add-persona.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-persona.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/gender-details-interface.c: $(srcdir)/gender_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/gender_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/gender_details_interface_vala.stamp; \
+	fi
+$(srcdir)/gender_details_interface_vala.stamp: gender-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C gender-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/given-name-updates.c: $(srcdir)/given_name_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/given_name_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/given_name_updates_vala.stamp; \
+	fi
+$(srcdir)/given_name_updates_vala.stamp: given-name-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C given-name-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/fullname-updates.c: $(srcdir)/fullname_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/fullname_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/fullname_updates_vala.stamp; \
+	fi
+$(srcdir)/fullname_updates_vala.stamp: fullname-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C fullname-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-gender.c: $(srcdir)/set_gender_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_gender_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_gender_vala.stamp; \
+	fi
+$(srcdir)/set_gender_vala.stamp: set-gender.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-gender.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-favourite.c: $(srcdir)/set_favourite_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_favourite_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_favourite_vala.stamp; \
+	fi
+$(srcdir)/set_favourite_vala.stamp: set-favourite.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-favourite.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/im-details-interface.c: $(srcdir)/im_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/im_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/im_details_interface_vala.stamp; \
+	fi
+$(srcdir)/im_details_interface_vala.stamp: im-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C im-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/match-phone-number.c: $(srcdir)/match_phone_number_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/match_phone_number_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_phone_number_vala.stamp; \
+	fi
+$(srcdir)/match_phone_number_vala.stamp: match-phone-number.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-phone-number.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/birthday-details-interface.c: $(srcdir)/birthday_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/birthday_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/birthday_details_interface_vala.stamp; \
+	fi
+$(srcdir)/birthday_details_interface_vala.stamp: birthday-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C birthday-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/avatar-updates.c: $(srcdir)/avatar_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/avatar_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_updates_vala.stamp; \
+	fi
+$(srcdir)/avatar_updates_vala.stamp: avatar-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/favourite-details-interface.c: $(srcdir)/favourite_details_interface_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/favourite_details_interface_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/favourite_details_interface_vala.stamp; \
+	fi
+$(srcdir)/favourite_details_interface_vala.stamp: favourite-details-interface.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C favourite-details-interface.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/match-known-emails.c: $(srcdir)/match_known_emails_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/match_known_emails_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/match_known_emails_vala.stamp; \
+	fi
+$(srcdir)/match_known_emails_vala.stamp: match-known-emails.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C match-known-emails.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/duplicated-emails.c: $(srcdir)/duplicated_emails_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/duplicated_emails_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/duplicated_emails_vala.stamp; \
+	fi
+$(srcdir)/duplicated_emails_vala.stamp: duplicated-emails.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C duplicated-emails.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/family-name-updates.c: $(srcdir)/family_name_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/family_name_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/family_name_updates_vala.stamp; \
+	fi
+$(srcdir)/family_name_updates_vala.stamp: family-name-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C family-name-updates.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/additional-names-updates.c: $(srcdir)/additional_names_updates_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/additional_names_updates_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/additional_names_updates_vala.stamp; \
+	fi
+$(srcdir)/additional_names_updates_vala.stamp: additional-names-updates.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C additional-names-updates.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

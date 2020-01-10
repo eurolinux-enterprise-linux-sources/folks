@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 Collabora Ltd.
- * Copyright (C) 2013 Philip Withnall
+ * Copyright (C) 2013, 2016 Philip Withnall
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -98,20 +98,20 @@ public class Edsf.PersonaStore : Folks.PersonaStore
     {
       debug ("Creating addressbook %s", id);
       /* In order to create a new Address Book with the given id we follow
-       * the guidelines explained here: 
+       * the guidelines explained here:
        * https://live.gnome.org/Evolution/ESourceMigrationGuide#How_do_I_create_a_new_calendar_or_address_book.3F
-       * for setting the backend name and parent UID to "local" and 
+       * for setting the backend name and parent UID to "local" and
        * "local-stub" respectively.
        */
       E.Source new_source = new E.Source.with_uid (id, null);
-      
+
       new_source.set_parent ("local-stub");
       new_source.set_display_name (id);
-      
+
       E.SourceAddressBook ab_extension =
         (E.SourceAddressBook) new_source.get_extension ("Address Book");
       ab_extension.set_backend_name ("local");
-  
+
       E.SourceRegistry registry = yield create_source_registry ();
       yield registry.commit_source (new_source, null);
     }
@@ -120,7 +120,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
    * Remove a persona store's address book permamently.
    *
    * This is a utility function to remove an {@link Edsf.PersonaStore}'s address
-   * book from the disk permanently.  This simply wraps the EDS API to do 
+   * book from the disk permanently.  This simply wraps the EDS API to do
    * the same.
    *
    * @param store the PersonaStore to delete the address book for.
@@ -132,7 +132,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
     {
       yield store.source.remove (null);
     }
-  
+
   private void _address_book_notify_read_only_cb (Object address_book,
       ParamSpec pspec)
     {
@@ -264,7 +264,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
    *
    * @since 0.6.0
    */
-  public override Map<string, Persona> personas
+  public override Map<string, Folks.Persona> personas
     {
       get { return this._personas_ro; }
     }
@@ -288,7 +288,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
    *
    * @since 0.6.0
    */
-  [Deprecated (since = "0.7.2",
+  [Version (deprecated = true, deprecated_since = "0.7.2",
       replacement = "Edsf.PersonaStore.with_source_registry")]
   public PersonaStore (E.Source s)
     {
@@ -650,7 +650,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
                   case ClientError.NOT_SUPPORTED:
                     throw new PersonaStoreError.READ_ONLY (
                         /* Translators: the parameter is an error message. */
-                        _("Removing contacts isn't supported by this persona store: %s"),
+                        _("Removing contacts isn’t supported by this persona store: %s"),
                             e.message);
                   case ClientError.AUTHENTICATION_REQUIRED:
                     /* TODO: Support authentication. bgo#653339 */
@@ -679,7 +679,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
           /* Fallback error. */
           throw new PersonaStoreError.REMOVE_FAILED (
-              _("Can't remove contact ‘%s’: %s"), persona.uid, e.message);
+              _("Can’t remove contact ‘%s’: %s"), persona.uid, e.message);
         }
     }
 
@@ -806,7 +806,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
               throw new PersonaStoreError.INVALID_ARGUMENT (
                   /* Translators: the first parameter is an address book URI
                    * and the second is an error message. */
-                  _("Couldn't open address book ‘%s’: %s"), this.id, e1.message);
+                  _("Couldn’t open address book ‘%s’: %s"), this.id, e1.message);
             }
 
           /* Determine which fields the address book supports. This is necessary
@@ -874,7 +874,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
               throw new PersonaStoreError.INVALID_ARGUMENT (
                   /* Translators: the parameteter is an error message. */
-                  _("Couldn't get address book capabilities: %s"), e2.message);
+                  _("Couldn’t get address book capabilities: %s"), e2.message);
             }
 
           /* Get the set of capabilities supported by the address book.
@@ -904,7 +904,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
               throw new PersonaStoreError.INVALID_ARGUMENT (
                   /* Translators: the parameteter is an error message. */
-                  _("Couldn't get address book capabilities: %s"), e4.message);
+                  _("Couldn’t get address book capabilities: %s"), e4.message);
             }
 
           bool got_view = false;
@@ -920,7 +920,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
                 {
                   throw new PersonaStoreError.INVALID_ARGUMENT (
                       /* Translators: the parameter is an address book URI. */
-                      _("Couldn't get view for address book ‘%s’."),
+                      _("Couldn’t get view for address book ‘%s’."),
                           this.id);
                 }
 
@@ -999,7 +999,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
               throw new PersonaStoreError.INVALID_ARGUMENT (
                   /* Translators: the first parameter is an address book URI
                    * and the second is an error message. */
-                  _("Couldn't get view for address book ‘%s’: %s"),
+                  _("Couldn’t get view for address book ‘%s’: %s"),
                   this.id, e3.message);
             }
 
@@ -1689,7 +1689,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
               /* Loading/Reading the avatar failed. */
               throw new PropertyError.INVALID_VALUE (
                   /* Translators: the parameter is an error message. */
-                  _("Can't update avatar: %s"), e1.message);
+                  _("Can’t update avatar: %s"), e1.message);
             }
         }
     }
@@ -2489,7 +2489,15 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
       foreach (E.Contact c in contacts)
         {
-          var iid = Edsf.Persona.build_iid_from_contact (this.id, c);
+          string? _iid = Edsf.Persona.build_iid_from_contact (this.id, c);
+
+          if (_iid == null)
+            {
+              debug ("Ignoring contact %p as UID is not set", c);
+              continue;
+            }
+
+          string iid = (!) _iid;
           var old_persona = this._personas.get (iid);
           var new_persona = new Persona (this, c);
 
@@ -2532,7 +2540,15 @@ public class Edsf.PersonaStore : Folks.PersonaStore
     {
       foreach (E.Contact c in contacts)
         {
-          var iid = Edsf.Persona.build_iid_from_contact (this.id, c);
+          string? _iid = Edsf.Persona.build_iid_from_contact (this.id, c);
+
+          if (_iid == null)
+            {
+              debug ("Ignoring contact %p as UID is not set", c);
+              continue;
+            }
+
+          string iid = (!) _iid;
           Persona? persona = this._personas.get (iid);
           if (persona != null)
             {
@@ -2554,6 +2570,11 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
       foreach (string contact_id in contacts_ids)
         {
+          /* Not sure how this could happen, but better to be safe. We do not
+           * allow empty UIDs. */
+          if (contact_id == "")
+              continue;
+
           var iid = Edsf.Persona.build_iid (this.id, contact_id);
           Persona? persona = _personas.get (iid);
           if (persona != null)

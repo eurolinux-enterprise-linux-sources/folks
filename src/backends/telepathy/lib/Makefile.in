@@ -1079,24 +1079,24 @@ libtp_zeitgeist_la-tp-zeitgeist.lo: tp-zeitgeist.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='tp-zeitgeist.c' object='libtp_zeitgeist_la-tp-zeitgeist.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtp_zeitgeist_la_CPPFLAGS) $(CPPFLAGS) $(libtp_zeitgeist_la_CFLAGS) $(CFLAGS) -c -o libtp_zeitgeist_la-tp-zeitgeist.lo `test -f 'tp-zeitgeist.c' || echo '$(srcdir)/'`tp-zeitgeist.c
-$(srcdir)/tp-zeitgeist.c: $(srcdir)/libtp_zeitgeist_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist-dummy.c: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
 	fi
-$(srcdir)/tp-zeitgeist.vapi: $(srcdir)/libtp_zeitgeist_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist-dummy.vapi: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
 	fi
-$(srcdir)/tp-zeitgeist.h: $(srcdir)/libtp_zeitgeist_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist-dummy.h: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
 	fi
-$(srcdir)/libtp_zeitgeist_la_vala.stamp: tp-zeitgeist.vala
+$(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp: tp-zeitgeist-dummy.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libtp_zeitgeist_la_VALAFLAGS) $(VALAFLAGS) -C tp-zeitgeist.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libtp_zeitgeist_dummy_la_VALAFLAGS) $(VALAFLAGS) -C tp-zeitgeist-dummy.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/namespace.c: $(srcdir)/libfolks_telepathy_la_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_telepathy_la_vala.stamp; fi
@@ -1142,24 +1142,24 @@ $(srcdir)/libfolks_telepathy_la_vala.stamp: namespace.vala tpf-persona.vala tpf-
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libfolks_telepathy_la_VALAFLAGS) $(VALAFLAGS) -C namespace.vala tpf-persona.vala tpf-persona-store.vala tpf-logger.vala tpf-persona-store-cache.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/tp-zeitgeist-dummy.c: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist.c: $(srcdir)/libtp_zeitgeist_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
 	fi
-$(srcdir)/tp-zeitgeist-dummy.vapi: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist.vapi: $(srcdir)/libtp_zeitgeist_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
 	fi
-$(srcdir)/tp-zeitgeist-dummy.h: $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; fi
+$(srcdir)/tp-zeitgeist.h: $(srcdir)/libtp_zeitgeist_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libtp_zeitgeist_la_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libtp_zeitgeist_la_vala.stamp; \
 	fi
-$(srcdir)/libtp_zeitgeist_dummy_la_vala.stamp: tp-zeitgeist-dummy.vala
+$(srcdir)/libtp_zeitgeist_la_vala.stamp: tp-zeitgeist.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libtp_zeitgeist_dummy_la_VALAFLAGS) $(VALAFLAGS) -C tp-zeitgeist-dummy.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libtp_zeitgeist_la_VALAFLAGS) $(VALAFLAGS) -C tp-zeitgeist.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

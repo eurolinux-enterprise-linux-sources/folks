@@ -39,7 +39,7 @@ public errordomain Folks.IndividualAggregatorError
    *
    * @since 0.1.13
    */
-  [Deprecated (since = "0.6.2.1",
+  [Version (deprecated = true, deprecated_since = "0.6.2.1",
       replacement = "IndividualAggregatorError.NO_PRIMARY_STORE")]
   NO_WRITEABLE_STORE,
 
@@ -288,7 +288,7 @@ public class Folks.IndividualAggregator : Object
    *
    * @since 0.5.1
    */
-  [Deprecated (since = "0.6.2",
+  [Version (deprecated = true, deprecated_since = "0.6.2",
       replacement = "IndividualAggregator.individuals_changed_detailed")]
   public signal void individuals_changed (Set<Individual> added,
       Set<Individual> removed,
@@ -347,24 +347,21 @@ public class Folks.IndividualAggregator : Object
    */
   public static IndividualAggregator dup ()
     {
-      lock (IndividualAggregator._instance)
+      IndividualAggregator? _retval = IndividualAggregator._instance;
+      IndividualAggregator retval;
+
+      if (_retval == null)
         {
-          IndividualAggregator? _retval = IndividualAggregator._instance;
-          IndividualAggregator retval;
-
-          if (_retval == null)
-            {
-              /* use an intermediate variable to force a strong reference */
-              retval = new IndividualAggregator ();
-              IndividualAggregator._instance = retval;
-            }
-          else
-            {
-              retval = (!) _retval;
-            }
-
-          return retval;
+          /* use an intermediate variable to force a strong reference */
+          retval = new IndividualAggregator ();
+          IndividualAggregator._instance = retval;
         }
+      else
+        {
+          retval = (!) _retval;
+        }
+
+      return retval;
     }
 
   /**
@@ -387,7 +384,7 @@ public class Folks.IndividualAggregator : Object
    * instantiated at the same time. So it's recommended to use
    * {@link IndividualAggregator.dup} instead.
    */
-  [Deprecated (since = "0.9.5",
+  [Version (deprecated = true, deprecated_since = "0.9.5",
       replacement = "IndividualAggregator.dup")]
   public IndividualAggregator ()
   {
@@ -411,29 +408,26 @@ public class Folks.IndividualAggregator : Object
    */
   public static IndividualAggregator? dup_with_backend_store (BackendStore store)
     {
-      lock (IndividualAggregator._instance)
+      IndividualAggregator? _retval = IndividualAggregator._instance;
+      IndividualAggregator retval;
+
+      if (_retval == null)
         {
-          IndividualAggregator? _retval = IndividualAggregator._instance;
-          IndividualAggregator retval;
-
-          if (_retval == null)
-            {
-              /* use an intermediate variable to force a strong reference */
-              retval = new IndividualAggregator.with_backend_store (store);
-              IndividualAggregator._instance = retval;
-            }
-          else if (_retval._backend_store != store)
-            {
-              warning ("An aggregator already exists using another backend store");
-              return null;
-            }
-          else
-            {
-              retval = (!) _retval;
-            }
-
-          return retval;
+          /* use an intermediate variable to force a strong reference */
+          retval = new IndividualAggregator.with_backend_store (store);
+          IndividualAggregator._instance = retval;
         }
+      else if (_retval._backend_store != store)
+        {
+          warning ("An aggregator already exists using another backend store");
+          return null;
+        }
+      else
+        {
+          retval = (!) _retval;
+        }
+
+      return retval;
     }
 
   /**
@@ -447,7 +441,7 @@ public class Folks.IndividualAggregator : Object
    *
    * @since 0.9.0
    */
-  [Deprecated (since = "0.9.5",
+  [Version (deprecated = true, deprecated_since = "0.9.5",
       replacement = "IndividualAggregator.dup_with_backend_store")]
   public IndividualAggregator.with_backend_store (BackendStore store)
   {
@@ -535,10 +529,7 @@ public class Folks.IndividualAggregator : Object
       this._debug.print_status.disconnect (this._debug_print_status);
 
       /* Manually clear the singleton _instance */
-      lock (IndividualAggregator._instance)
-        {
-          IndividualAggregator._instance = null;
-        }
+      IndividualAggregator._instance = null;
     }
 
   private void _primary_store_setting_changed_cb (Settings settings,
@@ -783,25 +774,22 @@ public class Folks.IndividualAggregator : Object
    */
   public async void unprepare () throws GLib.Error
     {
-      lock (this._is_prepared)
+      if (!this._is_prepared || this._prepare_pending)
         {
-          if (!this._is_prepared || this._prepare_pending)
-            {
-              return;
-            }
+          return;
+        }
 
-          try
+      try
+        {
+          /* Flush any PersonaStores which need it. */
+          foreach (var p in this._stores.values)
             {
-              /* Flush any PersonaStores which need it. */
-              foreach (var p in this._stores.values)
-                {
-                  yield p.flush ();
-                }
+              yield p.flush ();
             }
-          finally
-            {
-              this._prepare_pending = false;
-            }
+        }
+      finally
+        {
+          this._prepare_pending = false;
         }
     }
 
@@ -1060,7 +1048,7 @@ public class Folks.IndividualAggregator : Object
             {
               /* Translators: the first parameter is a persona store identifier
                * and the second is an error message. */
-              warning (_("Error preparing persona store '%s': %s"), store_id,
+              warning (_("Error preparing persona store ‘%s’: %s"), store_id,
                   e.message);
             }
         });
@@ -1291,7 +1279,7 @@ public class Folks.IndividualAggregator : Object
                     {
                       warning (
                           /* Translators: the parameter is a property name. */
-                          _("Unknown property '%s' in linkable property list."),
+                          _("Unknown property ‘%s’ in linkable property list."),
                           prop_name);
                       continue;
                     }
@@ -1564,7 +1552,7 @@ public class Folks.IndividualAggregator : Object
                 {
                   warning (
                       /* Translators: the parameter is a property name. */
-                      _("Unknown property '%s' in linkable property list."),
+                      _("Unknown property ‘%s’ in linkable property list."),
                       prop_name);
                   continue;
                 }
@@ -2050,7 +2038,7 @@ public class Folks.IndividualAggregator : Object
               throw new IndividualAggregatorError.ADD_FAILED (
                   /* Translators: the first parameter is a store identifier
                    * and the second parameter is an error message. */
-                  _("Failed to add contact for persona store ID '%s': %s"),
+                  _("Failed to add contact for persona store ID ‘%s’: %s"),
                   full_id, e.message);
             }
         }
@@ -2149,7 +2137,7 @@ public class Folks.IndividualAggregator : Object
           throw new IndividualAggregatorError.NO_PRIMARY_STORE (
               _("Can’t link personas with no primary store.") + "\n" +
               _("Persona store ‘%s:%s’ is configured as primary, but could not be found or failed to load.") + "\n" +
-              _("Check the relevant service is running, or change the default store in that service or using the “%s” GSettings key."),
+              _("Check the relevant service is running, or change the default store in that service or using the ‘%s’ GSettings key."),
               this._configured_primary_store_type_id,
               this._configured_primary_store_id,
               "%s %s".printf (IndividualAggregator._FOLKS_GSETTINGS_SCHEMA,
@@ -2181,7 +2169,7 @@ public class Folks.IndividualAggregator : Object
               catch (PropertyError e)
                 {
                   throw new IndividualAggregatorError.PROPERTY_NOT_WRITEABLE (
-                      _("Anti-links can't be removed between personas being linked."));
+                      _("Anti-links can’t be removed between personas being linked."));
                 }
             }
         }
@@ -2480,7 +2468,7 @@ public class Folks.IndividualAggregator : Object
           throw new IndividualAggregatorError.NO_PRIMARY_STORE (
               _("Can’t add personas with no primary store.") + "\n" +
               _("Persona store ‘%s:%s’ is configured as primary, but could not be found or failed to load.") + "\n" +
-              _("Check the relevant service is running, or change the default store in that service or using the “%s” GSettings key."),
+              _("Check the relevant service is running, or change the default store in that service or using the ‘%s’ GSettings key."),
               this._configured_primary_store_type_id,
               this._configured_primary_store_id,
               "%s %s".printf (IndividualAggregator._FOLKS_GSETTINGS_SCHEMA,
@@ -2489,7 +2477,7 @@ public class Folks.IndividualAggregator : Object
       else if (new_persona == null)
         {
           throw new IndividualAggregatorError.PROPERTY_NOT_WRITEABLE (
-              _("Can't write to requested property (“%s”) of the writeable store."),
+              _("Can’t write to requested property (‘%s’) of the writeable store."),
               property_name);
         }
 

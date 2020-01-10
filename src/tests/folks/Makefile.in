@@ -1179,14 +1179,23 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/small-set.c: $(srcdir)/small_set_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/small_set_vala.stamp; fi
+$(srcdir)/primary-store-changes.c: $(srcdir)/primary_store_changes_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/primary_store_changes_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/small_set_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/primary_store_changes_vala.stamp; \
 	fi
-$(srcdir)/small_set_vala.stamp: small-set.vala
+$(srcdir)/primary_store_changes_vala.stamp: primary-store-changes.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C small-set.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C primary-store-changes.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/abstract-field-details.c: $(srcdir)/abstract_field_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/abstract_field_details_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/abstract_field_details_vala.stamp; \
+	fi
+$(srcdir)/abstract_field_details_vala.stamp: abstract-field-details.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C abstract-field-details.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/aggregation.c: $(srcdir)/aggregation_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/aggregation_vala.stamp; fi
@@ -1197,59 +1206,14 @@ $(srcdir)/aggregation_vala.stamp: aggregation.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C aggregation.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/primary-store-changes.c: $(srcdir)/primary_store_changes_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/primary_store_changes_vala.stamp; fi
+$(srcdir)/avatar-cache.c: $(srcdir)/avatar_cache_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/avatar_cache_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/primary_store_changes_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_cache_vala.stamp; \
 	fi
-$(srcdir)/primary_store_changes_vala.stamp: primary-store-changes.vala
+$(srcdir)/avatar_cache_vala.stamp: avatar-cache.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C primary-store-changes.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/object-cache.c: $(srcdir)/object_cache_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/object_cache_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/object_cache_vala.stamp; \
-	fi
-$(srcdir)/object_cache_vala.stamp: object-cache.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C object-cache.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/async-locking.c: $(srcdir)/async_locking_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/async_locking_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/async_locking_vala.stamp; \
-	fi
-$(srcdir)/async_locking_vala.stamp: async-locking.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C async-locking.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/name-details.c: $(srcdir)/name_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/name_details_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/name_details_vala.stamp; \
-	fi
-$(srcdir)/name_details_vala.stamp: name-details.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C name-details.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/init.c: $(srcdir)/init_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/init_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/init_vala.stamp; \
-	fi
-$(srcdir)/init_vala.stamp: init.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C init.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/phone-field-details.c: $(srcdir)/phone_field_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/phone_field_details_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_field_details_vala.stamp; \
-	fi
-$(srcdir)/phone_field_details_vala.stamp: phone-field-details.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-field-details.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-cache.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/standalone-individuals.c: $(srcdir)/standalone_individuals_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/standalone_individuals_vala.stamp; fi
@@ -1260,6 +1224,15 @@ $(srcdir)/standalone_individuals_vala.stamp: standalone-individuals.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C standalone-individuals.vala
 	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/async-locking.c: $(srcdir)/async_locking_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/async_locking_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/async_locking_vala.stamp; \
+	fi
+$(srcdir)/async_locking_vala.stamp: async-locking.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C async-locking.vala
+	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/backend-loading.c: $(srcdir)/backend_loading_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/backend_loading_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1268,15 +1241,6 @@ $(srcdir)/backend-loading.c: $(srcdir)/backend_loading_vala.stamp
 $(srcdir)/backend_loading_vala.stamp: backend-loading.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C backend-loading.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/avatar-cache.c: $(srcdir)/avatar_cache_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/avatar_cache_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/avatar_cache_vala.stamp; \
-	fi
-$(srcdir)/avatar_cache_vala.stamp: avatar-cache.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-cache.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/utils.c: $(srcdir)/utils_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/utils_vala.stamp; fi
@@ -1287,14 +1251,50 @@ $(srcdir)/utils_vala.stamp: utils.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C utils.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/abstract-field-details.c: $(srcdir)/abstract_field_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/abstract_field_details_vala.stamp; fi
+$(srcdir)/small-set.c: $(srcdir)/small_set_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/small_set_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/abstract_field_details_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/small_set_vala.stamp; \
 	fi
-$(srcdir)/abstract_field_details_vala.stamp: abstract-field-details.vala
+$(srcdir)/small_set_vala.stamp: small-set.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C abstract-field-details.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C small-set.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/init.c: $(srcdir)/init_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/init_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/init_vala.stamp; \
+	fi
+$(srcdir)/init_vala.stamp: init.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C init.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/object-cache.c: $(srcdir)/object_cache_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/object_cache_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/object_cache_vala.stamp; \
+	fi
+$(srcdir)/object_cache_vala.stamp: object-cache.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C object-cache.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/name-details.c: $(srcdir)/name_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/name_details_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/name_details_vala.stamp; \
+	fi
+$(srcdir)/name_details_vala.stamp: name-details.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C name-details.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/phone-field-details.c: $(srcdir)/phone_field_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/phone_field_details_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_field_details_vala.stamp; \
+	fi
+$(srcdir)/phone_field_details_vala.stamp: phone-field-details.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-field-details.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

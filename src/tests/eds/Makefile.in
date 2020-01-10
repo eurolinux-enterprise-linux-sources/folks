@@ -165,7 +165,8 @@ am__DEPENDENCIES_2 = $(top_builddir)/folks/libfolks.la \
 	$(am__DEPENDENCIES_1)
 add_contacts_stress_test_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
@@ -175,37 +176,43 @@ add_persona_OBJECTS = $(am_add_persona_OBJECTS)
 add_persona_LDADD = $(LDADD)
 add_persona_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_anti_linking_OBJECTS = anti-linking.$(OBJEXT)
 anti_linking_OBJECTS = $(am_anti_linking_OBJECTS)
 anti_linking_LDADD = $(LDADD)
 anti_linking_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_avatar_details_OBJECTS = avatar-details.$(OBJEXT)
 avatar_details_OBJECTS = $(am_avatar_details_OBJECTS)
 avatar_details_LDADD = $(LDADD)
 avatar_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_email_details_OBJECTS = email-details.$(OBJEXT)
 email_details_OBJECTS = $(am_email_details_OBJECTS)
 email_details_LDADD = $(LDADD)
 email_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_enable_disable_stores_OBJECTS = enable-disable-stores.$(OBJEXT)
 enable_disable_stores_OBJECTS = $(am_enable_disable_stores_OBJECTS)
 enable_disable_stores_LDADD = $(LDADD)
 enable_disable_stores_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_extended_info_OBJECTS = extended-info.$(OBJEXT)
 extended_info_OBJECTS = $(am_extended_info_OBJECTS)
 extended_info_LDADD = $(LDADD)
 extended_info_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_helper_create_many_contacts_OBJECTS =  \
 	helper-create-many-contacts.$(OBJEXT)
 helper_create_many_contacts_OBJECTS =  \
@@ -213,13 +220,15 @@ helper_create_many_contacts_OBJECTS =  \
 helper_create_many_contacts_LDADD = $(LDADD)
 helper_create_many_contacts_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_helper_delete_contacts_OBJECTS = helper-delete-contacts.$(OBJEXT)
 helper_delete_contacts_OBJECTS = $(am_helper_delete_contacts_OBJECTS)
 helper_delete_contacts_LDADD = $(LDADD)
 helper_delete_contacts_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_helper_prepare_aggregator_OBJECTS =  \
 	helper-prepare-aggregator.$(OBJEXT)
 helper_prepare_aggregator_OBJECTS =  \
@@ -227,25 +236,29 @@ helper_prepare_aggregator_OBJECTS =  \
 helper_prepare_aggregator_LDADD = $(LDADD)
 helper_prepare_aggregator_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_im_details_OBJECTS = im-details.$(OBJEXT)
 im_details_OBJECTS = $(am_im_details_OBJECTS)
 im_details_LDADD = $(LDADD)
 im_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_individual_retrieval_OBJECTS = individual-retrieval.$(OBJEXT)
 individual_retrieval_OBJECTS = $(am_individual_retrieval_OBJECTS)
 individual_retrieval_LDADD = $(LDADD)
 individual_retrieval_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_link_personas_OBJECTS = link-personas.$(OBJEXT)
 link_personas_OBJECTS = $(am_link_personas_OBJECTS)
 link_personas_LDADD = $(LDADD)
 link_personas_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_link_personas_diff_stores_OBJECTS =  \
 	link-personas-diff-stores.$(OBJEXT)
 link_personas_diff_stores_OBJECTS =  \
@@ -253,97 +266,113 @@ link_personas_diff_stores_OBJECTS =  \
 link_personas_diff_stores_LDADD = $(LDADD)
 link_personas_diff_stores_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_linkable_properties_OBJECTS = linkable-properties.$(OBJEXT)
 linkable_properties_OBJECTS = $(am_linkable_properties_OBJECTS)
 linkable_properties_LDADD = $(LDADD)
 linkable_properties_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_name_details_OBJECTS = name-details.$(OBJEXT)
 name_details_OBJECTS = $(am_name_details_OBJECTS)
 name_details_LDADD = $(LDADD)
 name_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_perf_OBJECTS = perf.$(OBJEXT)
 perf_OBJECTS = $(am_perf_OBJECTS)
 perf_LDADD = $(LDADD)
 perf_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_persona_store_tests_OBJECTS = persona-store-tests.$(OBJEXT)
 persona_store_tests_OBJECTS = $(am_persona_store_tests_OBJECTS)
 persona_store_tests_LDADD = $(LDADD)
 persona_store_tests_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_phone_details_OBJECTS = phone-details.$(OBJEXT)
 phone_details_OBJECTS = $(am_phone_details_OBJECTS)
 phone_details_LDADD = $(LDADD)
 phone_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_postal_address_details_OBJECTS = postal-address-details.$(OBJEXT)
 postal_address_details_OBJECTS = $(am_postal_address_details_OBJECTS)
 postal_address_details_LDADD = $(LDADD)
 postal_address_details_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_remove_persona_OBJECTS = remove-persona.$(OBJEXT)
 remove_persona_OBJECTS = $(am_remove_persona_OBJECTS)
 remove_persona_LDADD = $(LDADD)
 remove_persona_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_removing_contacts_OBJECTS = removing-contacts.$(OBJEXT)
 removing_contacts_OBJECTS = $(am_removing_contacts_OBJECTS)
 removing_contacts_LDADD = $(LDADD)
 removing_contacts_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_set_emails_OBJECTS = set-emails.$(OBJEXT)
 set_emails_OBJECTS = $(am_set_emails_OBJECTS)
 set_emails_LDADD = $(LDADD)
 set_emails_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_set_im_addresses_OBJECTS = set-im-addresses.$(OBJEXT)
 set_im_addresses_OBJECTS = $(am_set_im_addresses_OBJECTS)
 set_im_addresses_LDADD = $(LDADD)
 set_im_addresses_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_set_properties_OBJECTS = set-properties.$(OBJEXT)
 set_properties_OBJECTS = $(am_set_properties_OBJECTS)
 set_properties_LDADD = $(LDADD)
 set_properties_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_set_properties_race_OBJECTS = set-properties-race.$(OBJEXT)
 set_properties_race_OBJECTS = $(am_set_properties_race_OBJECTS)
 set_properties_race_LDADD = $(LDADD)
 set_properties_race_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_store_removed_OBJECTS = store-removed.$(OBJEXT)
 store_removed_OBJECTS = $(am_store_removed_OBJECTS)
 store_removed_LDADD = $(LDADD)
 store_removed_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_updating_contacts_OBJECTS = updating-contacts.$(OBJEXT)
 updating_contacts_OBJECTS = $(am_updating_contacts_OBJECTS)
 updating_contacts_LDADD = $(LDADD)
 updating_contacts_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am_updating_phones_OBJECTS = updating-phones.$(OBJEXT)
 updating_phones_OBJECTS = $(am_updating_phones_OBJECTS)
 updating_phones_LDADD = $(LDADD)
 updating_phones_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
-	$(top_builddir)/backends/eds/lib/libfolks-eds.la
+	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
+	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
     $(srcdir)/*) f=`echo "$$p" | sed "s|^$$srcdirstrip/||"`;; \
@@ -996,6 +1025,8 @@ LDADD = \
 	$(top_builddir)/tests/lib/eds/libeds-test.la \
 	$(top_builddir)/backends/eds/lib/libfolks-eds.la \
 	-L$(top_srcdir)/backends/eds/lib \
+	$(EBOOK_LIBS) \
+	$(EDATASERVER_LIBS) \
 	$(NULL)
 
 
@@ -1452,33 +1483,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/set-properties-race.c: $(srcdir)/set_properties_race_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_properties_race_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_properties_race_vala.stamp; \
-	fi
-$(srcdir)/set_properties_race_vala.stamp: set-properties-race.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-properties-race.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/link-personas.c: $(srcdir)/link_personas_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_vala.stamp; \
-	fi
-$(srcdir)/link_personas_vala.stamp: link-personas.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/phone-details.c: $(srcdir)/phone_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/phone_details_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_details_vala.stamp; \
-	fi
-$(srcdir)/phone_details_vala.stamp: phone-details.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-details.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/updating-contacts.c: $(srcdir)/updating_contacts_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/updating_contacts_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1487,42 +1491,6 @@ $(srcdir)/updating-contacts.c: $(srcdir)/updating_contacts_vala.stamp
 $(srcdir)/updating_contacts_vala.stamp: updating-contacts.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C updating-contacts.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/email-details.c: $(srcdir)/email_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/email_details_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/email_details_vala.stamp; \
-	fi
-$(srcdir)/email_details_vala.stamp: email-details.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C email-details.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/helper-create-many-contacts.c: $(srcdir)/helper_create_many_contacts_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/helper_create_many_contacts_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/helper_create_many_contacts_vala.stamp; \
-	fi
-$(srcdir)/helper_create_many_contacts_vala.stamp: helper-create-many-contacts.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C helper-create-many-contacts.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/remove-persona.c: $(srcdir)/remove_persona_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/remove_persona_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_persona_vala.stamp; \
-	fi
-$(srcdir)/remove_persona_vala.stamp: remove-persona.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-persona.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/store-removed.c: $(srcdir)/store_removed_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/store_removed_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/store_removed_vala.stamp; \
-	fi
-$(srcdir)/store_removed_vala.stamp: store-removed.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C store-removed.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/persona-store-tests.c: $(srcdir)/persona_store_tests_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/persona_store_tests_vala.stamp; fi
@@ -1533,42 +1501,6 @@ $(srcdir)/persona_store_tests_vala.stamp: persona-store-tests.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C persona-store-tests.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/add-persona.c: $(srcdir)/add_persona_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/add_persona_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_persona_vala.stamp; \
-	fi
-$(srcdir)/add_persona_vala.stamp: add-persona.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-persona.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/updating-phones.c: $(srcdir)/updating_phones_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/updating_phones_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/updating_phones_vala.stamp; \
-	fi
-$(srcdir)/updating_phones_vala.stamp: updating-phones.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C updating-phones.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/perf.c: $(srcdir)/perf_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/perf_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/perf_vala.stamp; \
-	fi
-$(srcdir)/perf_vala.stamp: perf.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C perf.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/removing-contacts.c: $(srcdir)/removing_contacts_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/removing_contacts_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/removing_contacts_vala.stamp; \
-	fi
-$(srcdir)/removing_contacts_vala.stamp: removing-contacts.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C removing-contacts.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/im-details.c: $(srcdir)/im_details_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/im_details_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1578,14 +1510,68 @@ $(srcdir)/im_details_vala.stamp: im-details.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C im-details.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/enable-disable-stores.c: $(srcdir)/enable_disable_stores_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/enable_disable_stores_vala.stamp; fi
+$(srcdir)/email-details.c: $(srcdir)/email_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/email_details_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/enable_disable_stores_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/email_details_vala.stamp; \
 	fi
-$(srcdir)/enable_disable_stores_vala.stamp: enable-disable-stores.vala
+$(srcdir)/email_details_vala.stamp: email-details.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C enable-disable-stores.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C email-details.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-properties.c: $(srcdir)/set_properties_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_properties_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_properties_vala.stamp; \
+	fi
+$(srcdir)/set_properties_vala.stamp: set-properties.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-properties.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/store-removed.c: $(srcdir)/store_removed_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/store_removed_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/store_removed_vala.stamp; \
+	fi
+$(srcdir)/store_removed_vala.stamp: store-removed.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C store-removed.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-emails.c: $(srcdir)/set_emails_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_emails_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_emails_vala.stamp; \
+	fi
+$(srcdir)/set_emails_vala.stamp: set-emails.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-emails.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/helper-prepare-aggregator.c: $(srcdir)/helper_prepare_aggregator_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/helper_prepare_aggregator_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/helper_prepare_aggregator_vala.stamp; \
+	fi
+$(srcdir)/helper_prepare_aggregator_vala.stamp: helper-prepare-aggregator.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C helper-prepare-aggregator.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-properties-race.c: $(srcdir)/set_properties_race_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_properties_race_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_properties_race_vala.stamp; \
+	fi
+$(srcdir)/set_properties_race_vala.stamp: set-properties-race.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-properties-race.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/postal-address-details.c: $(srcdir)/postal_address_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/postal_address_details_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/postal_address_details_vala.stamp; \
+	fi
+$(srcdir)/postal_address_details_vala.stamp: postal-address-details.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C postal-address-details.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/name-details.c: $(srcdir)/name_details_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/name_details_vala.stamp; fi
@@ -1596,24 +1582,6 @@ $(srcdir)/name_details_vala.stamp: name-details.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C name-details.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-im-addresses.c: $(srcdir)/set_im_addresses_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_im_addresses_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_im_addresses_vala.stamp; \
-	fi
-$(srcdir)/set_im_addresses_vala.stamp: set-im-addresses.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-im-addresses.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/extended-info.c: $(srcdir)/extended_info_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/extended_info_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/extended_info_vala.stamp; \
-	fi
-$(srcdir)/extended_info_vala.stamp: extended-info.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C extended-info.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/avatar-details.c: $(srcdir)/avatar_details_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/avatar_details_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1623,14 +1591,14 @@ $(srcdir)/avatar_details_vala.stamp: avatar-details.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C avatar-details.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
+$(srcdir)/add-contacts-stress-test.c: $(srcdir)/add_contacts_stress_test_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/add_contacts_stress_test_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_contacts_stress_test_vala.stamp; \
 	fi
-$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
+$(srcdir)/add_contacts_stress_test_vala.stamp: add-contacts-stress-test.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-contacts-stress-test.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/anti-linking.c: $(srcdir)/anti_linking_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/anti_linking_vala.stamp; fi
@@ -1650,24 +1618,6 @@ $(srcdir)/link_personas_diff_stores_vala.stamp: link-personas-diff-stores.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas-diff-stores.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/add-contacts-stress-test.c: $(srcdir)/add_contacts_stress_test_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/add_contacts_stress_test_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_contacts_stress_test_vala.stamp; \
-	fi
-$(srcdir)/add_contacts_stress_test_vala.stamp: add-contacts-stress-test.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-contacts-stress-test.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-properties.c: $(srcdir)/set_properties_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_properties_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_properties_vala.stamp; \
-	fi
-$(srcdir)/set_properties_vala.stamp: set-properties.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-properties.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/helper-delete-contacts.c: $(srcdir)/helper_delete_contacts_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/helper_delete_contacts_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1676,6 +1626,60 @@ $(srcdir)/helper-delete-contacts.c: $(srcdir)/helper_delete_contacts_vala.stamp
 $(srcdir)/helper_delete_contacts_vala.stamp: helper-delete-contacts.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C helper-delete-contacts.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/set-im-addresses.c: $(srcdir)/set_im_addresses_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/set_im_addresses_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_im_addresses_vala.stamp; \
+	fi
+$(srcdir)/set_im_addresses_vala.stamp: set-im-addresses.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-im-addresses.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/link-personas.c: $(srcdir)/link_personas_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/link_personas_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/link_personas_vala.stamp; \
+	fi
+$(srcdir)/link_personas_vala.stamp: link-personas.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C link-personas.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/perf.c: $(srcdir)/perf_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/perf_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/perf_vala.stamp; \
+	fi
+$(srcdir)/perf_vala.stamp: perf.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C perf.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/removing-contacts.c: $(srcdir)/removing_contacts_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/removing_contacts_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/removing_contacts_vala.stamp; \
+	fi
+$(srcdir)/removing_contacts_vala.stamp: removing-contacts.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C removing-contacts.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
+	fi
+$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/updating-phones.c: $(srcdir)/updating_phones_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/updating_phones_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/updating_phones_vala.stamp; \
+	fi
+$(srcdir)/updating_phones_vala.stamp: updating-phones.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C updating-phones.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/linkable-properties.c: $(srcdir)/linkable_properties_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/linkable_properties_vala.stamp; fi
@@ -1686,32 +1690,59 @@ $(srcdir)/linkable_properties_vala.stamp: linkable-properties.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C linkable-properties.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/helper-prepare-aggregator.c: $(srcdir)/helper_prepare_aggregator_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/helper_prepare_aggregator_vala.stamp; fi
+$(srcdir)/remove-persona.c: $(srcdir)/remove_persona_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/remove_persona_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/helper_prepare_aggregator_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/remove_persona_vala.stamp; \
 	fi
-$(srcdir)/helper_prepare_aggregator_vala.stamp: helper-prepare-aggregator.vala
+$(srcdir)/remove_persona_vala.stamp: remove-persona.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C helper-prepare-aggregator.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C remove-persona.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/postal-address-details.c: $(srcdir)/postal_address_details_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/postal_address_details_vala.stamp; fi
+$(srcdir)/helper-create-many-contacts.c: $(srcdir)/helper_create_many_contacts_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/helper_create_many_contacts_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/postal_address_details_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/helper_create_many_contacts_vala.stamp; \
 	fi
-$(srcdir)/postal_address_details_vala.stamp: postal-address-details.vala
+$(srcdir)/helper_create_many_contacts_vala.stamp: helper-create-many-contacts.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C postal-address-details.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C helper-create-many-contacts.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/set-emails.c: $(srcdir)/set_emails_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/set_emails_vala.stamp; fi
+$(srcdir)/enable-disable-stores.c: $(srcdir)/enable_disable_stores_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/enable_disable_stores_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/set_emails_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/enable_disable_stores_vala.stamp; \
 	fi
-$(srcdir)/set_emails_vala.stamp: set-emails.vala
+$(srcdir)/enable_disable_stores_vala.stamp: enable-disable-stores.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C set-emails.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C enable-disable-stores.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/add-persona.c: $(srcdir)/add_persona_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/add_persona_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/add_persona_vala.stamp; \
+	fi
+$(srcdir)/add_persona_vala.stamp: add-persona.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C add-persona.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/extended-info.c: $(srcdir)/extended_info_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/extended_info_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/extended_info_vala.stamp; \
+	fi
+$(srcdir)/extended_info_vala.stamp: extended-info.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C extended-info.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/phone-details.c: $(srcdir)/phone_details_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/phone_details_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/phone_details_vala.stamp; \
+	fi
+$(srcdir)/phone_details_vala.stamp: phone-details.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C phone-details.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

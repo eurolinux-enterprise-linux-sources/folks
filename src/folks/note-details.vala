@@ -33,7 +33,7 @@ using GLib;
  */
 public class Folks.NoteFieldDetails : AbstractFieldDetails<string>
 {
-  private string _id;
+  private string _id = "";
   /**
    * {@inheritDoc}
    */
@@ -46,7 +46,8 @@ public class Folks.NoteFieldDetails : AbstractFieldDetails<string>
   /**
    * The UID of the note (if any).
    */
-  [Deprecated (since = "0.6.5", replacement = "AbstractFieldDetails.id")]
+  [Version (deprecated = true, deprecated_since = "0.6.5",
+      replacement = "AbstractFieldDetails.id")]
   public string uid
     {
       get { return this.id; }

@@ -4,7 +4,7 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.11.3
+Version:        0.11.4
 Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
@@ -88,6 +88,12 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/folks-inspect
 %find_lang %{name}
 
 
+%check
+%ifnarch ppc64
+VERBOSE=1 make check
+%endif
+
+
 %post -p /sbin/ldconfig
 
 
@@ -132,6 +138,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed May 23 2018 Kalev Lember <klember@redhat.com> - 1:0.11.4-1
+- Update to 0.11.4
+- Disable tests on PPC64 to avoid timeouts
+- Resolves: #1569814
+
 * Wed Sep 21 2016 Kalev Lember <klember@redhat.com> - 1:0.11.3-1
 - Update to 0.11.3
 - Resolves: #1386858

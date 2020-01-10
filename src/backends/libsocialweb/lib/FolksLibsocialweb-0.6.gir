@@ -5,8 +5,8 @@
 <package name="folks-libsocialweb"/>
 <c:include name="folks/folks-libsocialweb.h"/>
 <namespace name="FolksLibsocialweb" version="0.6" c:prefix="Swf">
-	<annotation key="ccode.gir-version" value="0.6"/>
-	<annotation key="ccode.gir-namespace" value="FolksLibsocialweb"/>
+	<attribute name="ccode.gir-version" value="0.6"/>
+	<attribute name="ccode.gir-namespace" value="FolksLibsocialweb"/>
 	<class name="Persona" c:type="SwfPersona" glib:type-name="SwfPersona" glib:get-type="swf_persona_get_type" glib:type-struct="PersonaClass" parent="Folks.Persona">
 		<implements name="Folks.AvatarDetails"/>
 		<implements name="Folks.GenderDetails"/>

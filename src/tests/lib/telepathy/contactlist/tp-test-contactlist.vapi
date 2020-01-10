@@ -66,7 +66,7 @@ namespace TpTests {
 		[NoAccessorMethod]
 		public string server { owned get; construct; }
 	}
-	[CCode (cheader_filename = "tp-test-contactlist.h")]
+	[CCode (cheader_filename = "tp-test-contactlist.h", has_type_id = false)]
 	[Compact]
 	public class RoomListChanPriv {
 	}

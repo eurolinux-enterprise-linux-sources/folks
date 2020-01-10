@@ -1041,32 +1041,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/individual-properties.c: $(srcdir)/individual_properties_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/individual_properties_vala.stamp; fi
+$(srcdir)/init.c: $(srcdir)/init_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/init_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_properties_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/init_vala.stamp; \
 	fi
-$(srcdir)/individual_properties_vala.stamp: individual-properties.vala
+$(srcdir)/init_vala.stamp: init.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-properties.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/individual-zeitgeist.c: $(srcdir)/individual_zeitgeist_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/individual_zeitgeist_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_zeitgeist_vala.stamp; \
-	fi
-$(srcdir)/individual_zeitgeist_vala.stamp: individual-zeitgeist.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-zeitgeist.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
-	fi
-$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C init.vala
 	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/persona-store-capabilities.c: $(srcdir)/persona_store_capabilities_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/persona_store_capabilities_vala.stamp; fi
@@ -1086,14 +1068,32 @@ $(srcdir)/fake_tp_backend_vala.stamp: fake-tp-backend.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C fake-tp-backend.vala
 	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/init.c: $(srcdir)/init_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/init_vala.stamp; fi
+$(srcdir)/individual-properties.c: $(srcdir)/individual_properties_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/individual_properties_vala.stamp; fi
 	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/init_vala.stamp; \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_properties_vala.stamp; \
 	fi
-$(srcdir)/init_vala.stamp: init.vala
+$(srcdir)/individual_properties_vala.stamp: individual-properties.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C init.vala
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-properties.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/individual-retrieval.c: $(srcdir)/individual_retrieval_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/individual_retrieval_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_retrieval_vala.stamp; \
+	fi
+$(srcdir)/individual_retrieval_vala.stamp: individual-retrieval.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-retrieval.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/individual-zeitgeist.c: $(srcdir)/individual_zeitgeist_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/individual_zeitgeist_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/individual_zeitgeist_vala.stamp; \
+	fi
+$(srcdir)/individual_zeitgeist_vala.stamp: individual-zeitgeist.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C individual-zeitgeist.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

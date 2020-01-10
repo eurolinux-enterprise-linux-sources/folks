@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 Collabora Ltd.
- * Copyright (C) 2013 Philip Withnall
+ * Copyright (C) 2013, 2016 Philip Withnall
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -88,7 +88,7 @@ public class Edsf.Persona : Folks.Persona,
    *
    * @since 0.6.0
    */
-  [Deprecated (since = "0.6.3",
+  [Version (deprecated = true, deprecated_since = "0.6.3",
       replacement = "Folks.UrlFieldDetails.PARAM_TYPE_BLOG")]
   public const string[] url_properties = {
     "blog_url", "fburl", "homepage_url", "video_url"
@@ -496,6 +496,9 @@ public class Edsf.Persona : Folks.Persona,
 
   /**
    * The e-d-s contact uid
+   *
+   * This is guaranteed to be a non-empty string, unique within the persona
+   * store.
    *
    * @since 0.6.0
    */
@@ -946,30 +949,41 @@ public class Edsf.Persona : Folks.Persona,
   /**
    * Build a IID.
    *
+   * This requires the UID field of the contact to be set to a non-empty value
+   * already; if not, `null` will be returned.
+   *
    * @param store_id the {@link PersonaStore.id}
-   * @param contact the Contact
-   * @return a valid IID
+   * @param contact the Contact, which must have a UID field set
+   * @return a valid IID, or `null` if none could be constructed
    *
    * @since 0.6.0
    */
-  internal static string build_iid_from_contact (string store_id,
+  internal static string? build_iid_from_contact (string store_id,
       E.Contact contact)
     {
       var contact_id =
           Edsf.Persona._get_property_from_contact<string> (contact, "id");
-      return Edsf.Persona.build_iid (store_id, (!) (contact_id ?? ""));
+
+      /* If the contact has no UID, then we cannot support it. Callers must
+       * this first. */
+      if (contact_id == null || contact_id == "")
+          return null;
+
+      return Edsf.Persona.build_iid (store_id, contact_id);
     }
 
   /**
    * Build a IID.
    *
-   * @param store_id the {@link PersonaStore.id}
-   * @param contact_id the id belonging to the Contact
+   * @param store_id the {@link PersonaStore.id}, which must be non-empty
+   * @param contact_id the ID belonging to the contact, which must be non-empty
    * @return a valid IID
    *
    * @since 0.6.0
    */
   internal static string build_iid (string store_id, string contact_id)
+      requires (store_id != "")
+      requires (contact_id != "")
     {
       return "%s:%s".printf (store_id, contact_id);
     }
@@ -990,7 +1004,8 @@ public class Edsf.Persona : Folks.Persona,
     {
       var _contact_id =
           Edsf.Persona._get_property_from_contact<string> (contact, "id");
-      var contact_id = (!) (_contact_id ?? "");
+      assert (_contact_id != null && _contact_id != "");
+      var contact_id = (!) _contact_id;
 
       var uid = Folks.Persona.build_uid (BACKEND_NAME, store.id, contact_id);
       var iid = Edsf.Persona.build_iid (store.id, contact_id);
@@ -1957,30 +1972,25 @@ public class Edsf.Persona : Folks.Persona,
     {
       GLib.HashTable<string, E.ContactField> retval;
 
-      lock (Edsf.Persona._im_eds_map)
+      if (Edsf.Persona._im_eds_map == null)
         {
-          if (Edsf.Persona._im_eds_map == null)
-            {
-              var table =
-                  new GLib.HashTable<string, E.ContactField> (str_hash,
-                      str_equal);
+          var table =
+              new GLib.HashTable<string, E.ContactField> (str_hash,
+                  str_equal);
 
-              table.insert ("aim", ContactField.IM_AIM);
-              table.insert ("yahoo", ContactField.IM_YAHOO);
-              table.insert ("groupwise", ContactField.IM_GROUPWISE);
-              table.insert ("jabber", ContactField.IM_JABBER);
-              table.insert ("msn", ContactField.IM_MSN);
-              table.insert ("icq", ContactField.IM_ICQ);
-              table.insert ("gadugadu", ContactField.IM_GADUGADU);
-              table.insert ("skype", ContactField.IM_SKYPE);
+          table.insert ("aim", ContactField.IM_AIM);
+          table.insert ("yahoo", ContactField.IM_YAHOO);
+          table.insert ("groupwise", ContactField.IM_GROUPWISE);
+          table.insert ("jabber", ContactField.IM_JABBER);
+          table.insert ("msn", ContactField.IM_MSN);
+          table.insert ("icq", ContactField.IM_ICQ);
+          table.insert ("gadugadu", ContactField.IM_GADUGADU);
+          table.insert ("skype", ContactField.IM_SKYPE);
 
-              Edsf.Persona._im_eds_map = table;
-            }
-
-          retval = (!) Edsf.Persona._im_eds_map;
+          Edsf.Persona._im_eds_map = table;
         }
 
-      return retval;
+      return (!) Edsf.Persona._im_eds_map;
     }
 
   private void _update_phones (bool create_if_not_exist, bool emit_notification = true)

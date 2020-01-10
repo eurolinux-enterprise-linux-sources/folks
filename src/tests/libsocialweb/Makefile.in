@@ -922,15 +922,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
-$(srcdir)/dummy-lsw.c: $(srcdir)/dummy_lsw_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/dummy_lsw_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/dummy_lsw_vala.stamp; \
-	fi
-$(srcdir)/dummy_lsw_vala.stamp: dummy-lsw.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C dummy-lsw.vala
-	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/aggregation.c: $(srcdir)/aggregation_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/aggregation_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -939,6 +930,15 @@ $(srcdir)/aggregation.c: $(srcdir)/aggregation_vala.stamp
 $(srcdir)/aggregation_vala.stamp: aggregation.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C aggregation.vala
+	$(AM_V_at)mv -f $@-t $@
+$(srcdir)/dummy-lsw.c: $(srcdir)/dummy_lsw_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/dummy_lsw_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/dummy_lsw_vala.stamp; \
+	fi
+$(srcdir)/dummy_lsw_vala.stamp: dummy-lsw.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(AM_VALAFLAGS) $(VALAFLAGS) -C dummy-lsw.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:

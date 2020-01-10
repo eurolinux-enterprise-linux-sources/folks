@@ -1134,6 +1134,25 @@ libfolks_la-simple-query.lo: simple-query.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='simple-query.c' object='libfolks_la-simple-query.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libfolks_la_CPPFLAGS) $(CPPFLAGS) $(libfolks_la_CFLAGS) $(CFLAGS) -c -o libfolks_la-simple-query.lo `test -f 'simple-query.c' || echo '$(srcdir)/'`simple-query.c
+$(srcdir)/internal.c: $(srcdir)/libfolks_internal_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
+	fi
+$(srcdir)/folks-internal.vapi: $(srcdir)/libfolks_internal_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
+	fi
+$(srcdir)/folks-internal.h: $(srcdir)/libfolks_internal_la_vala.stamp
+	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
+	@if test -f $@; then :; else \
+	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
+	fi
+$(srcdir)/libfolks_internal_la_vala.stamp: folks-generics.vapi internal.vala
+	$(AM_V_at)rm -f $@ && echo stamp > $@-t
+	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libfolks_internal_la_VALAFLAGS) $(VALAFLAGS) -C folks-generics.vapi internal.vala
+	$(AM_V_at)mv -f $@-t $@
 $(srcdir)/abstract-field-details.c: $(srcdir)/libfolks_la_vala.stamp
 	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_la_vala.stamp; fi
 	@if test -f $@; then :; else \
@@ -1337,25 +1356,6 @@ $(srcdir)/folks.h: $(srcdir)/libfolks_la_vala.stamp
 $(srcdir)/libfolks_la_vala.stamp: abstract-field-details.vala alias-details.vala avatar-details.vala backend.vala backend-store.vala birthday-details.vala email-details.vala extended-info.vala favourite-details.vala folks-namespace.vala gender-details.vala group-details.vala web-service-details.vala im-details.vala interaction-details.vala local-id-details.vala location-details.vala name-details.vala note-details.vala phone-details.vala postal-address-details.vala presence-details.vala role-details.vala url-details.vala individual.vala individual-aggregator.vala persona.vala persona-store.vala types.vala debug.vala utils.vala potential-match.vala avatar-cache.vala object-cache.vala anti-linkable.vala query.vala search-view.vala simple-query.vala
 	$(AM_V_at)rm -f $@ && echo stamp > $@-t
 	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libfolks_la_VALAFLAGS) $(VALAFLAGS) -C abstract-field-details.vala alias-details.vala avatar-details.vala backend.vala backend-store.vala birthday-details.vala email-details.vala extended-info.vala favourite-details.vala folks-namespace.vala gender-details.vala group-details.vala web-service-details.vala im-details.vala interaction-details.vala local-id-details.vala location-details.vala name-details.vala note-details.vala phone-details.vala postal-address-details.vala presence-details.vala role-details.vala url-details.vala individual.vala individual-aggregator.vala persona.vala persona-store.vala types.vala debug.vala utils.vala potential-match.vala avatar-cache.vala object-cache.vala anti-linkable.vala query.vala search-view.vala simple-query.vala
-	$(AM_V_at)mv -f $@-t $@
-$(srcdir)/internal.c: $(srcdir)/libfolks_internal_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
-	fi
-$(srcdir)/folks-internal.vapi: $(srcdir)/libfolks_internal_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
-	fi
-$(srcdir)/folks-internal.h: $(srcdir)/libfolks_internal_la_vala.stamp
-	@if test -f $@; then :; else rm -f $(srcdir)/libfolks_internal_la_vala.stamp; fi
-	@if test -f $@; then :; else \
-	  $(MAKE) $(AM_MAKEFLAGS) $(srcdir)/libfolks_internal_la_vala.stamp; \
-	fi
-$(srcdir)/libfolks_internal_la_vala.stamp: folks-generics.vapi internal.vala
-	$(AM_V_at)rm -f $@ && echo stamp > $@-t
-	$(AM_V_VALAC)$(am__cd) $(srcdir) && $(VALAC) $(libfolks_internal_la_VALAFLAGS) $(VALAFLAGS) -C folks-generics.vapi internal.vala
 	$(AM_V_at)mv -f $@-t $@
 
 mostlyclean-libtool:
