@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2"
+            xmlns="http://www.gtk.org/introspection/core/1.0"
+            xmlns:c="http://www.gtk.org/introspection/c/1.0"
+            xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+  <include name="GObject" version="2.0"/>
+  <include name="TelepathyGLib" version="0.12"/>
+  <namespace name="TpLowlevel"
+             version="lowlevel"
+             shared-library="libtp-lowlevel.so"
+             c:identifier-prefixes="FolksTpLowlevel"
+             c:symbol-prefixes="folks_tp_lowlevel">
+    <function name="connection_get_alias_flags_async"
+              c:identifier="folks_tp_lowlevel_connection_get_alias_flags_async">
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="conn" transfer-ownership="none">
+          <type name="TelepathyGLib.Connection" c:type="TpConnection*"/>
+        </parameter>
+        <parameter name="callback"
+                   transfer-ownership="none"
+                   allow-none="1"
+                   scope="async"
+                   closure="2">
+          <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none">
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="connection_get_alias_flags_finish"
+              c:identifier="folks_tp_lowlevel_connection_get_alias_flags_finish"
+              throws="1">
+      <doc xml:space="preserve">Determine the alias-related capabilities of the #TpConnection.</doc>
+      <return-value transfer-ownership="none">
+        <doc xml:space="preserve">the #TpConnectionAliasFlags</doc>
+        <type name="TelepathyGLib.ConnectionAliasFlags"
+              c:type="TpConnectionAliasFlags"/>
+      </return-value>
+      <parameters>
+        <parameter name="result" transfer-ownership="none">
+          <doc xml:space="preserve">a #GAsyncResult</doc>
+          <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="connection_set_contact_alias_async"
+              c:identifier="folks_tp_lowlevel_connection_set_contact_alias_async">
+      <doc xml:space="preserve">Change the alias of the contact identified by @handle to @alias.</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="conn" transfer-ownership="none">
+          <doc xml:space="preserve">the connection to use</doc>
+          <type name="TelepathyGLib.Connection" c:type="TpConnection*"/>
+        </parameter>
+        <parameter name="handle" transfer-ownership="none">
+          <doc xml:space="preserve">handle of the contact whose alias is to be changed</doc>
+          <type name="guint" c:type="guint"/>
+        </parameter>
+        <parameter name="alias" transfer-ownership="none">
+          <doc xml:space="preserve">new human-readable alias for the contact</doc>
+          <type name="utf8" c:type="const gchar*"/>
+        </parameter>
+        <parameter name="callback"
+                   transfer-ownership="none"
+                   allow-none="1"
+                   scope="async"
+                   closure="4">
+          <doc xml:space="preserve">function to call on completion</doc>
+          <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none">
+          <doc xml:space="preserve">user data to pass to @callback</doc>
+          <type name="gpointer" c:type="gpointer"/>
+        </parameter>
+      </parameters>
+    </function>
+    <function name="connection_set_contact_alias_finish"
+              c:identifier="folks_tp_lowlevel_connection_set_contact_alias_finish"
+              throws="1">
+      <doc xml:space="preserve">Finish an asynchronous call to
+folks_tp_lowlevel_connection-set_contact_alias_async().</doc>
+      <return-value transfer-ownership="none">
+        <type name="none" c:type="void"/>
+      </return-value>
+      <parameters>
+        <parameter name="result" transfer-ownership="none">
+          <doc xml:space="preserve">a #GAsyncResult</doc>
+          <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
+        </parameter>
+      </parameters>
+    </function>
+  </namespace>
+</repository>
