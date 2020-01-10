@@ -4,17 +4,17 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.9.2
-Release:        7%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
 Group:          System Environment/Libraries
 License:        LGPLv2+
 URL:            http://telepathy.freedesktop.org/wiki/Folks
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.9/%{name}-%{version}.tar.xz
+Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.10/%{name}-%{version}.tar.xz
+Patch0:         folks-translations-3.14.patch
 
-Patch0:         folks-translations.patch
-
+BuildRequires:  chrpath
 BuildRequires:  telepathy-glib-devel >= %{tp_glib_ver}
 BuildRequires:  telepathy-glib-vala
 BuildRequires:  glib2-devel
@@ -23,11 +23,10 @@ BuildRequires:  vala-tools
 BuildRequires:  libxml2-devel
 BuildRequires:  gobject-introspection >= 0.9.12
 BuildRequires:  GConf2-devel
-BuildRequires:  evolution-data-server-devel >= 3.8.1
+BuildRequires:  evolution-data-server-devel >= 3.9.1
 BuildRequires:  readline-devel
 ## BuildRequires: tracker-devel >= 0.10
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.4
-
 
 %description
 libfolks is a library that aggregates people from multiple sources (e.g.
@@ -38,7 +37,7 @@ Facebook, etc.) to create meta-contacts.
 %package        tools
 Summary:        Tools for %{name}
 Group:          System Environment/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    tools
 %{name}-tools contains a database and import tool.
@@ -47,14 +46,8 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 %package        devel
 Summary:        Development files for %{name}
 Group:          Development/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
-Requires:	%{name}-tools = %{epoch}:%{version}-%{release}
-Requires:       telepathy-glib-devel >= %{tp_glib_ver}
-Requires:       glib2-devel
-Requires:       pkgconfig
-Requires:	pkgconfig(gee-0.8)
-Requires:	vala-devel >= 0.15.2
-Requires:	vala-tools
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       %{name}-tools%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -63,8 +56,7 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-
-%patch0 -p2 -b .translations
+%patch0 -p1 -b .translations
 
 %build
 %configure --disable-static --enable-eds-backend --enable-vala --enable-inspect-tool --disable-libsocialweb-backend --disable-zeitgeist
@@ -74,6 +66,20 @@ make %{?_smp_mflags} V=1
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
+
+# Remove lib64 rpaths
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/key-file/key-file.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/ofono/ofono.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/telepathy/telepathy.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/bluez/bluez.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/eds/eds.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/dummy/dummy.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-dummy.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-eds.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-telepathy.so
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/folks-import
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/folks-inspect
+
 %find_lang %{name}
 
 
@@ -96,6 +102,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_libdir}/*.so.*
 %{_libdir}/folks
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
+%{_libdir}/girepository-1.0/FolksDummy-0.6.typelib
+%{_libdir}/girepository-1.0/FolksEds-0.6.typelib
+%{_libdir}/girepository-1.0/FolksTelepathy-0.6.typelib
 %{_datadir}/GConf/gsettings/folks.convert
 %{_datadir}/glib-2.0/schemas/org.freedesktop.folks.gschema.xml
 
@@ -108,10 +117,23 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/folks*.pc
 %{_datadir}/gir-1.0/Folks-0.6.gir
+%{_datadir}/gir-1.0/FolksDummy-0.6.gir
+%{_datadir}/gir-1.0/FolksEds-0.6.gir
+%{_datadir}/gir-1.0/FolksTelepathy-0.6.gir
+%dir %{_datadir}/vala
+%dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/%{name}*
 
 
 %changelog
+* Mon Mar 23 2015 Richard Hughes <rhughes@redhat.com> - 1:0.10.1-1
+- Update to 0.10.1
+- Resolves: #1174528
+
+* Thu Mar 19 2015 Richard Hughes <rhughes@redhat.com> - 1:0.10.0-1
+- Update to 0.10.0
+- Resolves: #1174528
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1:0.9.2-7
 - Mass rebuild 2014-01-24
 

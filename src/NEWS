@@ -1,3 +1,209 @@
+Overview of changes from libfolks 0.10.0 to libfolks 0.10.1
+===========================================================
+
+Major changes:
+ • Lots of translation updates
+
+Overview of changes from libfolks 0.9.8 to libfolks 0.10.0
+==========================================================
+
+Dependencies:
+ • Folks can now be built against Tracker 0.18 and 1.0, rather than just 0.16
+
+Major changes:
+ • Remove useless use of the avatar cache in the EDS backend
+ • Listen for primary store changes from GSettings
+
+Bugs fixed:
+ • Bug 697695 — Avatar cache is not used
+ • Bug 731470 — IndividualAggregator doesn't listen on changes in primary-store
+   gsettings key
+ • Bug 728520 — folks cannot be build with tracker 1.0
+
+Overview of changes from libfolks 0.9.7.1 to libfolks 0.9.8
+===========================================================
+
+Major changes:
+ • Fix loading backends on distributions which install software in loop mounted
+   file systems, such as Tinycorelinux
+
+Bugs fixed:
+ • Bug 732244 — Fail to unprepare stores
+ • Bug 733891 — empathy and gnome contacts crash when bt phone available
+
+Overview of changes from libfolks 0.9.7 to libfolks 0.9.7.1
+===========================================================
+
+Major changes:
+ • Ensure Telepathy VAPI files are built after being cleaned
+ • Rebuild distributed Telepathy VAPI files to be compatible with Vala < 0.26
+
+Bugs fixed:
+ • Bug 732080 — folks-eds.vapi:7.16-7.16: error: syntax error, statements
+   outside blocks allowed only in root namespace
+
+Overview of changes from libfolks 0.9.6 to libfolks 0.9.7
+=========================================================
+
+Dependencies:
+ • automake ≥ 1.12
+ • If BlueZ backend is enabled:
+  - GLib ≥ 2.39.2
+  - Python 3.0
+  - python-dbusmock
+  - Vala ≥ 0.22.0.45-383d-dirty
+  - evolution-data-server ≥ 3.9.1
+
+Major changes:
+ • Add a dummy backend
+ • Vast numbers of fixes to the unit tests
+ • Improvements to how Personas are transferred between Individuals
+ • Many build system cleanups
+ • New website (https://wiki.gnome.org/Projects/Folks)
+ • Allow backend libraries to have separate LT versions from the core library
+ • Performance improvements in the BlueZ backend
+ • Test suite for the BlueZ backend using python-dbusmock
+
+Bugs fixed:
+ • Bug 651672 — Individual should have a display-name property
+ • Bug 648811 — Add a dummy backend
+ • Bug 720707 — New strings partly not translatable
+ • Bug 722335 — non-void function should return a value
+ • Bug 723054 — edsf-persona.vala:1666.21-1666.79: error: Reference transfer
+   not supported for this expression
+ • Bug 723540 — standalone-individuals test failing with master
+ • Bug 724339 — vala.m4: don't keep generated files in git
+ • Bug 724809 — Fail to unset contact favorite
+ • Bug 722892 — Linking personas on Dummy backend does not work
+ • Bug 726980 — dependency on e-d-s 3.9 is often unnecessary
+ • Bug 727405 — setting FOLKS_DISABLE_LINKING to on does not work
+ • Bug 722579 — Contacts are displayed for Google accounts where contact
+   management is disabled in GOA
+ • Bug 705742 — Implement rate limiting in AvatarCache.store_avatar()
+ • Bug 727944 — crash during Empathy startup: segfault in g_date_time_to_utc
+   from _edsf_persona_update
+ • Bug 731325 — Fails to build with srcdir != builddir
+ • Bug 731464 — Fail to run EDS tests
+ • Bug 731175 — Modifying contact phone number get a timeout
+ • Bug 712274 — Add test suite for the BlueZ backend
+ • Bug 711544 — Rename backend library namespaces to be of the form
+   ‘FolksSomething’
+ • Bug 711827 — Implement period refreshes of the persona store from the phone
+ • Bug 723187 — there is no way to detect automatic created im fields
+ • Bug 724591 — Tracker test fails
+ • Bug 724058 — Add support to avoid folks auto link
+ • Bug 726787 — Persona store uses the same value for id and display name
+ • Bug 726973 — most e-d-s tests fail
+ • Bug 730201 — some over-linking in the oFono backend
+
+API changes:
+ • Add Individual.display_name
+ • Add StructuredName.to_string_with_format()
+ • Add libfolks-dummy.la and all its symbols
+ • Add IndividualAggregator.backend_store
+ • Add Utils.set_string_afd_equal
+ • Add Folks.Dummy* API
+
+Overview of changes from libfolks 0.9.5 to libfolks 0.9.6
+=========================================================
+
+Dependencies:
+• GLib ≥ 2.38.2
+• Vala ≥ 0.22.0.28-9090
+
+Major changes:
+• Add a BlueZ backend
+• Use Vala to generate GIR files, fixing a number of bugs
+• Various build system and testing improvements
+
+Bugs fixed:
+• Bug 706683 — fails to build with Vala 0.20
+• Bug 706826 — build fails due to missing IT_PROG_INTLTOOL macro
+• Made docs buildable again (work around bgo#706857)
+• Bug 705608 — FolksTelepathy: tpf_persona_get_contact: return value: Missing
+  (transfer) annotation
+• Bug 697262 — uses deprecated e-d-s functions (Xavier)
+• Bug 705403 — Use GLib.BytesIcon instead of Edsf.MemoryIcon
+• Bug 679826 — Investigate using parallel-tests to speed up testing
+• Bug 709674 — Ignore non-phonebook-enabled modems in ofono backend
+• Bug 697209 — Individual: connect to Persona::notify less enthusiastically
+• Bug 710178 — Skip whitespace between oFono vCards
+• Bug 682698 — const string[] not NULL terminated; crashes in GBoxed property
+  getter (workaround)
+• Avoid useless string copies when normalizing phone numbers, and make the
+  implementation respect the algorithm described in
+  http://blog.barisione.org/2010-06/handling-phone-numbers
+• Bug 710869 — Disable some GCC warnings for generated C code
+• Bug 708059 — build failure: fatal error: folks/folks.h: No such file or
+  directory
+• Bug 685848 — Add a folks backend for bluez phonebook access
+• Bug 711403 — Tidy up error handling in oFono backend
+• Bug 711406 — Don’t expose blocked BlueZ devices as persona stores
+
+Overview of changes from libfolks 0.9.4 to libfolks 0.9.5
+=========================================================
+
+Dependencies:
+
+Major changes:
+• Multiple IndividualAggregator instances are now not officially supported.
+Clients should use the new IndividualAggregator.dup constructor to retrieve
+the default aggregator singleton. The default IndividualAggregator constructor
+and IndividualAggregator.with_backend_store are now deprecated.
+
+Bugs fixed:
+• Bug 705289 — Crash when removing an individual with 2 aggregators instantiated
+• Bug 706532 — folks_small_set_copy() does not always return value
+
+API changes:
+• Add IndividualAggregator.dup constructor
+• Add IndividualAggregator.dup_with_backend_store constructor
+
+Overview of changes from libfolks 0.9.3 to libfolks 0.9.4
+=========================================================
+
+Dependencies:
+• libebook-1.2 ≥ 3.9.1
+• libebook-contacts ≥ 3.9.1
+
+Major changes:
+• Fatal warnings are now turned off when distchecking
+• EDS dependency has been bumped to ≥ 3.9.1 to fix a Vala binding issue
+
+Bugs fixed:
+• Bug 699865 — Folks needs to expose chat/VoIP service client types
+• Bug 703402 — Backend support libraries don't set the GIR version and namespace
+• Bug 703450 — Telepathy backend gir fails to link
+• Bug 703514 — Can't build FolksTelepathy-0.6.gir
+• Bug 703709 — can't compile folks. fails at GISCAN TpLowlevel-0.6.gir
+• Bug 703830 — build: distcheck fails trying to delete
+  libfolks_telepathy_la_vala.stamp
+• Bug 704922 — key-file: do not use deprecated loop_run_with_non_fatal_timeout()
+• Bug 705196 — Linking a favorite TP contact with a EDS one unfavorite it
+• Bug 703516 — Build failing with EDS backend
+• Bug 701850 — folks-DEBUG: phone-details.vala:160:
+  [PhoneDetails.get_normalised] unknown digit: +
+
+API changes:
+• Add PresenceDetails.client_types
+• Add new Individual property:
+    - client_types
+• Add new Tpf.Persona property:
+    - client_types
+
+Overview of changes from libfolks 0.9.2 to libfolks 0.9.3
+=========================================================
+
+Dependencies:
+• zeitgeist-2.0 ≥ 0.9.14
+
+Bugs fixed:
+• Bug 683873 - Leak in Zeitgeist code
+• Bug 686715 - Telepathy init test often fails during clean-up
+• Bug 698890 - warning: Folks doesn't set GIR namespace or version annotation
+• Bug 702490 - Backend support libraries don't have their own
+  gobject-introspection bindings
+
 Overview of changes from libfolks 0.9.1 to libfolks 0.9.2
 =========================================================
 
@@ -6,7 +212,6 @@ Dependencies:
 • libebook-contacts-1.2 ≥ 3.8.1
 
 Major changes:
-
 • folks-import and folks-inspect now look for translated strings in
   ${localedir}, typically /usr/share/locale, which is also where the
   translations are installed. They previously looked in ${pkgdatadir}/locale,

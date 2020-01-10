@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Collabora Ltd.
+ * Copyright (C) 2013 Philip Withnall
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,9 +25,6 @@ using GLib;
 using Gee;
 using TelepathyGLib;
 using Folks;
-#if HAVE_ZEITGEIST
-using Zeitgeist;
-#endif
 
 extern const string G_LOG_DOMAIN;
 extern const string BACKEND_NAME;
@@ -100,10 +98,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
 
   private Account _account;
 
-#if HAVE_ZEITGEIST
-  private Zeitgeist.Log? _log= null;
-  private Zeitgeist.Monitor? _monitor = null;
-#endif
+  private FolksTpZeitgeist.Controller _zg_controller;
 
   /**
    * The Telepathy account this store is based upon.
@@ -296,6 +291,8 @@ public class Tpf.PersonaStore : Folks.PersonaStore
               this._account_manager_invalidated_cb);
           this._account_manager = null;
         }
+
+      this._zg_controller = null;
     }
 
   private string _format_maybe_bool (MaybeBool input)
@@ -761,6 +758,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           TelepathyGLib.Connection.get_feature_quark_contact_groups (),
           TelepathyGLib.Connection.get_feature_quark_contact_info (),
           TelepathyGLib.Connection.get_feature_quark_connected (),
+          TelepathyGLib.Connection.get_feature_quark_aliasing (),
           0
       });
 
@@ -786,34 +784,6 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           this._self_contact_changed_cb);
       this._conn.notify["contact-list-state"].connect (
           this._contact_list_state_changed_cb);
-
-      /* FIXME: TpConnection still does not have high-level API for this.
-       * See fd.o#14540 */
-      /* We have to do this before emitting the self persona so that code which
-       * checks the self persona's writeable fields gets correct values. */
-      var flags = 0;
-
-      try
-        {
-          flags = yield FolksTpLowlevel.connection_get_alias_flags_async (
-              this._conn);
-
-          /* It's possible for the connection to have disconnected while in
-           * the async function call. (See bgo#683093.) If so, bail. */
-          if (this._conn == null)
-            {
-              return;
-            }
-        }
-      catch (GLib.Error e)
-        {
-          GLib.warning (
-              /* Translators: the first parameter is the display name for
-               * the Telepathy account, and the second is an error
-               * message. */
-              _("Failed to determine whether we can set aliases on Telepathy account '%s': %s"),
-              this.display_name, e.message);
-        }
 
       /* Emit all the notifications after the 'yield' just in case the
        * connection disappears during it. This makes cleaning up easier. */
@@ -849,7 +819,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
 
       var new_can_alias = MaybeBool.FALSE;
 
-      if ((flags & ConnectionAliasFlags.CONNECTION_ALIAS_FLAG_USER_SET) > 0)
+      if (this._conn.can_set_contact_alias ())
         {
           new_can_alias = MaybeBool.TRUE;
 
@@ -1107,6 +1077,8 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           return;
         }
 
+      persona._contact_weak_notify ();
+
       if (this._remove_persona (persona))
         {
           /* This should never happen because TpConnection keeps a ref on
@@ -1188,9 +1160,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           new GLib.GenericArray<TelepathyGLib.Contact> ());
 
       this._got_initial_members = true;
-#if HAVE_ZEITGEIST
       this._populate_counters.begin ();
-#endif
       this._notify_if_is_quiescent ();
     }
 
@@ -1706,117 +1676,23 @@ public class Tpf.PersonaStore : Folks.PersonaStore
       return store;
     }
 
-#if HAVE_ZEITGEIST
-  private string? _get_iid_from_event_metadata (string? uri)
-    {
-      /* Format a proper id represting a persona in the store.
-       * Zeitgeist uses x-telepathy-identifier as a prefix for telepathy, which
-       * is stored as the uri of a subject of an event. */
-      if (uri == null)
-        {
-          return null;
-        }
-      var new_uri = uri.replace ("x-telepathy-identifier:", "");
-      return this.account.protocol + ":" + new_uri;
-    }
-
-  private void _increase_persona_counter (string? id, string? interaction_type, Event event)
-    {
-      /* Check if the persona id and interaction is valid. If so increase the
-       * appropriate interacton counter, to signify that an
-       * interaction was successfully counted. */
-      if (id != null && this._personas.has_key (id) && interaction_type != null)
-        {
-          var persona = this._personas.get (id);
-          persona._increase_counter (id, interaction_type, event);
-        }
-    }
-
-  private void _handle_new_interaction (TimeRange timerange, ResultSet events)
-    {
-      foreach (var e in events)
-        {
-          for (var i = 1; i < e.num_subjects (); i++)
-            {
-              var id = this._get_iid_from_event_metadata (e.get_subject (i).get_uri ());
-              var interaction_type = e.get_subject (0).get_interpretation ();
-              this._increase_persona_counter (id, interaction_type, e);
-            }
-        }
-    }
-
-  private PtrArray _get_zeitgeist_event_templates ()
-    {
-      /* To fetch events from Zeitgeist about the interaction with contacts we
-       * create templates reflecting how the telepathy-logger stores events in
-       * Zeitgeist */
-      var origin = this.id.replace (TelepathyGLib.ACCOUNT_OBJECT_PATH_BASE,
-                                    "x-telepathy-account-path:");
-      Event ev1 = new Event.full ("", "", "dbus://org.freedesktop.Telepathy.Logger.service");
-      ev1.set_origin (origin);
-      var templates = new PtrArray ();
-      templates.add (ev1.ref ());
-      return templates;
-    }
-
   /* This method is safe to call multiple times concurrently. */
   private async void _populate_counters ()
     {
-      if (this._log == null)
+      this._zg_controller = new FolksTpZeitgeist.Controller (this,
+          this.account, (p, dt) =>
         {
-          this._log = new Zeitgeist.Log ();
-        }
-
-      /* Get all events for this account from Zeitgeist and increase the
-       * the counters of the personas */
-      try
+          var persona = p as Tpf.Persona;
+          assert (persona != null);
+          persona._increase_im_interaction_counter (dt);
+        },
+          (p, dt) =>
         {
-          TimeVal tm = TimeVal ();
-          int64 end_timestamp = tm.tv_sec;
-          /* We want events from the last 30 days only, A day has 86400 seconds.
-           * start_timestamp = end_timestamp - 30 days in seconds*/
-          int64 start_timestamp = end_timestamp - (86400 * 30);
-          PtrArray events = this._get_zeitgeist_event_templates ();
-          var results = yield this._log.find_events (
-              new TimeRange (start_timestamp * 1000, end_timestamp * 1000),
-              (owned) events, StorageState.ANY, 0, ResultType.MOST_RECENT_EVENTS,
-              null);
-          foreach (var persona in this._personas.values)
-            {
-              persona.freeze_notify ();
-              persona._reset_interaction ();
-            }
-          foreach (var e in results)
-            {
-              var interaction_type = e.get_subject (0).get_interpretation ();
-              for (var i = 1; i < e.num_subjects (); i++)
-                {
-                  var id = this._get_iid_from_event_metadata (e.get_subject (i).get_uri ());
-                  this._increase_persona_counter (id, interaction_type, e);
-                }
-            }
-          foreach (var persona in this.personas.values)
-            {
-              persona.thaw_notify ();
-            }
-        }
-      catch
-        {
-          debug ("Failed to fetch events from Zeitgeist");
-        }
-
-      /* Prepare a monitor and install for this account to populate persona
-       * counters upon interaction changes.*/
-      if (this._monitor == null)
-        {
-          PtrArray monitor_events = this._get_zeitgeist_event_templates ();
-          this._monitor = new Zeitgeist.Monitor (new Zeitgeist.TimeRange.from_now (),
-              (owned) monitor_events);
-          this._monitor.events_inserted.connect (this._handle_new_interaction);
-          this._log.install_monitor (this._monitor);
-        }
-
+          var persona = p as Tpf.Persona;
+          assert (persona != null);
+          persona._increase_last_call_interaction_counter (dt);
+        });
+      yield this._zg_controller.populate_counters ();
       this._notify_if_is_quiescent ();
     }
-#endif
 }

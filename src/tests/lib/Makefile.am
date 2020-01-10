@@ -1,8 +1,15 @@
 # Build . first so that backends' test libraries can link to libfolks-test.la
 SUBDIRS = \
 	. \
+	dummy \
 	key-file \
 	$(NULL)
+
+if ENABLE_BLUEZ
+if HAVE_BLUEZ_TESTS
+SUBDIRS += bluez
+endif
+endif
 
 if ENABLE_TELEPATHY
 # Build the contactlist first because autotools fails to recognize the
@@ -27,7 +34,9 @@ SUBDIRS += eds
 endif
 
 DIST_SUBDIRS = \
+	dummy \
 	key-file \
+	bluez \
 	telepathy \
 	eds \
 	libsocialweb \
@@ -37,10 +46,15 @@ DIST_SUBDIRS = \
 noinst_LTLIBRARIES = libfolks-test.la
 
 libfolks_test_la_SOURCES = \
+	disconnection-queue.vala \
 	haze-remove-directory.c \
+	gtestdbus.c \
+	gtestdbus.h \
+	folks-test-dbus.vapi \
 	test-case.vala \
 	test-case-helper.c \
 	test-utils.vala \
+	org-freedesktop-dbus-mock.vala \
 	$(NULL)
 
 libfolks_test_la_CFLAGS = \
@@ -73,36 +87,41 @@ libfolks_test_la_LIBADD = \
 	$(NULL)
 
 libfolks_test_la_VALAFLAGS = \
-	$(ERROR_VALAFLAGS) \
 	$(AM_VALAFLAGS) \
+	$(TARGET_VALAFLAGS) \
+	$(ERROR_VALAFLAGS) \
 	--vapidir=$(abs_top_srcdir)/folks \
 	--vapidir=$(abs_top_builddir)/folks \
+	--vapidir=$(abs_top_srcdir)/tests/lib \
 	--pkg gobject-2.0 \
 	--pkg gio-2.0 \
 	--pkg gee-0.8 \
 	--pkg dbus-glib-1 \
 	--pkg folks \
 	--pkg build-conf \
+	--pkg posix \
 	--library folks-test \
+	--vapi folks-test.vapi \
 	-H folks-test.h \
 	-h folks-test-internal.h \
 	-g \
 	$(NULL)
 
+# According to the following document, this is the best way to ensure that this header
+# gets built when compiling the Vala sources to C but before we try to compile
+# all the C files (in case of parallel builds):
+#     http://www.lug.or.kr/docs/automake/Dependency-Tracking-Evolution.html
 BUILT_SOURCES = \
-	libfolks_test_la_vala.stamp \
+	folks-test-internal.h \
 	$(NULL)
 
-MAINTAINERCLEANFILES = \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(libfolks_test_la_SOURCES))) \
-	libfolks_test_la_vala.stamp \
-	folks-test.h \
-	folks-test.vapi \
+# Too hard to add support for this in git.mk.
+GITIGNOREFILES = \
+	folks-test-internal.h \
 	$(NULL)
 
 EXTRA_DIST = \
 	folks-test.deps \
-	$(MAINTAINERCLEANFILES) \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

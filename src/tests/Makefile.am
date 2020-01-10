@@ -3,9 +3,16 @@
 SUBDIRS = \
 	data \
 	lib \
+	dummy \
 	key-file \
 	tools \
 	$(NULL)
+
+if ENABLE_BLUEZ
+if HAVE_BLUEZ_TESTS
+SUBDIRS += bluez
+endif
+endif
 
 if ENABLE_TELEPATHY
 SUBDIRS += folks telepathy
@@ -30,11 +37,17 @@ DIST_SUBDIRS = \
 	lib \
 	tools \
 	folks \
+	dummy \
 	eds \
 	key-file \
+	bluez \
 	telepathy \
 	libsocialweb \
 	tracker \
+	$(NULL)
+
+EXTRA_DIST = \
+	test.mk \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

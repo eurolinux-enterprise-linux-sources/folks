@@ -28,6 +28,11 @@ public class IndividualPropertiesTests : TpfTest.TestCase
 {
   private HashSet<string>? _changes_pending = null;
 
+  private static string iid_prefix =
+      "telepathy:/org/freedesktop/Telepathy/Account/cm/protocol/account:";
+  private string olivier_sha1 = Checksum.compute_for_string (ChecksumType.SHA1,
+      iid_prefix + "olivier@example.com");
+
   public IndividualPropertiesTests ()
     {
       base ("IndividualProperties");
@@ -61,7 +66,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
       var main_loop = new GLib.MainLoop (null, false);
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var added = changes.get_values ();
@@ -117,7 +122,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
 
               /* Check the Individual containing just
                * Tpf.Persona(olivier@example.com) */
-              else if (i.id == "0e46c5e74f61908f49550d241f2a1651892a1695")
+              else if (i.id == olivier_sha1)
                 {
                   /* Check properties */
                   assert (i.alias == "Olivier");
@@ -191,7 +196,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
       var alias_notified = false;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var added = changes.get_values ();
@@ -205,7 +210,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
 
               /* We only check one (singleton Individual containing just
                * olivier@example.com) */
-              if (i.id != "0e46c5e74f61908f49550d241f2a1651892a1695")
+              if (i.id != olivier_sha1)
                 {
                   continue;
                 }
@@ -264,7 +269,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
       var alias_notified = false;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var added = changes.get_values ();
@@ -278,7 +283,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
 
               /* We only check one (singleton Individual containing just
                * olivier@example.com) */
-              if (i.id != "0e46c5e74f61908f49550d241f2a1651892a1695")
+              if (i.id != olivier_sha1)
                 {
                   continue;
                 }
@@ -342,7 +347,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
       this._changes_pending.add ("urls");
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           this._change_contact_info_aggregator_individuals_added.begin (changes);
@@ -370,6 +375,7 @@ public class IndividualPropertiesTests : TpfTest.TestCase
       var timeval = TimeVal ();
       timeval.from_iso8601 ("1929-01-11T00:00:00Z");
       var new_birthday = new DateTime.from_timeval_utc (timeval);
+      assert (new_birthday != null);
       var new_email_fd = new EmailFieldDetails ("cave@aperturescience.com");
       new_email_fd.set_parameter (AbstractFieldDetails.PARAM_TYPE,
           AbstractFieldDetails.PARAM_TYPE_WORK);

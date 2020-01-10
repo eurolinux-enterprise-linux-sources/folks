@@ -52,12 +52,14 @@ public class AddContactsStressTestTests : EdsTest.TestCase
         }
 
       this._start_time = new DateTime.now_utc ();
+      assert (this._start_time != null);
 
       this._test_add_persona_async.begin ();
 
       this._main_loop.run ();
 
       var now = new DateTime.now_utc ();
+      assert (now != null);
       var difference = now.difference (this._start_time);
 
       var diff = difference / TimeSpan.SECOND;
@@ -77,7 +79,7 @@ public class AddContactsStressTestTests : EdsTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

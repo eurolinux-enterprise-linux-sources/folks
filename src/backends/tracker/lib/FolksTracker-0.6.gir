@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+<include name="Folks" version="0.6"/>
+<include name="Gee" version="0.8"/>
+<include name="GObject" version="2.0"/>
+<package name="folks-tracker"/>
+<c:include name="folks/folks-tracker.h"/>
+<namespace name="FolksTracker" version="0.6" c:prefix="Trf">
+	<annotation key="ccode.gir-version" value="0.6"/>
+	<annotation key="ccode.gir-namespace" value="FolksTracker"/>
+	<class name="Persona" c:type="TrfPersona" glib:type-name="TrfPersona" glib:get-type="trf_persona_get_type" glib:type-struct="PersonaClass" parent="Folks.Persona">
+		<implements name="Folks.AvatarDetails"/>
+		<implements name="Folks.BirthdayDetails"/>
+		<implements name="Folks.EmailDetails"/>
+		<implements name="Folks.FavouriteDetails"/>
+		<implements name="Folks.GenderDetails"/>
+		<implements name="Folks.ImDetails"/>
+		<implements name="Folks.LocalIdDetails"/>
+		<implements name="Folks.NameDetails"/>
+		<implements name="Folks.NoteDetails"/>
+		<implements name="Folks.PhoneDetails"/>
+		<implements name="Folks.PostalAddressDetails"/>
+		<implements name="Folks.RoleDetails"/>
+		<implements name="Folks.UrlDetails"/>
+		<implements name="Folks.WebServiceDetails"/>
+		<field name="parent_instance">
+			<type name="Folks.Persona" c:type="FolksPersona"/>
+		</field>
+		<field name="priv">
+			<type name="PersonaPrivate" c:type="TrfPersonaPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="trf_persona_new">
+			<return-value transfer-ownership="full">
+				<type name="FolksTracker.Persona" c:type="TrfPersona*"/>
+			</return-value>
+			<parameters>
+				<parameter name="store" transfer-ownership="none">
+					<type name="FolksTracker.PersonaStore" c:type="TrfPersonaStore*"/>
+				</parameter>
+				<parameter name="tracker_id" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="cursor" transfer-ownership="none" allow-none="1">
+					<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<property name="tracker-id" writable="1" construct-only="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_tracker_id" c:identifier="trf_persona_get_tracker_id">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<property name="cursor" writable="1" construct-only="1">
+			<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+		</property>
+		<method name="get_cursor" c:identifier="trf_persona_get_cursor">
+			<return-value transfer-ownership="none" allow-none="1">
+				<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+			</return-value>
+		</method>
+	</class>
+	<record name="PersonaClass" c:type="TrfPersonaClass" glib:is-gtype-struct-for="Persona">
+		<field name="parent_class">
+			<type name="Folks.PersonaClass" c:type="FolksPersonaClass"/>
+		</field>
+	</record>
+	<record name="PersonaPrivate" c:type="TrfPersonaPrivate" disguised="1"/>
+	<class name="PersonaStore" c:type="TrfPersonaStore" glib:type-name="TrfPersonaStore" glib:get-type="trf_persona_store_get_type" glib:type-struct="PersonaStoreClass" parent="Folks.PersonaStore">
+		<field name="parent_instance">
+			<type name="Folks.PersonaStore" c:type="FolksPersonaStore"/>
+		</field>
+		<field name="priv">
+			<type name="PersonaStorePrivate" c:type="TrfPersonaStorePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="trf_persona_store_new">
+			<return-value transfer-ownership="full">
+				<type name="FolksTracker.PersonaStore" c:type="TrfPersonaStore*"/>
+			</return-value>
+		</constructor>
+		<function name="serialize_web_services" c:identifier="trf_persona_store_serialize_web_services">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="ws_obj" transfer-ownership="none">
+					<type name="Gee.MultiMap" c:type="GeeMultiMap*">
+						<type name="utf8" c:type="gchar*"/>
+						<type name="Folks.WebServiceFieldDetails" c:type="FolksWebServiceFieldDetails*"/>
+					</type>
+				</parameter>
+			</parameters>
+		</function>
+		<function name="unserialize_web_services" c:identifier="trf_persona_store_unserialize_web_services">
+			<return-value transfer-ownership="full">
+				<type name="Gee.MultiMap" c:type="GeeMultiMap*">
+					<type name="utf8" c:type="gchar*"/>
+					<type name="Folks.WebServiceFieldDetails" c:type="FolksWebServiceFieldDetails*"/>
+				</type>
+			</return-value>
+			<parameters>
+				<parameter name="ws_addrs" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<function name="serialize_local_ids" c:identifier="trf_persona_store_serialize_local_ids">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="local_ids" transfer-ownership="none">
+					<type name="Gee.Set" c:type="GeeSet*">
+						<type name="utf8" c:type="gchar*"/>
+					</type>
+				</parameter>
+			</parameters>
+		</function>
+		<function name="unserialize_local_ids" c:identifier="trf_persona_store_unserialize_local_ids">
+			<return-value transfer-ownership="full">
+				<type name="Gee.Set" c:type="GeeSet*">
+					<type name="utf8" c:type="gchar*"/>
+				</type>
+			</return-value>
+			<parameters>
+				<parameter name="local_ids" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<method name="get_favorite_id" c:identifier="trf_persona_store_get_favorite_id">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+		</method>
+		<method name="get_gender_male_id" c:identifier="trf_persona_store_get_gender_male_id">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+		</method>
+		<method name="get_gender_female_id" c:identifier="trf_persona_store_get_gender_female_id">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+		</method>
+	</class>
+	<record name="PersonaStoreClass" c:type="TrfPersonaStoreClass" glib:is-gtype-struct-for="PersonaStore">
+		<field name="parent_class">
+			<type name="Folks.PersonaStoreClass" c:type="FolksPersonaStoreClass"/>
+		</field>
+	</record>
+	<record name="PersonaStorePrivate" c:type="TrfPersonaStorePrivate" disguised="1"/>
+	<class name="OntologyDefs" c:type="TrfOntologyDefs" glib:type-name="TrfOntologyDefs" glib:get-type="trf_ontology_defs_get_type" glib:type-struct="OntologyDefsClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="OntologyDefsPrivate" c:type="TrfOntologyDefsPrivate*"/>
+		</field>
+		<constant name="DEFAULT_CONTACT_URN" c:identifier="TRF_ONTOLOGY_DEFS_DEFAULT_CONTACT_URN" value="http://www.semanticdesktop.org/ontologies/2007/03/22/nco#default-contact-me">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="PERSON_CLASS" c:identifier="TRF_ONTOLOGY_DEFS_PERSON_CLASS" value="http://www.semanticdesktop.org/ontologies/2007/03/22/nco#PersonContact">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_FULLNAME" c:identifier="TRF_ONTOLOGY_DEFS_NCO_FULLNAME" value="nco:fullname">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_FAMILY" c:identifier="TRF_ONTOLOGY_DEFS_NCO_FAMILY" value="nco:nameFamily">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_GIVEN" c:identifier="TRF_ONTOLOGY_DEFS_NCO_GIVEN" value="nco:nameGiven">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_ADDITIONAL" c:identifier="TRF_ONTOLOGY_DEFS_NCO_ADDITIONAL" value="nco:nameAdditional">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_SUFFIX" c:identifier="TRF_ONTOLOGY_DEFS_NCO_SUFFIX" value="nco:nameHonorificSuffix">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_PREFIX" c:identifier="TRF_ONTOLOGY_DEFS_NCO_PREFIX" value="nco:nameHonorificPrefix">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_NICKNAME" c:identifier="TRF_ONTOLOGY_DEFS_NCO_NICKNAME" value="nco:nickname">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="RDF_TYPE" c:identifier="TRF_ONTOLOGY_DEFS_RDF_TYPE" value="ns:type">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_PERSON" c:identifier="TRF_ONTOLOGY_DEFS_NCO_PERSON" value="nco:PersonContact">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_URL" c:identifier="TRF_ONTOLOGY_DEFS_NCO_URL" value="nco:url">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_WEBSITE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_WEBSITE" value="nco:websiteUrl">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_BLOG" c:identifier="TRF_ONTOLOGY_DEFS_NCO_BLOG" value="nco:blogUrl">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_FAVORITE" c:identifier="TRF_ONTOLOGY_DEFS_NAO_FAVORITE" value="nao:predefined-tag-favorite">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_TAG" c:identifier="TRF_ONTOLOGY_DEFS_NAO_TAG" value="nao:hasTag">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_PROPERTY" c:identifier="TRF_ONTOLOGY_DEFS_NAO_PROPERTY" value="nao:Property">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_HAS_PROPERTY" c:identifier="TRF_ONTOLOGY_DEFS_NAO_HAS_PROPERTY" value="nao:hasProperty">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_PROPERTY_NAME" c:identifier="TRF_ONTOLOGY_DEFS_NAO_PROPERTY_NAME" value="nao:propertyName">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_PROPERTY_VALUE" c:identifier="TRF_ONTOLOGY_DEFS_NAO_PROPERTY_VALUE" value="nao:propertyValue">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_HAS_EMAIL" c:identifier="TRF_ONTOLOGY_DEFS_NCO_HAS_EMAIL" value="nco:hasEmailAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_EMAIL" c:identifier="TRF_ONTOLOGY_DEFS_NCO_EMAIL" value="nco:EmailAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_EMAIL_PROP" c:identifier="TRF_ONTOLOGY_DEFS_NCO_EMAIL_PROP" value="nco:emailAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_HAS_PHONE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_HAS_PHONE" value="nco:hasPhoneNumber">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_PHONE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_PHONE" value="nco:PhoneNumber">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_PHONE_PROP" c:identifier="TRF_ONTOLOGY_DEFS_NCO_PHONE_PROP" value="nco:phoneNumber">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_HAS_AFFILIATION" c:identifier="TRF_ONTOLOGY_DEFS_NCO_HAS_AFFILIATION" value="nco:hasAffiliation">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_AFFILIATION" c:identifier="TRF_ONTOLOGY_DEFS_NCO_AFFILIATION" value="nco:Affiliation">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_BIRTHDAY" c:identifier="TRF_ONTOLOGY_DEFS_NCO_BIRTHDAY" value="nco:birthDate">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_NOTE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_NOTE" value="nco:note">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_GENDER" c:identifier="TRF_ONTOLOGY_DEFS_NCO_GENDER" value="nco:gender">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_MALE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_MALE" value="nco:gender-male">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_FEMALE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_FEMALE" value="nco:gender-female">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_PHOTO" c:identifier="TRF_ONTOLOGY_DEFS_NCO_PHOTO" value="nco:photo">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NIE_URL" c:identifier="TRF_ONTOLOGY_DEFS_NIE_URL" value="nie:url">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NFO_IMAGE" c:identifier="TRF_ONTOLOGY_DEFS_NFO_IMAGE" value="nfo:Image">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NIE_DATAOBJECT" c:identifier="TRF_ONTOLOGY_DEFS_NIE_DATAOBJECT" value="nie:DataObject">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_IMADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_IMADDRESS" value="nco:IMAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_HAS_IMADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_HAS_IMADDRESS" value="nco:hasIMAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_IMPROTOCOL" c:identifier="TRF_ONTOLOGY_DEFS_NCO_IMPROTOCOL" value="nco:imProtocol">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_IMID" c:identifier="TRF_ONTOLOGY_DEFS_NCO_IMID" value="nco:imID">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_IM_NICKNAME" c:identifier="TRF_ONTOLOGY_DEFS_NCO_IM_NICKNAME" value="nco:imNickname">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_POSTAL_ADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_POSTAL_ADDRESS" value="nco:PostalAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_HAS_POSTAL_ADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_HAS_POSTAL_ADDRESS" value="nco:hasPostalAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_POBOX" c:identifier="TRF_ONTOLOGY_DEFS_NCO_POBOX" value="nco:pobox">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_DISTRICT" c:identifier="TRF_ONTOLOGY_DEFS_NCO_DISTRICT" value="nco:district">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_COUNTY" c:identifier="TRF_ONTOLOGY_DEFS_NCO_COUNTY" value="nco:county">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_LOCALITY" c:identifier="TRF_ONTOLOGY_DEFS_NCO_LOCALITY" value="nco:locality">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_POSTALCODE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_POSTALCODE" value="nco:postalcode">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_STREET_ADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_STREET_ADDRESS" value="nco:streetAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_ADDRESS_LOCATION" c:identifier="TRF_ONTOLOGY_DEFS_NCO_ADDRESS_LOCATION" value="nco:addressLocation">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_EXTENDED_ADDRESS" c:identifier="TRF_ONTOLOGY_DEFS_NCO_EXTENDED_ADDRESS" value="nco:extendedAddress">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_COUNTRY" c:identifier="TRF_ONTOLOGY_DEFS_NCO_COUNTRY" value="nco:country">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_REGION" c:identifier="TRF_ONTOLOGY_DEFS_NCO_REGION" value="nco:region">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_ROLE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_ROLE" value="nco:role">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_TITLE" c:identifier="TRF_ONTOLOGY_DEFS_NCO_TITLE" value="nco:title">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_ORG" c:identifier="TRF_ONTOLOGY_DEFS_NCO_ORG" value="nco:org">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NCO_URL_PREFIX" c:identifier="TRF_ONTOLOGY_DEFS_NCO_URL_PREFIX" value="&lt;http://www.semanticdesktop.org/ontologies/2007/03/22/">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="NAO_URL_PREFIX" c:identifier="TRF_ONTOLOGY_DEFS_NAO_URL_PREFIX" value="&lt;http://www.semanticdesktop.org/ontologies/2007/08/15/">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="RDF_URL_PREFIX" c:identifier="TRF_ONTOLOGY_DEFS_RDF_URL_PREFIX" value="&lt;http://www.w3.org/1999/02/">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constructor name="new" c:identifier="trf_ontology_defs_new">
+			<return-value transfer-ownership="full">
+				<type name="FolksTracker.OntologyDefs" c:type="TrfOntologyDefs*"/>
+			</return-value>
+		</constructor>
+	</class>
+	<record name="OntologyDefsClass" c:type="TrfOntologyDefsClass" glib:is-gtype-struct-for="OntologyDefs">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="OntologyDefsPrivate" c:type="TrfOntologyDefsPrivate" disguised="1"/>
+</namespace>
+<record name="Event">
+	<field name="graph_id">
+		<type name="gint" c:type="gint"/>
+	</field>
+	<field name="subject_id">
+		<type name="gint" c:type="gint"/>
+	</field>
+	<field name="pred_id">
+		<type name="gint" c:type="gint"/>
+	</field>
+	<field name="object_id">
+		<type name="gint" c:type="gint"/>
+	</field>
+</record>
+</repository>

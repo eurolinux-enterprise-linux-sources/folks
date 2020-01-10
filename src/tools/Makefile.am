@@ -10,7 +10,9 @@ if ENABLE_IMPORT_TOOL
 bin_PROGRAMS = folks-import
 endif
 
-AM_VALAFLAGS += \
+AM_VALAFLAGS = \
+	$(TARGET_VALAFLAGS) \
+	$(ERROR_VALAFLAGS) \
 	--vapidir=$(top_builddir)/folks \
 	--pkg=gee-0.8 \
 	--pkg=libxml-2.0 \
@@ -25,6 +27,7 @@ folks_import_SOURCES = \
 folks_import_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
 	-include $(CONFIG_HEADER) \
+	-include $(top_srcdir)/folks/warnings.h \
 	-DLOCALE_DIR=\"$(localedir)\" \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/folks \
@@ -44,11 +47,6 @@ folks_import_LDADD = \
 	$(GEE_LIBS) \
 	$(LIBXML_LIBS) \
 	$(top_builddir)/folks/libfolks.la \
-	$(NULL)
-
-GITIGNOREFILES = \
-	folks_import_vala.stamp \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(folks_import_SOURCES))) \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

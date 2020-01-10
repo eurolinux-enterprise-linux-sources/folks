@@ -1,7 +1,12 @@
-AM_VALAFLAGS += \
+noinst_LTLIBRARIES = libsocialweb-test.la
+
+libsocialweb_test_la_VALAFLAGS = \
+	$(AM_VALAFLAGS) \
+	$(TARGET_VALAFLAGS) \
 	$(ERROR_VALAFLAGS) \
-	--library=libsocialweb-test \
-	--header=libsocialweb-test.h \
+	--library libsocialweb-test \
+	--vapi libsocialweb-test.vapi \
+	--header libsocialweb-test.h \
 	--vapidir=$(top_srcdir)/folks \
 	--vapidir=$(top_srcdir)/backends/libsocialweb/lib \
 	--vapidir=$(abs_top_srcdir)/tests/lib \
@@ -14,14 +19,18 @@ AM_VALAFLAGS += \
 	--pkg libsocialweb-client \
 	--pkg folks-libsocialweb \
 	--pkg folks-test \
+	--pkg folks-test-dbus \
 	-g \
 	$(NULL)
-
-noinst_LTLIBRARIES = libsocialweb-test.la
 
 libsocialweb_test_la_SOURCES = \
 	backend.vala \
 	test-case.vala \
+	$(NULL)
+
+libsocialweb_test_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-include $(top_srcdir)/folks/warnings.h \
 	$(NULL)
 
 libsocialweb_test_la_CFLAGS = \
@@ -44,19 +53,9 @@ libsocialweb_test_la_LIBADD = \
 	$(top_builddir)/tests/lib/libfolks-test.la \
 	$(NULL)
 
-MAINTAINERCLEANFILES = \
-	libsocialweb-test.vapi \
-	libsocialweb-test.h \
-	$(NULL)
-
 EXTRA_DIST = \
 	libsocialweb-test.vapi \
 	libsocialweb-test.h \
-	$(NULL)
-
-GITIGNOREFILES = \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(libsocialweb_test_la_SOURCES))) \
-	libsocialweb_test_la_vala.stamp \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

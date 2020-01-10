@@ -37,8 +37,6 @@ public class NicknameUpdatesTests : TrackerTest.TestCase
     {
       base ("NicknameUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("nickname updates", this.test_nickname_updates);
     }
 
@@ -70,7 +68,7 @@ public class NicknameUpdatesTests : TrackerTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

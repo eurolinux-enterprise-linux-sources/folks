@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2010 Collabora Ltd.
+ * Copyright (C) 2013 Philip Withnall
  *
  * This library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,15 +17,13 @@
  *
  * Authors:
  *       Travis Reitter <travis.reitter@collabora.co.uk>
+ *       Philip Withnall <philip@tecnocode.co.uk>
  */
 
 using Gee;
 using GLib;
 using TelepathyGLib;
 using Folks;
-#if HAVE_ZEITGEIST
-using Zeitgeist;
-#endif
 
 /**
  * A persona subclass which represents a single instant messaging contact from
@@ -50,7 +49,11 @@ public class Tpf.Persona : Folks.Persona,
     PresenceDetails,
     UrlDetails
 {
-  private const string[] _linkable_properties = { "im-addresses" };
+  private const string[] _linkable_properties =
+    {
+      "im-addresses",
+      null /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+    };
   private string[] _writeable_properties = null;
 
   /* Whether we've finished being constructed; this is used to prevent
@@ -249,6 +252,15 @@ public class Tpf.Persona : Folks.Persona,
    * See {@link Folks.PresenceDetails.presence_message}.
    */
   public string presence_message { get; set; }
+
+  /**
+   * The Persona's client types.
+   *
+   * See {@link Folks.PresenceDetails.client_types}.
+   *
+   * @since 0.9.5
+   */
+  public string[] client_types { get; set; }
 
   /**
    * The names of the Persona's linkable properties.
@@ -490,7 +502,7 @@ public class Tpf.Persona : Folks.Persona,
     {
       /* Ensure we have a strong ref to the contact for the duration of the
        * operation. */
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
 
       if (contact == null)
         {
@@ -563,7 +575,7 @@ public class Tpf.Persona : Folks.Persona,
    */
   public async void change_groups (Set<string> groups) throws PropertyError
     {
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
 
       if (contact == null)
         {
@@ -589,23 +601,22 @@ public class Tpf.Persona : Folks.Persona,
       /* The change will be notified when we receive changes from the store. */
     }
 
-  /* This has to be weak since, in general, we can't force any TpContacts to
-   * remain alive if we want to solve bgo#665376.
-   * As per bgo#680335, we have to use a WeakRef rather than a
-   * ‘weak Contact?’ to avoid races when clearing the pointer. We still have
-   * to use a weak ref. notifier as well, though, in order to be able to emit
-   * a property change notification for ::contact.
+  /* We handle the weak ref ourself to be able to notify the "contact" property.
+   * It is TpfPersonaStore who weak_ref() the TpContact and calls
+   * _contact_weak_notify() on the persona.
    *
-   * FIXME: Once bgo#554344 is fixed, _contact could be changed back to
-   * being a 'weak Contact?', assuming Vala implements weak references using
-   * GWeakRef. */
-  private GLib.WeakRef _contact = GLib.WeakRef (null);
+   * This isn't as easy as it seems, see bgo#702165 */
+  private unowned Contact? _contact;
 
-  private void _contact_weak_notify_cb (Object obj)
+  internal void _contact_weak_notify ()
     {
+      if (this._contact == null)
+        return;
+
       debug ("TpContact %p destroyed; setting ._contact = null in Persona %p",
-          obj, this);
-      /* _contact is cleared automatically as it's a WeakRef. */
+          this._contact, this);
+
+      this._contact = null;
       this.notify_property ("contact");
     }
 
@@ -628,25 +639,12 @@ public class Tpf.Persona : Folks.Persona,
            * pointer which is returned might be invalidated before reaching the
            * caller. Probably not a problem in practice since folks won't be
            * run multi-threaded. */
-          Contact? contact = (Contact?) this._contact.get ();
-          if (contact == null)
-            {
-              return null;
-            }
-
-          /* FIXME: I'm so very, very sorry. This is to cause Vala to forget
-           * we have a strong ref on 'contact' and not transfer it out. */
-          return (Contact) ((void*) contact);
+          return this._contact;
         }
 
       construct
         {
-          if (value != null)
-            {
-              value.weak_ref (this._contact_weak_notify_cb);
-            }
-
-          this._contact.set (value);
+          this._contact = value;
         }
     }
 
@@ -786,7 +784,7 @@ public class Tpf.Persona : Folks.Persona,
 
       /* Contact can be null if we've been created from the cache. All the code
        * below this point is for non-cached personas. */
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
 
       if (contact == null)
         {
@@ -798,7 +796,7 @@ public class Tpf.Persona : Folks.Persona,
 
       contact.notify["alias"].connect ((s, p) =>
           {
-            var c = (Contact?) this._contact.get ();
+            var c = (Contact?) this._contact;
             assert (c != null); /* should never be called while cached */
 
             /* Tp guarantees that aliases are always non-null. */
@@ -849,9 +847,15 @@ public class Tpf.Persona : Folks.Persona,
         {
           this._contact_notify_presence_status ();
         });
+      contact.notify["client-types"].connect ((s, p) =>
+        {
+          this._contact_notify_client_types ();
+        });
+
       this._contact_notify_presence_message ();
       this._contact_notify_presence_type ();
       this._contact_notify_presence_status ();
+      this._contact_notify_client_types ();
 
       contact.notify["contact-info"].connect ((s, p) =>
         {
@@ -954,7 +958,7 @@ public class Tpf.Persona : Folks.Persona,
           this._phone_numbers_ro = this._phone_numbers.read_only_view;
         }
 
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
       if (contact == null)
         {
           /* If operating from the cache, bail out early. */
@@ -1032,9 +1036,13 @@ public class Tpf.Persona : Folks.Persona,
           if (timeval.from_iso8601 (new_birthday_str))
             {
               var d = new DateTime.from_timeval_utc (timeval);
-              if (this._birthday == null ||
-                  (this._birthday != null &&
-                    !this._birthday.equal (d.to_utc ())))
+
+              /* d might be null if their birthday in Telepathy is something
+               * that doesn't make sense, like 31st February. If so, ignore
+               * it. */
+              if (d != null && (this._birthday == null ||
+                   (this._birthday != null &&
+                     !this._birthday.equal (d.to_utc ()))))
                 {
                   this._birthday = d.to_utc ();
                   if (emit_notification)
@@ -1082,7 +1090,7 @@ public class Tpf.Persona : Folks.Persona,
           changed = true;
         }
 
-      if (!Folks.Internal.equal_sets<PhoneFieldDetails> (new_phone_numbers,
+      if (!Utils.set_string_afd_equal (new_phone_numbers,
               this._phone_numbers))
         {
           this._phone_numbers = new_phone_numbers;
@@ -1227,6 +1235,7 @@ public class Tpf.Persona : Folks.Persona,
       this.presence_type = PresenceType.OFFLINE;
       this.presence_message = "";
       this.presence_status = "offline";
+      this.client_types = {};
 
       this._writeable_properties = {};
     }
@@ -1234,32 +1243,33 @@ public class Tpf.Persona : Folks.Persona,
   ~Persona ()
     {
       debug ("Destroying Tpf.Persona '%s': %p", this.uid, this);
-
-      var contact = (Contact?) this._contact.get ();
-      if (contact != null)
-        {
-          contact.weak_unref (this._contact_weak_notify_cb);
-        }
     }
 
   private void _contact_notify_presence_message ()
     {
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
       assert (contact != null); /* should never be called while cached */
       this.presence_message = contact.get_presence_message ();
     }
 
   private void _contact_notify_presence_type ()
     {
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
       assert (contact != null); /* should never be called while cached */
       this.presence_type = Tpf.Persona._folks_presence_type_from_tp (
           contact.get_presence_type ());
     }
 
+  private void _contact_notify_client_types ()
+    {
+      var contact = (Contact?) this._contact;
+      assert (contact != null); /* should never be called while cached */
+      this.client_types = contact.get_client_types ();
+    }
+
   private void _contact_notify_presence_status ()
     {
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
       assert (contact != null); /* should never be called while cached */
       this.presence_status = contact.get_presence_status ();
     }
@@ -1294,7 +1304,7 @@ public class Tpf.Persona : Folks.Persona,
 
   private void _contact_notify_avatar ()
     {
-      var contact = (Contact?) this._contact.get ();
+      var contact = (Contact?) this._contact;
       assert (contact != null); /* should never be called while cached */
 
       var file = contact.avatar_file;
@@ -1376,52 +1386,35 @@ public class Tpf.Persona : Folks.Persona,
       return store._ensure_persona_for_contact (contact);
     }
 
-#if HAVE_ZEITGEIST
-  internal void _increase_counter (string id, string interaction_type, Event event)
+  internal void _increase_im_interaction_counter (DateTime converted_datetime)
     {
-      var timestamp = (uint) (event.get_timestamp () / 1000);
-      var converted_datetime = new DateTime.from_unix_utc (timestamp);
-      var interpretation = event.get_interpretation ();
-
-      /* Only count send/receive for IM interactions */
-      if (interaction_type == Zeitgeist.NMO_IMMESSAGE &&
-          (interpretation == Zeitgeist.ZG_SEND_EVENT ||
-           interpretation == Zeitgeist.ZG_RECEIVE_EVENT))
+      this._im_interaction_count++;
+      this.notify_property ("im-interaction-count");
+      if (this._last_im_interaction_datetime == null ||
+          this._last_im_interaction_datetime.compare (converted_datetime) == -1)
         {
-          this._im_interaction_count++;
-          this.notify_property ("im-interaction-count");
-          if (this._last_im_interaction_datetime == null ||
-              this._last_im_interaction_datetime.compare (converted_datetime) == -1)
-            {
-              this._last_im_interaction_datetime = converted_datetime;
-              this.notify_property ("last-im-interaction-datetime");
-            }
-          debug ("Persona %s IM interaction details changed:\n - count: %u \n - timestamp: %lld\n",
-              id, this._im_interaction_count, this._last_im_interaction_datetime.format ("%H %M %S - %d %m %y"));
+          this._last_im_interaction_datetime = converted_datetime;
+          this.notify_property ("last-im-interaction-datetime");
         }
-      /* Only count successful call for call interactions */
-      else if (interaction_type == Zeitgeist.NFO_AUDIO &&
-                interpretation == Zeitgeist.ZG_LEAVE_EVENT)
-        {
-          this._call_interaction_count++;
-          this.notify_property ("call-interaction-count");
-          if (this._last_call_interaction_datetime == null ||
-              this._last_call_interaction_datetime.compare (converted_datetime) == -1)
-            {
-              this._last_call_interaction_datetime = converted_datetime;
-              this.notify_property ("last-call-interaction-datetime");
-            }
-          debug ("Persona %s Call interaction details changed:\n - count: %u \n - timestamp: %lld\n",
-             id, this._call_interaction_count, this._last_call_interaction_datetime.format ("%H %M %S - %d %m %y"));
-        }
+      debug ("Persona %s IM interaction details changed:\n" +
+          " - count: %u \n - timestamp: %lld",
+          this.iid, this._im_interaction_count,
+          this._last_im_interaction_datetime.format ("%H %M %S - %d %m %y"));
     }
 
-  internal void _reset_interaction ()
+  internal void _increase_last_call_interaction_counter (DateTime converted_datetime)
     {
-      this._call_interaction_count = 0;
-      this._im_interaction_count = 0;
-      this._last_call_interaction_datetime = null;
-      this._last_im_interaction_datetime = null;
+      this._call_interaction_count++;
+      this.notify_property ("call-interaction-count");
+      if (this._last_call_interaction_datetime == null ||
+          this._last_call_interaction_datetime.compare (converted_datetime) == -1)
+        {
+          this._last_call_interaction_datetime = converted_datetime;
+          this.notify_property ("last-call-interaction-datetime");
+        }
+      debug ("Persona %s Call interaction details changed:\n" +
+          " - count: %u \n - timestamp: %lld",
+          this.iid, this._call_interaction_count,
+          this._last_call_interaction_datetime.format ("%H %M %S - %d %m %y"));
     }
-#endif
 }

@@ -62,7 +62,7 @@ public class Main
     {
       Intl.setlocale (LocaleCategory.ALL, "");
 
-      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS") != "eds" ||
+      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS") != "no-services" ||
           Environment.get_variable ("FOLKS_BACKENDS_ALLOWED") != "eds" ||
           Environment.get_variable ("FOLKS_PRIMARY_STORE") == null)
         error ("e-d-s helpers must be run in a private D-Bus session with " +
@@ -135,7 +135,7 @@ public class Main
       yield TestUtils.backend_prepare_and_wait_for_quiescence ((!) eds);
 
       message ("%.6f Waiting for aggregator", Test.timer_elapsed ());
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       yield TestUtils.aggregator_prepare_and_wait_for_quiescence (aggregator);
 
       var map = aggregator.individuals;

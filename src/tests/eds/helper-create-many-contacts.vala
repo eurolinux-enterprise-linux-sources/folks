@@ -46,8 +46,7 @@ public class Main
       var registry = new E.SourceRegistry.sync ();
       var source = registry.ref_source (uid);
       assert (source.uid == uid);
-      var book_client = new E.BookClient (source);
-      book_client.open_sync (false, null);
+      var book_client = E.BookClient.connect_sync (source);
       SList<E.Contact> contacts = null;
 
       var envvar = Environment.get_variable ("FOLKS_TESTS_REAL_VCARDS");
@@ -132,7 +131,7 @@ public class Main
     {
       Intl.setlocale (LocaleCategory.ALL, "");
 
-      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS") != "eds")
+      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS") != "no-services")
         error ("e-d-s helpers must be run in a private D-Bus session with " +
             "e-d-s services");
 

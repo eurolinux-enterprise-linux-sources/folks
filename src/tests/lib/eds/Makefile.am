@@ -1,7 +1,12 @@
-AM_VALAFLAGS += \
+noinst_LTLIBRARIES = libeds-test.la
+
+libeds_test_la_VALAFLAGS = \
+	$(AM_VALAFLAGS) \
+	$(TARGET_VALAFLAGS) \
 	$(ERROR_VALAFLAGS) \
-	--library=eds-test \
-	--header=eds-test.h \
+	--library eds-test \
+	--vapi eds-test.vapi \
+	--header eds-test.h \
 	--vapidir=$(top_srcdir)/folks \
 	--vapidir=$(top_srcdir)/backends/eds/lib \
 	--vapidir=$(top_srcdir)/backends/eds/vapi \
@@ -17,14 +22,18 @@ AM_VALAFLAGS += \
 	--pkg libxml-2.0 \
 	--pkg folks-eds \
 	--pkg folks-test \
+	--pkg folks-test-dbus \
 	-g \
 	$(NULL)
-
-noinst_LTLIBRARIES = libeds-test.la
 
 libeds_test_la_SOURCES = \
 	backend.vala \
 	test-case.vala \
+	$(NULL)
+
+libeds_test_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-include $(top_srcdir)/folks/warnings.h \
 	$(NULL)
 
 libeds_test_la_CFLAGS = \
@@ -51,19 +60,9 @@ libeds_test_la_LIBADD = \
 	$(GEE_LIBS) \
 	$(NULL)
 
-MAINTAINERCLEANFILES = \
-	eds-test.vapi \
-	eds-test.h \
-	$(NULL)
-
 EXTRA_DIST = \
 	eds-test.vapi \
 	eds-test.h \
-	$(NULL)
-
-GITIGNOREFILES = \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(libeds_test_la_SOURCES))) \
-	libeds_test_la_vala.stamp \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

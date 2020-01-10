@@ -1,49 +1,39 @@
-AM_CFLAGS = \
-	$(ERROR_CFLAGS) \
-	$(NULL)
+include $(top_srcdir)/tests/test.mk
 
-AM_CPPFLAGS = \
-	$(GLIB_CFLAGS) \
-	$(GEE_CFLAGS) \
-	$(TRACKER_SPARQL_CFLAGS) \
-	-I$(top_srcdir) \
-	-I$(top_srcdir)/folks \
-	-I$(top_srcdir)/backends/tracker/lib \
-	-I$(top_srcdir)/backends/tracker/lib/folks \
-	-I$(top_srcdir)/tests/lib \
-	-I$(top_srcdir)/tests/lib/tracker \
-	-include $(CONFIG_HEADER) \
-	$(NULL)
+# This forces serialization of the tests because they run into terrible race
+# conditions if run in parallel (ie, make -jN, n > 1)
+#
+# FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=709120
+.NOTPARALLEL:
 
-LDADD = \
-	$(top_builddir)/tests/lib/libfolks-test.la \
-	$(top_builddir)/tests/lib/tracker/libtracker-test.la \
-	$(top_builddir)/backends/tracker/lib/libfolks-tracker.la \
-	$(top_builddir)/folks/libfolks.la \
-	$(GLIB_LIBS) \
-	$(GEE_LIBS) \
-	$(TRACKER_SPARQL_LIBS) \
-	-L$(top_srcdir)/backends/tracker/lib \
-	$(NULL)
-
-RUN_WITH_PRIVATE_BUS = $(top_srcdir)/tests/tools/with-session-bus-tracker.sh
-
-AM_VALAFLAGS += \
-	$(ERROR_VALAFLAGS) \
-	--vapidir=. \
-	--vapidir=$(top_srcdir)/folks \
+AM_VALAFLAGS = \
+	$(test_valaflags) \
 	--vapidir=$(top_srcdir)/backends/tracker/lib \
-	--vapidir=$(top_srcdir)/tests/lib \
 	--vapidir=$(top_srcdir)/tests/lib/tracker \
-	--pkg gobject-2.0 \
-	--pkg gio-2.0 \
-	--pkg gee-0.8 \
-	--pkg folks \
-	--pkg folks-test \
 	--pkg folks-tracker \
 	--pkg tracker-sparql-$(TRACKER_SPARQL_MAJOR) \
 	--pkg tracker-test \
-	-g \
+	$(NULL)
+
+AM_CPPFLAGS = \
+	$(test_cppflags) \
+	$(TRACKER_SPARQL_CFLAGS) \
+	-I$(top_srcdir)/backends/tracker/lib \
+	-I$(top_srcdir)/backends/tracker/lib/folks \
+	-I$(top_srcdir)/tests/lib/tracker \
+	$(NULL)
+
+AM_CFLAGS = \
+	$(test_cflags) \
+	$(NULL)
+
+LDADD = \
+	$(AM_LDADD) \
+	$(test_ldadd) \
+	$(top_builddir)/tests/lib/tracker/libtracker-test.la \
+	$(top_builddir)/backends/tracker/lib/libfolks-tracker.la \
+	$(TRACKER_SPARQL_LIBS) \
+	-L$(top_srcdir)/backends/tracker/lib \
 	$(NULL)
 
 # in order from least to most complex
@@ -74,44 +64,40 @@ noinst_PROGRAMS = \
 	role-details-interface \
 	birthday-details-interface \
 	birthday-updates \
-	note-details-interface  \
-	gender-details-interface  \
-	postal-address-details-interface  \
-	avatar-updates  \
-	add-persona  \
-	remove-persona  \
-	set-nickname  \
-	set-favourite  \
-	set-phones  \
-	set-emails  \
-	set-avatar  \
-	set-structured-name  \
-	set-full-name  \
-	set-urls  \
-	set-im-addresses  \
-	set-postal-addresses  \
-	set-roles  \
-	set-notes  \
-	set-birthday  \
-	set-gender  \
-	link-personas  \
-	duplicated-emails  \
-	duplicated-phones  \
-	link-personas-via-local-ids  \
-	match-im-addresses  \
-	match-email-addresses  \
-	match-known-emails  \
-	match-phone-number  \
-	match-name  \
-	match-all  \
+	note-details-interface \
+	gender-details-interface \
+	postal-address-details-interface \
+	avatar-updates \
+	add-persona \
+	remove-persona \
+	set-nickname \
+	set-favourite \
+	set-phones \
+	set-emails \
+	set-avatar \
+	set-structured-name \
+	set-full-name \
+	set-urls \
+	set-im-addresses \
+	set-postal-addresses \
+	set-roles \
+	set-notes \
+	set-birthday \
+	set-gender \
+	link-personas \
+	duplicated-emails \
+	duplicated-phones \
+	link-personas-via-local-ids \
+	match-im-addresses \
+	match-email-addresses \
+	match-known-emails \
+	match-phone-number \
+	match-name \
+	match-all \
 	set-duplicate-email \
 	set-null-avatar \
 	$(NULL)
 
-TESTS_ENVIRONMENT = \
-	$(RUN_WITH_PRIVATE_BUS) \
-	--session \
-	--
 TESTS = $(noinst_PROGRAMS)
 
 individual_retrieval_SOURCES = \
@@ -346,77 +332,6 @@ set_null_avatar_SOURCES = \
 	set-null-avatar.vala \
 	$(NULL)
 
-CLEANFILES = \
-        *.pid \
-        *.address \
-        $(TESTS) \
-        $(NULL)
-
-MAINTAINERCLEANFILES = \
-        $(addsuffix .c,$(noinst_PROGRAMS)) \
-        individual_retrieval_vala.stamp \
-        name_details_interface_vala.stamp \
-        avatar_details_interface_vala.stamp \
-        im_details_interface_vala.stamp \
-        phone_details_interface_vala.stamp \
-        email_details_interface_vala.stamp \
-        url_details_interface_vala.stamp \
-        favourite_details_interface_vala.stamp \
-        fullname_updates_vala.stamp \
-        add_contact_vala.stamp \
-        default_contact_vala.stamp \
-        remove_contact_vala.stamp \
-        nickname_updates_vala.stamp \
-        family_name_updates_vala.stamp \
-        given_name_updates_vala.stamp \
-        additional_names_updates_vala.stamp \
-        prefix_name_updates_vala.stamp \
-        suffix_name_updates_vala.stamp \
-        website_updates_vala.stamp \
-        favourite_updates_vala.stamp \
-        emails_updates_vala.stamp \
-        phones_updates_vala.stamp \
-        imaddresses_updates_vala.stamp \
-        role_details_interface_vala.stamp \
-        birthday_details_interface_vala.stamp \
-        birthday_updates_vala.stamp \
-        note_details_interface_vala.stamp \
-        gender_details_interface_vala.stamp \
-        postal_address_details_interface_vala.stamp \
-        avatar_updates_vala.stamp \
-        add_persona_vala.stamp \
-        remove_persona_vala.stamp \
-        set_nickname_vala.stamp \
-        set_favourite_vala.stamp \
-        set_phones_vala.stamp \
-        set_emails_vala.stamp \
-        set_avatar_vala.stamp \
-        set_structured_name_vala.stamp \
-        set_full_name_vala.stamp \
-        set_urls_vala.stamp \
-        set_im_addresses_vala.stamp \
-        set_postal_addresses_vala.stamp \
-        set_roles_vala.stamp \
-        set_notes_vala.stamp \
-        set_birthday_vala.stamp \
-        set_gender_vala.stamp \
-        link_personas_vala.stamp \
-        duplicated_emails_vala.stamp \
-        duplicated_phones_vala.stamp \
-        link_personas_via_local_ids_vala.stamp \
-        match_im_addresses_vala.stamp \
-        match_email_addresses_vala.stamp \
-        match_known_emails_vala.stamp \
-        match_phone_number_vala.stamp \
-        match_name_vala.stamp \
-        match_all_vala.stamp \
-        set_duplicate_email_vala.stamp \
-        set_null_avatar_vala.stamp \
-        $(NULL)
-
-EXTRA_DIST = \
-	$(MAINTAINERCLEANFILES) \
-	$(NULL)
-
 -include $(top_srcdir)/git.mk
 -include $(top_srcdir)/check.mk
+-include $(top_srcdir)/valgrind.mk

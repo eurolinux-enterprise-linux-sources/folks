@@ -23,6 +23,7 @@ libfolks_internal_la_SOURCES = \
 
 libfolks_internal_la_VALAFLAGS = \
 	$(AM_VALAFLAGS) \
+	$(TARGET_VALAFLAGS) \
 	$(ERROR_VALAFLAGS) \
 	--library=folks-internal \
 	--vapidir=$(abs_srcdir) \
@@ -37,6 +38,11 @@ libfolks_internal_la_VALAFLAGS = \
 if ENABLE_PROFILING
 libfolks_internal_la_VALAFLAGS += --define=ENABLE_PROFILING
 endif
+
+libfolks_internal_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-include $(top_srcdir)/folks/warnings.h \
+	$(NULL)
 
 libfolks_internal_la_CFLAGS = \
 	$(AM_CFLAGS) \
@@ -72,6 +78,7 @@ libfolks_la_SOURCES = \
 	birthday-details.vala \
 	email-details.vala \
 	favourite-details.vala \
+	folks-namespace.vala \
 	gender-details.vala \
 	group-details.vala \
 	web-service-details.vala \
@@ -105,8 +112,9 @@ endif
 
 libfolks_la_VALAFLAGS = \
 	$(AM_VALAFLAGS) \
+	$(TARGET_VALAFLAGS) \
 	$(ERROR_VALAFLAGS) \
-	--gir=Folks-$(API_VERSION).gir \
+	--gir=Folks-$(API_VERSION_DOT).gir \
 	--library=folks \
 	--vapidir=$(abs_srcdir) \
 	--vapidir=$(abs_builddir) \
@@ -121,6 +129,11 @@ libfolks_la_VALAFLAGS = \
 	--vapi folks.vapi \
 	-H folks.h \
 	$(EDS_FLAGS) \
+	$(NULL)
+
+libfolks_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	-include $(top_srcdir)/folks/warnings.h \
 	$(NULL)
 
 libfolks_la_CFLAGS = \
@@ -170,20 +183,7 @@ EXTRA_DIST = \
 	$(pkgconfig_in) \
 	build-conf.vapi \
 	redeclare-internal-api.h \
-	$(NULL)
-
-BUILT_SOURCES = \
-	folks-internal.h \
-	folks-internal.vapi \
-	folks.h \
-	folks.vapi \
-	$(NULL)
-
-GITIGNOREFILES = \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(libfolks_la_SOURCES))) \
-	$(patsubst %.vala,%.c,$(filter %.vala,$(libfolks_internal_la_SOURCES))) \
-	libfolks_la_vala.stamp \
-	libfolks_internal_la_vala.stamp \
+	warnings.h \
 	$(NULL)
 
 CLEANFILES =
@@ -199,9 +199,13 @@ INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS =
 INTROSPECTION_COMPILER_ARGS = -l $(libfolks_dlname)
 
+# Set PKG_CONFIG_PATH so we can find the backend's uninstalled pkg-config file.
+INTROSPECTION_SCANNER_ENV = \
+	PKG_CONFIG_PATH=$(top_builddir)/folks:$${PKG_CONFIG_PATH}
+
 if HAVE_INTROSPECTION
-Folks-$(API_VERSION).gir: libfolks.la
-GIRS = Folks-$(API_VERSION).gir
+Folks-$(API_VERSION_DOT).gir: libfolks.la
+GIRS = Folks-$(API_VERSION_DOT).gir
 
 girdir = $(datadir)/gir-1.0
 dist_gir_DATA = $(GIRS)
@@ -213,10 +217,6 @@ nodist_typelib_DATA = $(GIRS:.gir=.typelib)
 
 CLEANFILES += $(nodist_typelib_DATA)
 endif
-
-MAINTAINERCLEANFILES += \
-	$(BUILT_SOURCES) \
-	$(NULL)
 
 ##################################################
 # GSettings
@@ -232,6 +232,6 @@ convert_DATA = folks.convert
 
 EXTRA_DIST += $(convert_DATA)
 CLEANFILES += $(gsettings_SCHEMAS)
-GITIGNOREFILES += org.freedesktop.folks.gschema.valid
+GITIGNOREFILES = org.freedesktop.folks.gschema.valid
 
 -include $(top_srcdir)/git.mk

@@ -129,6 +129,11 @@ public class TpfTest.TestCase : Folks.TestCase
    */
   public virtual void create_kf_backend ()
     {
+      /* Default key-file backend file to load. */
+      Environment.set_variable ("FOLKS_BACKEND_KEY_FILE_PATH",
+          Folks.BuildConf.ABS_TOP_SRCDIR + "/data/relationships-empty.ini",
+          true);
+
       if (use_keyfile_too)
         this.kf_backend = new KfTest.Backend ();
     }
@@ -212,6 +217,15 @@ public class TpfTest.TestCase : Folks.TestCase
         {
           ((!) this.kf_backend).tear_down ();
         }
+
+      /* Ensure that all pending operations are complete.
+       *
+       * FIXME: This should be eliminated and unprepare() should guarantee there
+       * are no more pending Backend/PersonaStore events.
+       *
+       * https://bugzilla.gnome.org/show_bug.cgi?id=727700 */
+      var context = MainContext.default ();
+      while (context.iteration (false));
 
       base.tear_down ();
     }

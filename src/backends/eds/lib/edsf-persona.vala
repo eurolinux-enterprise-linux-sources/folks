@@ -112,6 +112,18 @@ public class Edsf.Persona : Folks.Persona,
     };
 
   /**
+   * Name of folks’ custom parameter indicating automatic fields
+   *
+   * Folks can create extra fields to improve linking between personas.
+   * These fields have a boolean-typed parameter added with this name,
+   * and the value ‘TRUE’. This allows clients to detect such fields
+   * and (for example) ignore them in the UI.
+   *
+   * @since 0.9.7
+   */
+  public static const string folks_field_attribute_name = "X-FOLKS-FIELD";
+
+  /**
    * The vCard attribute used to specify a Contact's gender
    *
    * Based on:
@@ -147,10 +159,14 @@ public class Edsf.Persona : Folks.Persona,
    */
   public static const string gender_female = "F";
 
-  private const string[] _linkable_properties = { "im-addresses",
-                                                  "email-addresses",
-                                                  "local-ids",
-                                                  "web-service-addresses" };
+  private const string[] _linkable_properties =
+    {
+      "im-addresses",
+      "email-addresses",
+      "local-ids",
+      "web-service-addresses",
+      null /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+    };
 
   private static GLib.HashTable<string, E.ContactField>? _im_eds_map = null;
 
@@ -172,6 +188,8 @@ public class Edsf.Persona : Folks.Persona,
 
   /**
    * {@inheritDoc}
+   *
+   * This is stored in the X-FOLKS-WEB-SERVICES-IDS vCard field in EDS.
    */
   [CCode (notify = false)]
   public MultiMap<string, WebServiceFieldDetails> web_service_addresses
@@ -200,6 +218,8 @@ public class Edsf.Persona : Folks.Persona,
 
   /**
    * IDs used to link {@link Edsf.Persona}s.
+   *
+   * This is stored in the X-FOLKS-CONTACTS-IDS vCard field in EDS.
    */
   [CCode (notify = false)]
   public Set<string> local_ids
@@ -499,6 +519,9 @@ public class Edsf.Persona : Folks.Persona,
   /**
    * {@inheritDoc}
    *
+   * This is stored in the {@link Edsf.Persona.gender_attribute_name} vCard
+   * field in EDS.
+   *
    * @since 0.6.0
    */
   [CCode (notify = false)]
@@ -522,6 +545,8 @@ public class Edsf.Persona : Folks.Persona,
   private Set<UrlFieldDetails>? _urls_ro = null;
   /**
    * {@inheritDoc}
+   *
+   * This is stored in the X-URIS vCard field in EDS.
    *
    * @since 0.6.0
    */
@@ -756,6 +781,8 @@ public class Edsf.Persona : Folks.Persona,
   /**
    * {@inheritDoc}
    *
+   * This is stored in the X-ROLES vCard field in EDS.
+   *
    * @since 0.6.2
    */
   [CCode (notify = false)]
@@ -784,6 +811,8 @@ public class Edsf.Persona : Folks.Persona,
 
   /**
    * Whether this contact is a user-defined favourite.
+   *
+   * This is stored in the X-FOLKS-FAVOURITE vCard field in EDS.
    *
    * @since 0.6.5
    */
@@ -847,6 +876,8 @@ public class Edsf.Persona : Folks.Persona,
   /**
    * The complete set of system group identifiers the contact belongs to.
    * See {@link Persona.change_system_groups} for details.
+   *
+   * This is stored in the X-GOOGLE-SYSTEM-GROUP-IDS vCard field in EDS.
    *
    * @since 0.9.0
    */
@@ -932,12 +963,10 @@ public class Edsf.Persona : Folks.Persona,
       var uid = Folks.Persona.build_uid (BACKEND_NAME, store.id, contact_id);
       var iid = Edsf.Persona.build_iid (store.id, contact_id);
       var is_user = BookClient.is_self (contact);
-      var _full_name =
-          Edsf.Persona._get_property_from_contact<string> (contact,
-              "full_name");
-      var full_name = (!) (_full_name ?? "");
 
-      Object (display_id: full_name,
+      /* Use the IID as the display ID since no other suitable identifier is
+       * available which we can guarantee is unique within the store. */
+      Object (display_id: iid,
               uid: uid,
               iid: iid,
               store: store,
@@ -978,7 +1007,6 @@ public class Edsf.Persona : Folks.Persona,
         new HashMultiMap<string, WebServiceFieldDetails> (
           null, null, AbstractFieldDetails<string>.hash_static,
           AbstractFieldDetails<string>.equal_static);
-      this._email_addresses_ro = this._email_addresses.read_only_view;
       this._groups = new SmallSet<string> ();
       this._groups_ro = this._groups.read_only_view;
       this._roles = new SmallSet<RoleFieldDetails> (
@@ -1148,9 +1176,12 @@ public class Edsf.Persona : Folks.Persona,
            * /etc/localtime, which means lots of syscalls. */
           var d = new DateTime (Persona._local_time_zone,
               (int) bday.year, (int) bday.month, (int) bday.day, 0, 0, 0.0);
-          if (this._birthday == null ||
+
+          /* d might be null if their birthday in e-d-s is something that
+           * doesn't make sense, like 31st February. If so, ignore it. */
+          if (d != null && (this._birthday == null ||
               (this._birthday != null &&
-                  !((!) this._birthday).equal (d.to_utc ())))
+                  !((!) this._birthday).equal (d.to_utc ()))))
             {
               this._birthday = d.to_utc ();
               this.notify_property ("birthday");
@@ -1492,6 +1523,19 @@ public class Edsf.Persona : Folks.Persona,
                 return null;
               }
 
+            /* Ignore non-local files, or we could end up downloading huge
+             * pictures that we really don’t want. Non-local URI-based contact
+             * photos are rare anyway.
+             *
+             * See: https://bugzilla.gnome.org/show_bug.cgi?id=697695 */
+            var scheme = Uri.parse_scheme (uri);
+            if (scheme == null || scheme != "file")
+              {
+                warning ("Ignoring contact photo with URI ‘%s’ because it’s " +
+                    "not a local file.", uri);
+                return null;
+              }
+
             return new FileIcon (File.new_for_uri ((!) uri));
           case ContactPhotoType.INLINED:
             var data = p.get_inlined ();
@@ -1501,7 +1545,8 @@ public class Edsf.Persona : Folks.Persona,
                 return null;
               }
 
-            return new Edsf.MemoryIcon ((!) mime_type, (!) data);
+            var bytes = new Bytes ((!) data);
+            return new BytesIcon (bytes);
           default:
             return null;
         }
@@ -1511,47 +1556,20 @@ public class Edsf.Persona : Folks.Persona,
     {
       var p = this._get_property<E.ContactPhoto> ("photo");
 
-      var cache = AvatarCache.dup ();
-
       // Convert the ContactPhoto to a LoadableIcon and store or update it.
       var new_avatar = this._contact_photo_to_loadable_icon (p);
 
       if (this._avatar != null && new_avatar == null)
         {
-          // Remove the old cached avatar, ignoring errors.
-          cache.remove_avatar.begin (this.uid, (obj, res) =>
-            {
-              try
-                {
-                  cache.remove_avatar.end (res);
-                }
-              catch (GLib.Error e1) {}
-
-              this._avatar = null;
-              this.notify_property ("avatar");
-            });
+          this._avatar = null;
+          this.notify_property ("avatar");
         }
       else if ((this._avatar == null && new_avatar != null) ||
           (this._avatar != null && new_avatar != null &&
            ((!) this._avatar).equal (new_avatar) == false))
         {
-          /* Store the new avatar in the cache. new_avatar is guaranteed to be
-           * non-null. */
-          cache.store_avatar.begin (this.uid, (!) new_avatar, (obj, res) =>
-            {
-              try
-                {
-                  cache.store_avatar.end (res);
-                  this._avatar = new_avatar;
-                  this.notify_property ("avatar");
-                }
-              catch (GLib.Error e2)
-                {
-                  warning ("Couldn't cache avatar for Edsf.Persona '%s': %s",
-                      this.uid, e2.message);
-                  new_avatar = null; /* failure */
-                }
-            });
+          this._avatar = new_avatar;
+          this.notify_property ("avatar");
         }
     }
 
@@ -1645,7 +1663,7 @@ public class Edsf.Persona : Folks.Persona,
                     }
 
                   string normalised_addr =
-                    (owned) ImDetails.normalise_im_address ((!) addr, im_proto);
+                    ImDetails.normalise_im_address ((!) addr, im_proto);
 
                   if (normalised_addr == "")
                     {
@@ -1665,13 +1683,16 @@ public class Edsf.Persona : Folks.Persona,
         }
 
       /* We consider some e-mail addresses to be IM IDs too. This
-       * is pretty much a hack to make sure e-d-s contacts are
+       * is pretty much a hack to make sure EDS contacts are
        * automatically linked with their corresponding Telepathy
        * Persona. As an undesired side effect we might end up having
        * IM addresses that aren't actually used as such (i.e.: people
-       * who don't actually use GMail or MSN addresses for IM).
+       * who don't actually use GMail or MSN addresses for IM): this can be
+       * detected by clients by looking for the
+       * {@link Edsf.Persona.folks_field_attribute_name} parameter existing and
+       * being set to `TRUE` on the {@link ImFieldDetails}.
        *
-       * See bgo#657142
+       * See: bgo#657142, bgo#723187
        */
       foreach (var email in this._email_addresses)
         {
@@ -1702,8 +1723,11 @@ public class Edsf.Persona : Folks.Persona,
               try
                 {
                   string normalised_addr =
-                    (owned) ImDetails.normalise_im_address (email.value, proto);
+                    ImDetails.normalise_im_address (email.value, proto);
                   var im_fd = new ImFieldDetails (normalised_addr);
+
+                  im_fd.add_parameter (
+                      Edsf.Persona.folks_field_attribute_name, "TRUE");
                   new_im_addresses.set (proto, im_fd);
                 }
               catch (Folks.ImDetailsError e)
@@ -1962,8 +1986,10 @@ public class Edsf.Persona : Folks.Persona,
           new_phone_numbers.add (phone_fd);
         }
 
-      if (!Folks.Internal.equal_sets<PhoneFieldDetails>  (new_phone_numbers,
-              this._phone_numbers))
+      // Does not use phone comparation because this will try to match only
+      // numbers and will remove the prefix, and that could cause a wrong result
+      // since the the phone number is stored as string
+      if (!Utils.set_string_afd_equal (this._phone_numbers, new_phone_numbers))
         {
           this._phone_numbers = new_phone_numbers;
           this._phone_numbers_ro = new_phone_numbers.read_only_view;

@@ -40,8 +40,6 @@ public class PhonesUpdatesTests : TrackerTest.TestCase
     {
       base ("PhonesUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("phones updates", this.test_phones_updates);
     }
 
@@ -79,7 +77,7 @@ public class PhonesUpdatesTests : TrackerTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

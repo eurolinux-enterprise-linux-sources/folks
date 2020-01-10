@@ -39,8 +39,6 @@ public class AdditionalNamesUpdatesTests : TrackerTest.TestCase
     {
       base ("AdditionalNamesUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("additional names updates",
           this.test_additional_names_updates);
     }
@@ -78,7 +76,7 @@ public class AdditionalNamesUpdatesTests : TrackerTest.TestCase
   private async void _test_additional_names_updates_async (BackendStore store)
     {
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

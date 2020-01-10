@@ -25,6 +25,11 @@ public class AggregationTests : TpfTest.MixedTestCase
 {
   private HashSet<string> _default_personas;
 
+  private static string iid_prefix =
+      "telepathy:/org/freedesktop/Telepathy/Account/cm/protocol/account:";
+  private string olivier_sha1 = Checksum.compute_for_string (ChecksumType.SHA1,
+      iid_prefix + "olivier@example.com");
+
   public AggregationTests ()
     {
       base ("Aggregation");
@@ -88,33 +93,13 @@ public class AggregationTests : TpfTest.MixedTestCase
       void* account2_handle = tp_backend.add_account ("protocol",
           "me2@example.com", "cm", "account2");
 
-      /* IDs of the individuals we expect to see.
-       * These are externally opaque, but internally are SHA-1 hashes of the
-       * concatenated UIDs of the Personas in the Individual. In these cases,
-       * each default_individual contains two Personas with the same IID.
-       * e.g.
-       *  telepathy:/org/freedesktop/Telepathy/Account/cm/protocol/account2:sjoerd@example.com
-       * and
-       *  telepathy:/org/freedesktop/Telepathy/Account/cm/protocol/account:sjoerd@example.com
-       * in a single Individual. */
+      /* IDs of the individuals we expect to see. */
       var default_individuals = new HashSet<string> ();
-
-      /* guillaume@example.com */
-      default_individuals.add ("6380b17dc511b21a1defd4811f1add97b278f92c");
-      /* sjoerd@example.com */
-      default_individuals.add ("6b08188cb2ef8cbaca140b277780069b5af8add6");
-      /* travis@example.com */
-      default_individuals.add ("60c91326018f6a60604f8d260fc24a60a5b8512c");
-      /* olivier@example.com */
-      default_individuals.add ("0e46c5e74f61908f49550d241f2a1651892a1695");
-      /* christian@example.com */
-      default_individuals.add ("07b913b8977c04d2f2011e26a46ea3e3dcfe3e3d");
-      /* geraldine@example.com */
-      default_individuals.add ("f948d4d2af79085ab860f0ef67bf0c201c4602d4");
-      /* helen@example.com */
-      default_individuals.add ("f34529a442577b840a75271b464e90666c38c464");
-      /* wim@example.com */
-      default_individuals.add ("467d13f955e62bf30ebf9620fa052aaee2160260");
+      foreach (var id in this._default_personas)
+        {
+          default_individuals.add (Checksum.compute_for_string (
+              ChecksumType.SHA1, iid_prefix + id));
+        }
 
       /* Work on a copy of the set of individuals so we can mangle it. We keep
        * one copy of the set for the individuals_changed signal, and one for
@@ -129,7 +114,7 @@ public class AggregationTests : TpfTest.MixedTestCase
         }
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var removed = changes.get_keys ();
@@ -262,7 +247,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       weak Individual individual2_detailed = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var removed = changes.get_keys ();
@@ -438,7 +423,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       weak Individual individual2_detailed = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           var removed = changes.get_keys ();
@@ -616,7 +601,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       Individual user_individual_detailed = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       var individuals_changed_detailed_id =
           aggregator.individuals_changed_detailed.connect ((changes) =>
         {
@@ -746,7 +731,7 @@ public class AggregationTests : TpfTest.MixedTestCase
           "me2@example.com", "cm", "account2");
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       var individuals_changed_detailed_id =
           aggregator.individuals_changed_detailed.connect ((changes) =>
         {
@@ -867,7 +852,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       var individuals_map = new HashMap<string, IndividualState> ();
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       var aggregator_is_finalising = false;
 
       aggregator.individuals_changed.connect ((added, removed, m, a, r) =>
@@ -981,7 +966,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       Individual? individual = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           assert (changes.size == 1);
@@ -1095,7 +1080,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       Individual? individual = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       var individuals_changed_id =
           aggregator.individuals_changed_detailed.connect ((changes) =>
         {
@@ -1106,8 +1091,7 @@ public class AggregationTests : TpfTest.MixedTestCase
             {
               assert (i != null);
 
-              /* olivier@example.com */
-              if (i.id == "0e46c5e74f61908f49550d241f2a1651892a1695")
+              if (i.id == olivier_sha1)
                 {
                   assert (individual == null);
                   individual = i;
@@ -1196,7 +1180,7 @@ public class AggregationTests : TpfTest.MixedTestCase
                * we have to check for the personas themselves. */
               foreach (var p in i.personas)
                 {
-                  if (p.uid == "telepathy:/org/freedesktop/Telepathy/Account/cm/protocol/account:olivier@example.com")
+                  if (p.uid == iid_prefix + "olivier@example.com")
                     {
                       got_tpf = true;
                     }
@@ -1270,7 +1254,7 @@ public class AggregationTests : TpfTest.MixedTestCase
       Individual? individual = null;
 
       /* Set up the aggregator */
-      var aggregator = new IndividualAggregator ();
+      var aggregator = IndividualAggregator.dup ();
       aggregator.individuals_changed_detailed.connect ((changes) =>
         {
           assert (changes.size == 1);

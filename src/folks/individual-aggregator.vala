@@ -79,6 +79,7 @@ public errordomain Folks.IndividualAggregatorError
  * through the aggregator. Personas may be linked together to form individuals;
  * for example, the personas which form ``individual1`` and ``individual2`` may
  * be linked together with ``another_persona`` to give a new {@link Individual}:
+ *
  * {{{
  *   var personas = new HashSet<Persona> ();
  *   personas.add_all (individual1.personas);
@@ -86,6 +87,7 @@ public errordomain Folks.IndividualAggregatorError
  *   personas.add (another_persona);
  *   yield my_individual_aggregator.link_personas (personas);
  * }}}
+ *
  * The individuals which contained those personas will be removed when
  * {@link IndividualAggregator.link_personas} is called. Any personas in those
  * individuals which were not included in the linking call may end up implicitly
@@ -113,13 +115,23 @@ public errordomain Folks.IndividualAggregatorError
  * be linked together. There is no API to directly link the individuals
  * themselves, as conceptually folks links {@link Persona}s, not
  * {@link Individual}s.
+ *
+ * Folks does not support having more than one IndividualAggregator
+ * instantiated at the same time. Most clients should use
+ * {@link IndividualAggregator.dup} to retrieve the IndividualAggregator
+ * singleton.
+ *
  */
 public class Folks.IndividualAggregator : Object
 {
+  private static weak IndividualAggregator? _instance = null; /* needs to be locked */
+
   private BackendStore _backend_store;
   private HashMap<string, PersonaStore> _stores;
   private unowned PersonaStore? _primary_store = null;
   private SmallSet<Backend> _backends;
+
+  private Settings? _primary_store_setting = null;
 
   /* This is conceptually a MultiMap<string, Individual> but it's sufficiently
    * heavily-used that avoiding GObject overhead in favour of inlinable
@@ -207,6 +219,17 @@ public class Folks.IndividualAggregator : Object
   public PersonaStore? primary_store
     {
       get { return this._primary_store; }
+    }
+
+  /**
+   * The backend store providing the persona stores for this aggregator.
+   *
+   * @since 0.9.7
+   */
+  public BackendStore backend_store
+    {
+      get { return this._backend_store; }
+      construct { this._backend_store = value; }
     }
 
   private Map<string, Individual> _individuals;
@@ -312,7 +335,38 @@ public class Folks.IndividualAggregator : Object
   public signal void individuals_changed_detailed (
       MultiMap<Individual?, Individual?> changes);
 
-  /* FIXME: make this a singleton? */
+  /**
+   * Create or return the singleton {@link IndividualAggregator} class instance.
+   * If the instance doesn't exist already, it will be created with the
+   * default {@link BackendStore}.
+   *
+   * This function is thread-safe.
+   *
+   * @return Singleton {@link IndividualAggregator} instance
+   * @since 0.9.5
+   */
+  public static IndividualAggregator dup ()
+    {
+      lock (IndividualAggregator._instance)
+        {
+          IndividualAggregator? _retval = IndividualAggregator._instance;
+          IndividualAggregator retval;
+
+          if (_retval == null)
+            {
+              /* use an intermediate variable to force a strong reference */
+              retval = new IndividualAggregator ();
+              IndividualAggregator._instance = retval;
+            }
+          else
+            {
+              retval = (!) _retval;
+            }
+
+          return retval;
+        }
+    }
+
   /**
    * Create a new IndividualAggregator.
    *
@@ -328,13 +382,60 @@ public class Folks.IndividualAggregator : Object
    *   agg.individuals_changed_detailed.connect (individuals_changed_cb);
    *   agg.prepare ();
    * }}}
+   *
+   * Folks does not support having more than one IndividualAggregator
+   * instantiated at the same time. So it's recommended to use
+   * {@link IndividualAggregator.dup} instead.
    */
+  [Deprecated (since = "0.9.5",
+      replacement = "IndividualAggregator.dup")]
   public IndividualAggregator ()
   {
-    Object ();
-    this._backend_store = BackendStore.dup ();
+    Object (backend_store: BackendStore.dup ());
   }
-  
+
+  /**
+   * Create or return the singleton {@link IndividualAggregator} class instance
+   * with a custom {@link BackendStore}.
+   * If the instance doesn't exist already, it will be created with
+   * the given {@link BackendStore} rather than the default one.
+   * If the instance already exists but is using another {@link BackendStore}
+   * then a warning is raised and null is returned.
+   *
+   * This function is thread-safe.
+   *
+   * @param store the {@link BackendStore} to use instead of the default one.
+
+   * @return Singleton {@link IndividualAggregator} instance, or null
+   * @since 0.9.5
+   */
+  public static IndividualAggregator? dup_with_backend_store (BackendStore store)
+    {
+      lock (IndividualAggregator._instance)
+        {
+          IndividualAggregator? _retval = IndividualAggregator._instance;
+          IndividualAggregator retval;
+
+          if (_retval == null)
+            {
+              /* use an intermediate variable to force a strong reference */
+              retval = new IndividualAggregator.with_backend_store (store);
+              IndividualAggregator._instance = retval;
+            }
+          else if (_retval._backend_store != store)
+            {
+              warning ("An aggregator already exists using another backend store");
+              return null;
+            }
+          else
+            {
+              retval = (!) _retval;
+            }
+
+          return retval;
+        }
+    }
+
   /**
    * Create a new IndividualAggregator with a custom {@link BackendStore}.
    *
@@ -346,10 +447,11 @@ public class Folks.IndividualAggregator : Object
    *
    * @since 0.9.0
    */
+  [Deprecated (since = "0.9.5",
+      replacement = "IndividualAggregator.dup_with_backend_store")]
   public IndividualAggregator.with_backend_store (BackendStore store)
   {
-    Object ();
-    this._backend_store = store;
+    Object (backend_store: store);
   }
   
   construct
@@ -396,13 +498,12 @@ public class Folks.IndividualAggregator : Object
               this._configured_primary_store_id = "";
             }
 
-          var settings = new Settings (IndividualAggregator._FOLKS_GSETTINGS_SCHEMA);
-          var val = settings.get_string (IndividualAggregator._PRIMARY_STORE_CONFIG_KEY);
-          if (val != null && val != "")
-            {
-              debug ("Setting primary store IDs from GSettings.");
-              this._configure_primary_store ((!) val);
-            }
+          _primary_store_setting = new Settings (
+              IndividualAggregator._FOLKS_GSETTINGS_SCHEMA);
+          _primary_store_setting.changed[IndividualAggregator._PRIMARY_STORE_CONFIG_KEY].connect (
+              this._primary_store_setting_changed_cb);
+		  this._primary_store_setting_changed_cb (_primary_store_setting,
+			  IndividualAggregator._PRIMARY_STORE_CONFIG_KEY);
         }
 
       debug ("Primary store IDs are '%s' and '%s'.",
@@ -414,8 +515,6 @@ public class Folks.IndividualAggregator : Object
         disable_linking = ((!) disable_linking).strip ().down ();
       this._linking_enabled = (disable_linking == null ||
           disable_linking == "no" || disable_linking == "0");
-
-      this._backend_store = BackendStore.dup ();
 
       debug ("Constructing IndividualAggregator %p", this);
     }
@@ -434,6 +533,32 @@ public class Folks.IndividualAggregator : Object
           this._backend_available_cb);
 
       this._debug.print_status.disconnect (this._debug_print_status);
+
+      /* Manually clear the singleton _instance */
+      lock (IndividualAggregator._instance)
+        {
+          IndividualAggregator._instance = null;
+        }
+    }
+
+  private void _primary_store_setting_changed_cb (Settings settings,
+        string key)
+    {
+        var val = settings.get_string (key);
+        if (val != null && val != "")
+        {
+            debug ("Setting primary store IDs from GSettings.");
+            this._configure_primary_store ((!) val);
+
+            var store_full_id = this._get_store_full_id (
+                this._configured_primary_store_type_id,
+                this._configured_primary_store_id);
+            if (store_full_id in this._stores)
+              {
+                  var selected_store = this._stores.get (store_full_id);
+                  this._set_primary_store (selected_store);
+              }
+        }
     }
 
   private void _configure_primary_store (string store_config_ids)
@@ -1111,7 +1236,8 @@ public class Folks.IndividualAggregator : Object
 
           /* If the Persona is the user, we *always* want to link it to the
            * existing this.user. */
-          if (persona.is_user == true && user != null &&
+          if (this._linking_enabled == true &&
+              persona.is_user == true && user != null &&
               ((!) user).has_anti_link_with_persona (persona) == false)
             {
               debug ("    Found candidate individual '%s' as user.",
@@ -1121,7 +1247,8 @@ public class Folks.IndividualAggregator : Object
 
           /* If we don't trust the PersonaStore at all, we can't link the
            * Persona to any existing Individual */
-          if (trust_level != PersonaStoreTrust.NONE)
+          if (this._linking_enabled == true &&
+              trust_level != PersonaStoreTrust.NONE)
             {
               unowned GenericArray<Individual>? candidates =
                   this._link_map.get (persona.iid);
@@ -1143,12 +1270,17 @@ public class Folks.IndividualAggregator : Object
                 }
             }
 
-          if (persona.store.trust_level == PersonaStoreTrust.FULL)
+          if (this._linking_enabled == true &&
+              persona.store.trust_level == PersonaStoreTrust.FULL)
             {
               /* If we trust the PersonaStore the Persona came from, we can
                * attempt to link based on its linkable properties. */
               foreach (unowned string foo in persona.linkable_properties)
                 {
+                  /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+                  if (foo == null)
+                      continue;
+
                   /* FIXME: If we just use string prop_name directly in the
                    * foreach, Vala doesn't copy it into the closure data, and
                    * prop_name ends up as NULL. bgo#628336 */
@@ -1198,6 +1330,7 @@ public class Folks.IndividualAggregator : Object
           /* Ensure the original persona makes it into the final individual */
           final_personas.add (persona);
 
+          assert (this._linking_enabled == true || candidate_inds.size == 0);
           if (candidate_inds.size > 0 && this._linking_enabled == true)
             {
               /* The Persona's IID or linkable properties match one or more
@@ -1210,7 +1343,7 @@ public class Folks.IndividualAggregator : Object
                   final_personas.add_all (individual.personas);
                 }
             }
-          else if (candidate_inds.size > 0)
+          else if (!this._linking_enabled)
             {
               debug ("    Linking disabled.");
             }
@@ -1294,6 +1427,12 @@ public class Folks.IndividualAggregator : Object
   private void _persona_linkable_property_changed_cb (Object obj,
       ParamSpec pspec)
     {
+      /* Ignore it if the link is disabled */
+      if (this._linking_enabled == false)
+        {
+          return;
+        }
+
       /* The value of one of the linkable properties of one the personas has
        * changed, so that persona might require re-linking. We do this in a
        * simplistic and hacky way (which should work) by simply treating the
@@ -1333,6 +1472,10 @@ public class Folks.IndividualAggregator : Object
     {
       foreach (var prop_name in persona.linkable_properties)
         {
+          /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+          if (prop_name == null)
+              continue;
+
           persona.notify[prop_name].connect (
               this._persona_linkable_property_changed_cb);
         }
@@ -1355,6 +1498,10 @@ public class Folks.IndividualAggregator : Object
 
       foreach (var prop_name in persona.linkable_properties)
         {
+          /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+          if (prop_name == null)
+              continue;
+
           persona.notify[prop_name].disconnect (
               this._persona_linkable_property_changed_cb);
         }
@@ -1407,6 +1554,10 @@ public class Folks.IndividualAggregator : Object
            * Individual. */
           foreach (unowned string prop_name in persona.linkable_properties)
             {
+              /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+              if (prop_name == null)
+                  continue;
+
               debug ("        %s", prop_name);
 
               /* FIXME: can't be var because of bgo#638208 */
@@ -1604,12 +1755,12 @@ public class Folks.IndividualAggregator : Object
           /* Extract the deprecated added and removed sets from
            * individuals_changes, to be used in the individuals_changed
            * signal. */
-          var iter = individuals_changes.map_iterator ();
+          var iter1 = individuals_changes.map_iterator ();
 
-          while (iter.next ())
+          while (iter1.next ())
             {
-              var old_ind = iter.get_key ();
-              var new_ind = iter.get_value ();
+              var old_ind = iter1.get_key ();
+              var new_ind = iter1.get_value ();
 
               assert (old_ind != null || new_ind != null);
 
@@ -1637,11 +1788,11 @@ public class Folks.IndividualAggregator : Object
       /* Signal the replacement of various Individuals as a consequence of
        * linking. */
       debug ("Replacing Individuals due to linking:");
-      var iter = replaced_individuals.map_iterator ();
-      while (iter.next () == true)
+      var iter2 = replaced_individuals.map_iterator ();
+      while (iter2.next () == true)
         {
-          var old_ind = iter.get_key ();
-          var new_ind = iter.get_value ();
+          var old_ind = iter2.get_key ();
+          var new_ind = iter2.get_value ();
 
           debug ("    %s (%p) → %s (%p)", old_ind.id, old_ind,
               new_ind.id, new_ind);

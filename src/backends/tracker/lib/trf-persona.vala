@@ -48,7 +48,12 @@ public class Trf.Persona : Folks.Persona,
   private string _nickname; /* must never be null */
   private bool _is_favourite;
   private const string[] _linkable_properties =
-      {"im-addresses", "local-ids", "web-service-addresses"};
+    {
+      "im-addresses",
+      "local-ids",
+      "web-service-addresses",
+      null /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
+    };
   private SmallSet<PhoneFieldDetails> _phone_numbers;
   private Set<PhoneFieldDetails> _phone_numbers_ro;
   private SmallSet<EmailFieldDetails> _email_addresses;
@@ -70,7 +75,8 @@ public class Trf.Persona : Folks.Persona,
       "im-addresses",
       "is-favourite",
       "local-ids",
-      "web-service-addresses"
+      "web-service-addresses",
+      null /* FIXME: https://bugzilla.gnome.org/show_bug.cgi?id=682698 */
     };
 
   /**
@@ -519,16 +525,9 @@ public class Trf.Persona : Folks.Persona,
       string uid = Folks.Persona.build_uid (BACKEND_NAME, store.id, tracker_id);
       string iid = Trf.Persona.build_iid (store.id, tracker_id);
       bool is_user = false;
-      string fullname = "";
 
       if (cursor != null)
         {
-          fullname = cursor.get_string (Trf.Fields.FULL_NAME).dup ();
-          if (fullname == null)
-            {
-              fullname = "";
-            }
-
           var contact_urn = cursor.get_string (Trf.Fields.CONTACT_URN);
           if (contact_urn == Trf.OntologyDefs.DEFAULT_CONTACT_URN)
             {
@@ -536,7 +535,9 @@ public class Trf.Persona : Folks.Persona,
             }
         }
 
-      Object (display_id: fullname,
+      /* Use the IID as the display ID since no other suitable identifier is
+       * available which we can guarantee is unique within the store. */
+      Object (display_id: iid,
               uid: uid,
               iid: iid,
               store: store,
@@ -556,6 +557,8 @@ public class Trf.Persona : Folks.Persona,
       this._gender = Gender.UNSPECIFIED;
       this._full_name = "";
       this._structured_name = null;
+      this._nickname = "";
+      this._is_favourite = false;
       this._phone_numbers = new SmallSet<PhoneFieldDetails> (
           AbstractFieldDetails<string>.hash_static,
           AbstractFieldDetails<string>.equal_static);
@@ -958,9 +961,13 @@ public class Trf.Persona : Folks.Persona,
       if (birthday != null && birthday != "")
         {
           TimeVal t = TimeVal ();
-          t.from_iso8601 (birthday);
-          this._birthday = new DateTime.from_timeval_utc (t);
-          this.notify_property ("birthday");
+          if (t.from_iso8601 (birthday))
+            {
+              /* Note: This could return null if the timeval is invalid
+               * (e.g. out of range). That's OK. */
+              this._birthday = new DateTime.from_timeval_utc (t);
+              this.notify_property ("birthday");
+            }
         }
       else
         {
@@ -1152,9 +1159,8 @@ public class Trf.Persona : Folks.Persona,
     {
       try
         {
-          var account_id_copy = account_id.dup ();
-          var normalised_addr = (owned) normalise_im_address
-              ((owned) account_id_copy, im_proto);
+          var normalised_addr = ImDetails.normalise_im_address
+              (account_id, im_proto);
           var im_fd = new ImFieldDetails (normalised_addr);
 
           this._im_addresses.set (im_proto, im_fd);

@@ -41,8 +41,6 @@ public class IMAddressesUpdatesTests : TrackerTest.TestCase
     {
       base ("IMAddressesUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("im addresses updates", this.test_imaddresses_updates);
     }
 
@@ -79,7 +77,7 @@ public class IMAddressesUpdatesTests : TrackerTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

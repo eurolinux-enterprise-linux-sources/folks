@@ -4,7 +4,7 @@
 # copy-and-modify (moving it to a better namespace), or make changes in the
 # copy in telepathy-glib first.
 
-VAPIGENFLAGS += \
+VAPIGENFLAGS = \
 	--vapidir=. \
 	--pkg gobject-2.0 \
 	--pkg gio-2.0 \
@@ -16,8 +16,11 @@ VAPIGENFLAGS += \
 
 noinst_LTLIBRARIES = libtp-test-contactlist.la
 
-libtp_test_contactlist_la_SOURCES = \
+nodist_libtp_test_contactlist_la_SOURCES = \
         _gen/param-spec-struct.h \
+	$(NULL)
+
+libtp_test_contactlist_la_SOURCES = \
         backend.c \
         backend.h \
         contact-list-manager.c \
@@ -63,6 +66,10 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-introspection
 INTROSPECTION_GIRS =
 INTROSPECTION_SCANNER_ARGS = --add-include-path=$(srcdir)
 INTROSPECTION_COMPILER_ARGS = --includedir=$(srcdir)
+
+# Set PKG_CONFIG_PATH so we can find the backend's uninstalled pkg-config file.
+INTROSPECTION_SCANNER_ENV = \
+	PKG_CONFIG_PATH=$(top_builddir)/folks:$${PKG_CONFIG_PATH}
 
 tp-test-contactlist.gir: $(libtp_test_contactlist_la_SOURCES) \
 	libtp-test-contactlist.la

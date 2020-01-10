@@ -40,8 +40,6 @@ public class FavouriteUpdatesTests : TrackerTest.TestCase
     {
       base ("FavouriteUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("favourite update", this.test_favourite_update);
     }
 
@@ -75,7 +73,7 @@ public class FavouriteUpdatesTests : TrackerTest.TestCase
 
       // this timer is slightly higher than usual because sleep
       // to ensure a (usually delayed) INSERT event has happened
-      TestUtils.loop_run_with_timeout (this._main_loop, 7);
+      TestUtils.loop_run_with_timeout (this._main_loop, 15);
 
       assert (this._is_favourite_1 == true);
       assert (this._is_favourite_2 == false);
@@ -85,7 +83,7 @@ public class FavouriteUpdatesTests : TrackerTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

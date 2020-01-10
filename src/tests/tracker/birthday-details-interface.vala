@@ -35,8 +35,6 @@ public class BirthdayDetailsInterfaceTests : TrackerTest.TestCase
     {
       base ("BirthdayDetailsInterfaceTests");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("test birthday details interface",
           this.test_birthay_details_interface);
     }
@@ -70,7 +68,7 @@ public class BirthdayDetailsInterfaceTests : TrackerTest.TestCase
       var store = BackendStore.dup ();
       yield store.prepare ();
 
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

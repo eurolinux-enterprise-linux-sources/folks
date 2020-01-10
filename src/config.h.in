@@ -6,6 +6,9 @@
 /* Build with GLib deprecated */
 #undef GLIB_DISABLE_DEPRECATION_WARNINGS
 
+/* Define as 1 if you have the BlueZ backend */
+#undef HAVE_BLUEZ
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
@@ -90,3 +93,6 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+/* Tracker major version */
+#undef TRACKER_SPARQL_MAJOR

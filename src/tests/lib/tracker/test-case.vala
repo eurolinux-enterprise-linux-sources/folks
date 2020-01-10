@@ -26,8 +26,8 @@
  * Folks is configured to use the Tracker backend as primary store,
  * and no other backends.
  *
- * FIXME: For now, this relies on running under with-session-bus-tracker.sh
- * with FOLKS_BACKEND_PATH set.
+ * This uses tracker-control to start and stop Tracker services on a private
+ * D-Bus bus.
  */
 public class TrackerTest.TestCase : Folks.TestCase
 {
@@ -47,33 +47,79 @@ public class TrackerTest.TestCase : Folks.TestCase
    */
   public TestCase (string name)
     {
-      /* This variable is set in the same place as the various variables we
-       * care about for sandboxing purposes, like XDG_CONFIG_HOME and
-       * DBUS_SESSION_BUS_ADDRESS. */
-      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS")
-          != "tracker")
-        error ("Tracker tests must be run in a private D-Bus session " +
-            "with Tracker services");
-
       base (name);
 
       Environment.set_variable ("FOLKS_BACKENDS_ALLOWED", "tracker", true);
       Environment.set_variable ("FOLKS_PRIMARY_STORE", "tracker", true);
-
-      this.tracker_backend = new TrackerTest.Backend ();
-    }
-
-  public override string? create_transient_dir ()
-    {
-      /* Don't do anything. We're currently relying on
-       * being wrapped in with-session-bus-tracker.sh. */
-      return null;
     }
 
   public override void private_bus_up ()
     {
-      /* Don't do anything. We're currently relying on
-       * being wrapped in with-session-bus-tracker.sh. */
+      base.private_bus_up ();
+
+      /* Find out the libexec directory to use. */
+      int exit_status = -1;
+      string capture_stdout = null;
+
+      try
+        {
+          Process.spawn_sync (null /* cwd */,
+              { "pkg-config", "--variable=prefix",
+              "tracker-miner-%s".printf(Folks.BuildConf.TRACKER_SPARQL_MAJOR)},
+              null /* envp */,
+              SpawnFlags.SEARCH_PATH /* flags */,
+              null /* child setup */,
+              out capture_stdout,
+              null /* do not capture stderr */,
+              out exit_status);
+
+          Process.check_exit_status (exit_status);
+        }
+      catch (GLib.Error e1)
+        {
+          error ("Error getting libexecdir from pkg-config: %s", e1.message);
+        }
+
+      /* FIXME: There really should be a libexec variable in the pkg-config
+       * file. */
+      var libexec = capture_stdout.strip () + "/libexec";
+
+      /* Create service files for the Tracker binaries. */
+      var service_file_name =
+          Path.build_filename (this.transient_dir, "dbus-1", "services",
+              "org.freedesktop.Tracker1.service");
+      var service_file = ("[D-BUS Service]\n" +
+          "Name=org.freedesktop.Tracker1\n" +
+          "Exec=%s/tracker-store\n").printf (libexec);
+
+      try
+        {
+          FileUtils.set_contents (service_file_name, service_file);
+        }
+      catch (FileError e2)
+        {
+          error ("Error creating D-Bus service file ‘%s’: %s",
+              service_file_name, e2.message);
+        }
+    }
+
+  public override void set_up ()
+    {
+      base.set_up ();
+      this.create_backend ();
+    }
+
+  /**
+   * Virtual method to create and set up the Tracker backend.
+   * Called from set_up(); may be overridden to not create the backend,
+   * or to create it but not set it up.
+   *
+   * Subclasses may chain up, but are not required to so.
+   */
+  public virtual void create_backend ()
+    {
+      this.tracker_backend = new TrackerTest.Backend ();
+      ((!) this.tracker_backend).set_up ();
     }
 
   public override void tear_down ()
@@ -82,6 +128,15 @@ public class TrackerTest.TestCase : Folks.TestCase
         {
           ((!) this.tracker_backend).tear_down ();
         }
+
+      /* Ensure that all pending BlueZ operations are complete.
+       *
+       * FIXME: This should be eliminated and unprepare() should guarantee there
+       * are no more pending Backend/PersonaStore events.
+       *
+       * https://bugzilla.gnome.org/show_bug.cgi?id=727700 */
+      var context = MainContext.default ();
+      while (context.iteration (false));
 
       base.tear_down ();
     }

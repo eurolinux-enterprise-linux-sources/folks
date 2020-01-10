@@ -49,11 +49,13 @@ namespace TpTests {
 	}
 	[CCode (cheader_filename = "tp-test-contactlist.h", type_id = "tp_tests_props_group_text_channel_get_type ()")]
 	public class PropsGroupTextChannel : TpTests.PropsTextChannel {
+		public TelepathyGLib.GroupMixin group;
 		[CCode (has_construct_function = false)]
 		protected PropsGroupTextChannel ();
 	}
 	[CCode (cheader_filename = "tp-test-contactlist.h", type_id = "tp_tests_props_text_channel_get_type ()")]
 	public class PropsTextChannel : TpTests.TextChannelNull {
+		public weak GLib.HashTable<void*,void*> dbus_property_interfaces_retrieved;
 		[CCode (has_construct_function = false)]
 		protected PropsTextChannel ();
 	}

@@ -39,8 +39,6 @@ public class PrefixNameUpdatesTests : TrackerTest.TestCase
     {
       base ("PrefixNameUpdates");
 
-      ((!) this.tracker_backend).debug = false;
-
       this.add_test ("prefix name updates", this.test_prefix_name_updates);
     }
 
@@ -76,7 +74,7 @@ public class PrefixNameUpdatesTests : TrackerTest.TestCase
     {
       var store = BackendStore.dup ();
       yield store.prepare ();
-      this._aggregator = new IndividualAggregator ();
+      this._aggregator = IndividualAggregator.dup ();
       this._aggregator.individuals_changed_detailed.connect
           (this._individuals_changed_cb);
       try

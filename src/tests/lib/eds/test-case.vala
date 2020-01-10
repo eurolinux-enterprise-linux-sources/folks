@@ -26,8 +26,14 @@
  * A test case whose private D-Bus session contains the necessary daemons
  * for an Evolution address-book.
  *
- * FIXME: For now, this relies on running under with-session-bus-eds.sh
- * with FOLKS_BACKEND_PATH set.
+ * The EDS daemons are started through D-Bus service activation in
+ * {@link TestCase.private_bus_up}, and should automatically exit when the mock
+ * D-Bus bus is torn down. All of their configuration and data storage is
+ * isolated in a temporary directory which is unique per test run.
+ *
+ * The EDS daemons are only torn down in {@link TestCase.final_tear_down}, so
+ * remain running between test cases in the same test binary. Their state is
+ * soft-reset, but some state may be retained between test cases.
  */
 public class EdsTest.TestCase : Folks.TestCase
 {
@@ -42,14 +48,6 @@ public class EdsTest.TestCase : Folks.TestCase
 
   public TestCase (string name)
     {
-      /* This variable is set in the same place as the various variables we
-       * care about for sandboxing purposes, like XDG_CONFIG_HOME and
-       * DBUS_SESSION_BUS_ADDRESS. */
-      if (Environment.get_variable ("FOLKS_TESTS_SANDBOXED_DBUS")
-          != "eds")
-        error ("e-d-s tests must be run in a private D-Bus session " +
-            "with e-d-s services");
-
       base (name);
 
       Environment.set_variable ("FOLKS_BACKENDS_ALLOWED", "eds", true);
@@ -57,17 +55,106 @@ public class EdsTest.TestCase : Folks.TestCase
           true);
     }
 
-  public override string? create_transient_dir ()
+  public override string create_transient_dir ()
     {
-      /* Don't do anything. We're currently relying on
-       * being wrapped in with-session-bus-eds.sh. */
-      return null;
+      var transient = base.create_transient_dir ();
+
+      /* Evolution configuration directory. */
+      var config_dir = "%s/.config/evolution/sources".printf (transient);
+
+      if (GLib.DirUtils.create_with_parents (config_dir, 0700) != 0)
+        error ("unable to create '%s': %s",
+            config_dir, GLib.strerror (GLib.errno));
+
+      return transient;
     }
 
   public override void private_bus_up ()
     {
-      /* Don't do anything. We're currently relying on
-       * being wrapped in with-session-bus-eds.sh. */
+      base.private_bus_up ();
+
+      /* Find out the libexec directory to use. */
+      int exit_status = -1;
+      string capture_stdout = null;
+
+      try
+        {
+          Process.spawn_sync (null /* cwd */,
+              { "pkg-config", "--variable=libexecdir", "libedata-book-1.2" },
+              null /* envp */,
+              SpawnFlags.SEARCH_PATH /* flags */,
+              null /* child setup */,
+              out capture_stdout,
+              null /* do not capture stderr */,
+              out exit_status);
+
+          Process.check_exit_status (exit_status);
+        }
+      catch (GLib.Error e1)
+        {
+          error ("Error getting libexecdir from pkg-config: %s", e1.message);
+        }
+
+      var libexec = capture_stdout.strip ();
+
+      /* Create service files for the Evolution binaries. */
+      const string sources_services[] =
+        {
+          "org.gnome.evolution.dataserver.Sources3",
+          "org.gnome.evolution.dataserver.Sources2",
+          "org.gnome.evolution.dataserver.Sources1"
+        };
+      const string address_book_services[] =
+        {
+          "org.gnome.evolution.dataserver.AddressBook8",
+          "org.gnome.evolution.dataserver.AddressBook7",
+          "org.gnome.evolution.dataserver.AddressBook6",
+          "org.gnome.evolution.dataserver.AddressBook5",
+        };
+
+      /* Source registry. */
+      for (uint i = 0; i < sources_services.length; i++)
+        {
+          var service_file_name =
+              Path.build_filename (this.transient_dir, "dbus-1", "services",
+                  "evolution-source-registry-%u.service".printf (i));
+          var service_file = ("[D-BUS Service]\n" +
+              "Name=%s\n" +
+              "Exec=%s/evolution-source-registry\n").printf (
+                  sources_services[i], libexec);
+
+          try
+            {
+              FileUtils.set_contents (service_file_name, service_file);
+            }
+          catch (FileError e2)
+            {
+              error ("Error creating D-Bus service file ‘%s’: %s",
+                  service_file_name, e2.message);
+            }
+        }
+
+      /* Address book factory. */
+      for (uint i = 0; i < address_book_services.length; i++)
+        {
+          var service_file_name =
+              Path.build_filename (this.transient_dir, "dbus-1", "services",
+                  "evolution-addressbook-factory-%u.service".printf (i));
+          var service_file = ("[D-BUS Service]\n" +
+              "Name=%s\n" +
+              "Exec=%s/evolution-addressbook-factory\n").printf (
+                  address_book_services[i], libexec);
+
+          try
+            {
+              FileUtils.set_contents (service_file_name, service_file);
+            }
+          catch (FileError e3)
+            {
+              error ("Error creating D-Bus service file ‘%s’: %s",
+                  service_file_name, e3.message);
+            }
+        }
     }
 
   public override void set_up ()
@@ -113,6 +200,15 @@ public class EdsTest.TestCase : Folks.TestCase
         }
 
       Environment.unset_variable ("FOLKS_PRIMARY_STORE");
+
+      /* Ensure that all pending operations are complete.
+       *
+       * FIXME: This should be eliminated and unprepare() should guarantee there
+       * are no more pending Backend/PersonaStore events.
+       *
+       * https://bugzilla.gnome.org/show_bug.cgi?id=727700 */
+      var context = MainContext.default ();
+      while (context.iteration (false));
 
       base.tear_down ();
     }

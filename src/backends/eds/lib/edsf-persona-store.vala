@@ -80,8 +80,9 @@ public class Edsf.PersonaStore : Folks.PersonaStore
    *
    * A new Address Book will be created with the given ID and the EDS
    * SourceRegistry will notice the new Address Book source and will emit
-   * source_added with the new {@link E.Source} object which {@link Eds.Backend}
-   * will then create a new {@link Edsf.PersonaStore} from.
+   * source_added with the new {@link E.Source} object which
+   * {@link Folks.Backends.Eds.Backend} will then create a new
+   * {@link Edsf.PersonaStore} from.
    *
    * @param id the name and id for the new address book
    * @throws GLib.Error if an error occurred while creating or committing to
@@ -284,7 +285,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
    * @since 0.6.0
    */
   [Deprecated (since = "0.7.2",
-      replacement = "Edsf.PersonaStore.with_source_registry()")]
+      replacement = "Edsf.PersonaStore.with_source_registry")]
   public PersonaStore (E.Source s)
     {
       string eds_uid = s.get_uid ();
@@ -312,8 +313,9 @@ public class Edsf.PersonaStore : Folks.PersonaStore
   public PersonaStore.with_source_registry (E.SourceRegistry r, E.Source s)
     {
       string eds_uid = s.get_uid ();
+      string eds_name = s.get_display_name ();
       Object (id: eds_uid,
-              display_name: eds_uid,
+              display_name: eds_name,
               source: s);
 
       this._source_registry = r;
@@ -365,7 +367,8 @@ public class Edsf.PersonaStore : Folks.PersonaStore
         }
       catch (GLib.Error e)
         {
-          GLib.warning ("~PersonaStore: %s\n", e.message);
+          if (!(e is IOError.CLOSED) && !(e is DBusError.NOT_SUPPORTED))
+              GLib.warning ("~PersonaStore: %s\n", e.message);
         }
     }
 
@@ -756,13 +759,12 @@ public class Edsf.PersonaStore : Folks.PersonaStore
               ((!) this._source_registry).source_disabled.connect (
                   this._source_registry_changed_cb);
 
-              /* Connect to the address book. */
+              /* Connect and open the address book */
               this._addressbook = yield E.BookClient.connect (this.source, null);
 
               ((!) this._addressbook).notify["readonly"].connect (
                   this._address_book_notify_read_only_cb);
 
-              yield this._open_address_book ();
               debug ("Successfully finished opening address book %p for " +
                   "persona store ‘%s’ (%p).", this._addressbook, this.id, this);
 
@@ -1052,109 +1054,6 @@ public class Edsf.PersonaStore : Folks.PersonaStore
       Internal.profiling_end ("preparing Edsf.PersonaStore");
     }
 
-  /* Temporaries for _open_address_book(). See the complaint below. */
-  Error? _open_address_book_error = null;
-  SourceFunc? _open_address_book_callback = null; /* non-null iff yielded */
-
-  /* Guarantees that either the address book will be open once the method
-   * returns, or an error will be thrown.
-   *
-   * This method is not safe to run multiple times concurrently. */
-  private async void _open_address_book () throws GLib.Error
-    {
-      Error? err_out = null;
-
-      debug ("Opening address book %p for persona store ‘%s’ (%p)",
-          this._addressbook, this.id, this);
-
-      /* We have to connect to this weirdly because ‘opened’ is also a property
-       * name. This means we can’t use a lambda function, which in turn means
-       * that we need to build our own closure (or store some temporaries in
-       * the persona store’s private data struct). Yuck. Yuck. Yuck. */
-      var signal_id = Signal.connect_swapped ((!) this._addressbook, "opened",
-        (Callback) this._address_book_opened_cb, this);
-
-      try
-        {
-          this._open_address_book_error = null;
-
-          yield ((!) this._addressbook).open (false, null);
-
-          if (this._open_address_book_error != null)
-            {
-              throw this._open_address_book_error;
-            }
-        }
-      catch (GLib.Error e1)
-        {
-          if (e1.domain == Client.error_quark () &&
-              (ClientError) e1.code == ClientError.BUSY)
-            {
-              /* If we've received a BUSY error, it means that the address book
-               * is already in the process of being opened by a different client
-               * (most likely in a completely unrelated process). Since EDS is
-               * kind enough not to block the open() call in this case, we have
-               * to handle it ourselves by waiting for the ::opened signal,
-               * which will be emitted once the address book is opened (or once
-               * opening it fails).
-               *
-               * We yield until the ::opened callback is called, at which point
-               * we return. The callback is a no-op if it’s called during the
-               * open() call above. */
-              this._open_address_book_callback =
-                  this._open_address_book.callback;
-              this._open_address_book_error = null;
-
-              debug ("Yielding on opening address book %p for persona store " +
-                  "‘%s’ (%p)", this._addressbook, this.id, this);
-              yield;
-
-              /* Propagate error/success. */
-              err_out = this._open_address_book_error;
-            }
-          else
-            {
-              /* Error. */
-              err_out = e1;
-            }
-
-          if (err_out != null)
-            {
-              throw err_out;
-            }
-        }
-      finally
-        {
-          /* Disconnect the ::opened signal. */
-          ((!) this._addressbook).disconnect (signal_id);
-
-          /* We should really be able to expect that either the address book is
-           * now open, or we have an error set. Unfortunately, this sometimes
-           * isn't the case, probably due to misbehaving EDS backends (though
-           * I haven't investigated). Just throw an error to be on the safe
-           * side. */
-          if (((!) this._addressbook).is_opened () == false && err_out == null)
-            {
-              err_out = new Error (Client.error_quark (),
-                  ClientError.OTHER_ERROR, "Misbehaving EDS backend: %s.",
-                  this.id);
-            }
-        }
-    }
-
-  private void _address_book_opened_cb (Error? err, BookClient address_book)
-    {
-      debug ("_address_book_opened_cb for store ‘%s’ (%p), address book %p " +
-          "and error %p", this.id, this, address_book, (void*) err);
-
-      this._open_address_book_error = err;
-
-      if (this._open_address_book_callback != null)
-        {
-          this._open_address_book_callback ();
-        }
-    }
-
   private PersonaDetail _eds_field_name_to_folks_persona_detail (
       string eds_field_name)
     {
@@ -1330,6 +1229,16 @@ public class Edsf.PersonaStore : Folks.PersonaStore
        * if _addressbook is null. */
       assert (this._addressbook != null);
 
+      var debug_obj = Debug.dup ();
+      if (debug_obj.debug_output_enabled == true)
+        {
+          debug ("Committing modified property ‘%s’ to persona %p (UID: %s).",
+              property_name, persona, persona.uid);
+
+          debug ("Modified vCard: %s",
+              persona.contact.to_string (E.VCardFormat.@30));
+        }
+
       var contact = persona.contact;
 
       ulong signal_id = 0;
@@ -1375,9 +1284,14 @@ public class Edsf.PersonaStore : Folks.PersonaStore
            * they can only be modified from the main loop. */
           if (received_notification == false)
             {
+              debug ("Yielding.");
               has_yielded = true;
               yield;
             }
+
+          debug ("Finished: received_notification = %s, has_yielded = %s",
+              received_notification ? "yes" : "no",
+              has_yielded ? "yes" : "no");
 
           /* If we hit the timeout instead of the property notification, throw
            * an error. */
@@ -1412,11 +1326,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
   private void _remove_attribute (E.Contact contact, string attr_name)
     {
-      unowned VCardAttribute? attr = contact.get_attribute (attr_name);
-      if (attr != null)
-        {
-          contact.remove_attribute ((!) attr);
-        }
+      contact.remove_attributes (null, attr_name);
     }
 
   internal async void _set_avatar (Edsf.Persona persona, LoadableIcon? avatar)
@@ -1696,7 +1606,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
               _("Phone numbers are not writeable on this contact."));
         }
 
-      if (Folks.Internal.equal_sets<PhoneFieldDetails> (phones,
+      if (Utils.set_string_afd_equal (phones,
           persona.phone_numbers))
         return;
 
@@ -2151,14 +2061,14 @@ public class Edsf.PersonaStore : Folks.PersonaStore
 
   private void _set_contact_system_groups (E.Contact contact, Set<string> system_groups)
     {
+      var group_ids_str = "X-GOOGLE-SYSTEM-GROUP-IDS";
       var vcard = (E.VCard) contact;
-      unowned E.VCardAttribute? prev_attr =
-          vcard.get_attribute ("X-GOOGLE-SYSTEM-GROUP-IDS");
+      unowned E.VCardAttribute? prev_attr = vcard.get_attribute (group_ids_str);
 
       if (prev_attr != null)
-        contact.remove_attribute (prev_attr);
+        contact.remove_attributes (null, group_ids_str);
 
-      E.VCardAttribute new_attr = new E.VCardAttribute ("", "X-GOOGLE-SYSTEM-GROUP-IDS");
+      E.VCardAttribute new_attr = new E.VCardAttribute ("", group_ids_str);
       foreach (var group in system_groups)
         {
           if (group == null || group == "")
@@ -2645,7 +2555,7 @@ public class Edsf.PersonaStore : Folks.PersonaStore
       if (needle != null && needle.has_extension (SOURCE_EXTENSION_ADDRESS_BOOK))
         {
           /* We've found ourself. */
-          return true;
+          return ((!) this._source_registry).check_enabled (needle);
         }
 
       return false;
