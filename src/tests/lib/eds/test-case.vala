@@ -69,9 +69,16 @@ public class EdsTest.TestCase : Folks.TestCase
       return transient;
     }
 
-  public override void private_bus_up ()
+  private string _get_eds_libexecdir ()
     {
-      base.private_bus_up ();
+      /* Try the environment variable first, since when running installed
+       * tests we can’t depend on pkg-config being available. */
+      var env = Environment.get_variable ("FOLKS_TEST_EDS_LIBEXECDIR");
+
+      if (env != null && env != "")
+        {
+          return env;
+        }
 
       /* Find out the libexec directory to use. */
       int exit_status = -1;
@@ -95,17 +102,28 @@ public class EdsTest.TestCase : Folks.TestCase
           error ("Error getting libexecdir from pkg-config: %s", e1.message);
         }
 
-      var libexec = capture_stdout.strip ();
+      return capture_stdout.strip ();
+    }
+
+  public override void private_bus_up ()
+    {
+      base.private_bus_up ();
+
+      /* Find out the libexec directory to use. */
+      var libexec = this._get_eds_libexecdir ();
 
       /* Create service files for the Evolution binaries. */
       const string sources_services[] =
         {
+          "org.gnome.evolution.dataserver.Sources5",
+          "org.gnome.evolution.dataserver.Sources4",
           "org.gnome.evolution.dataserver.Sources3",
           "org.gnome.evolution.dataserver.Sources2",
           "org.gnome.evolution.dataserver.Sources1"
         };
       const string address_book_services[] =
         {
+          "org.gnome.evolution.dataserver.AddressBook9",
           "org.gnome.evolution.dataserver.AddressBook8",
           "org.gnome.evolution.dataserver.AddressBook7",
           "org.gnome.evolution.dataserver.AddressBook6",
@@ -164,6 +182,8 @@ public class EdsTest.TestCase : Folks.TestCase
       this.configure_primary_store ();
     }
 
+  private uint _test_num = 0;
+
   /**
    * Virtual method to create and set up the EDS backend.
    * Called from set_up(); may be overridden to not create the backend,
@@ -173,8 +193,10 @@ public class EdsTest.TestCase : Folks.TestCase
    */
   public virtual void create_backend ()
     {
-      this.eds_backend = new EdsTest.Backend ();
-      ((!) this.eds_backend).set_up ();
+      /* Use a unique EDS book for each test. */
+      this.eds_backend =
+          new EdsTest.Backend ("test%u".printf (this._test_num++));
+      ((!) this.eds_backend).set_up (true);
     }
 
   /**

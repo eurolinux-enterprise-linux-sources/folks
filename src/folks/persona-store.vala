@@ -312,6 +312,13 @@ public enum Folks.PersonaDetail
    * @since 0.7.3
    */
   ANTI_LINKS,
+
+  /**
+   * Field for {@link ExtendedFieldDetails}.
+   *
+   * @since 0.11.0
+   */
+  EXTENDED_INFO,
 }
 
 /**
@@ -348,7 +355,7 @@ public abstract class Folks.PersonaStore : Object
    *
    * @since 0.5.0
    */
-  private static const string _PERSONA_DETAIL[] = {
+  private const string _PERSONA_DETAIL[] = {
     "alias",
     "avatar",
     "birthday",
@@ -372,7 +379,8 @@ public abstract class Folks.PersonaStore : Object
     "last-im-interaction-datetime",
     "call-interaction-count",
     "last-call-interaction-datetime",
-    "anti-links"
+    "anti-links",
+    "extended-info"
   };
 
   /**

@@ -170,7 +170,7 @@ public class Folks.TestUtils
           catch (GLib.Error e1)
             {
               retval = false;
-              warning ("Failed to read loadable icon for comparison: %s",
+              error ("Failed to read loadable icon for comparison: %s",
                   e1.message);
             }
         }
@@ -295,7 +295,10 @@ public class Folks.TestUtils
       var has_yielded = false;
 
       foreach (var name in expected_persona_names)
+        {
+          debug ("Waiting for ‘%s’", name);
           expected.add (name);
+        }
 
       /* Set up the aggregator */
       var signal_id = aggregator.individuals_changed_detailed.connect (
@@ -312,6 +315,8 @@ public class Folks.TestUtils
               var name_details = i as NameDetails;
               assert (name_details != null);
               expected.remove (name_details.full_name);
+
+              debug ("Saw individual ‘%s’", name_details.full_name);
             }
 
           assert (removed.size == 1);
@@ -527,7 +532,7 @@ public class Folks.TestUtils
 
       if (Environment.get_variable ("FOLKS_TESTS_INSTALLED") != null)
         {
-          execdir = BuildConf.PKGLIBEXECDIR + "/tests";
+          execdir = BuildConf.INSTALLED_TESTS_DIR + "/";
         }
       else
         {
@@ -552,16 +557,16 @@ public class Folks.TestUtils
 
   /**
    * Return the path to a test file that is distributed in the source tarball
-   * and, if installed, is installed into ${pkgdatadir}/tests.
+   * and, if installed, is installed into ${installed_tests_dir}.
    *
    * @param filename A filename relative to ${top_srcdir}/tests
-   *  or ${pkgdatadir}/tests (or equivalently, ${datadir}/folks/tests).
+   *  or ${installed_tests_dir}.
    */
   public static string get_source_test_data (string filename)
     {
       if (Environment.get_variable ("FOLKS_TESTS_INSTALLED") != null)
         {
-          return BuildConf.PACKAGE_DATADIR + "/tests/" + filename;
+          return BuildConf.INSTALLED_TESTS_DIR + "/" + filename;
         }
       else
         {
@@ -571,16 +576,16 @@ public class Folks.TestUtils
 
   /**
    * Return the path to a test file that is built by "make"
-   * and, if installed, is installed into ${pkgdatadir}/tests.
+   * and, if installed, is installed into ${installed_tests_dir}.
    *
    * @param filename A filename relative to ${top_builddir}/tests
-   *  or ${pkgdatadir}/tests (or equivalently, ${datadir}/folks/tests).
+   *  or ${installed_tests_dir}.
    */
   public static string get_built_test_data (string filename)
     {
       if (Environment.get_variable ("FOLKS_TESTS_INSTALLED") != null)
         {
-          return BuildConf.PACKAGE_DATADIR + "/tests/" + filename;
+          return BuildConf.INSTALLED_TESTS_DIR + "/" + filename;
         }
       else
         {

@@ -50,10 +50,11 @@ public class EdsTest.Backend
       get { return this._addressbook.get_source ().get_uid (); }
     }
 
-  public Backend ()
+  public Backend (string name = "test")
     {
       this._contacts = new GLib.List<Gee.HashMap<string, Value?>> ();
       this._e_contacts = new string[0];
+      this._addressbook_name = name;
     }
 
   public void add_contact (owned Gee.HashMap<string, Value?> c)
@@ -100,15 +101,12 @@ public class EdsTest.Backend
     }
 
   /* Create a temporary addressbook */
-  public void set_up (bool source_is_default = false, string name = "test")
+  public void set_up (bool source_is_default = false)
     {
       try
         {
-          /* _addressbook_name needs to be set before calling _prepare_source */
-          this._addressbook_name = name;
-
           this._prepare_source (source_is_default);
-          this._addressbook = BookClient.connect_sync (this._source, null);
+          this._addressbook = BookClient.connect_sync (this._source, 1, null);
           Environment.set_variable ("FOLKS_BACKEND_EDS_USE_ADDRESS_BOOKS",
                                     this._addressbook_name, true);
         }
@@ -160,18 +158,22 @@ public class EdsTest.Backend
           "[Address Book]\n" +
           "BackendName=local\n").printf (this._addressbook_name);
 
+      yield source_file.replace_contents_async (source_file_content.data, null,
+          false, FileCreateFlags.NONE, null, null);
+
       /* Build a SourceRegistry to manage the sources. */
       var source_registry = yield create_source_registry (null);
       this._source_registry = source_registry;
       var signal_id = source_registry.source_added.connect ((r, s) =>
         {
+          if (s.uid != this._addressbook_name)
+              return;
+
           this._source = s;
           this._prepare_source_async.callback ();
         });
 
-      /* Perform the write and then wait for the SourceRegistry to notify. */
-      yield source_file.replace_contents_async (source_file_content.data, null,
-          false, FileCreateFlags.NONE, null, null);
+      /* Wait for the SourceRegistry to notify if it hasn’t already. */
       this._source = source_registry.ref_source (this._addressbook_name);
       if (this._source == null)
         {
@@ -219,6 +221,17 @@ public class EdsTest.Backend
           GLib.warning ("Couldn't add contacts: %s\n",
               e.message);
         }
+    }
+
+  public void commit_contacts_to_addressbook_sync ()
+    {
+      var main_loop = new MainLoop ();
+      this.commit_contacts_to_addressbook.begin ((s, r) =>
+        {
+          this.commit_contacts_to_addressbook.end (r);
+          main_loop.quit ();
+        });
+      TestUtils.loop_run_with_timeout (main_loop);
     }
 
   private void _set_contact_fields (E.Contact contact,
@@ -317,8 +330,19 @@ public class EdsTest.Backend
            }
           else
             {
+              var field_id = E.Contact.field_id (k);
               var v = c.get (k).get_string ();
-              contact.set (E.Contact.field_id (k), v);
+
+              if (field_id != 0)
+                {
+                  contact.set (field_id, v);
+                }
+              else
+                {
+                  var vcard = (E.VCard) contact;
+                  var attr = new E.VCardAttribute (null, k);
+                  vcard.append_attribute_with_value (attr, v);
+                }
             }
         }
       if (added_contact_name)
@@ -336,13 +360,15 @@ public class EdsTest.Backend
         {
           if (this._source_file != null)
             {
+              debug ("Deleting address book ‘%s’ source file ‘%s’.",
+                  this._addressbook_name, this._source_file.get_path ());
               this._source_file.delete ();
             }
         }
       catch (GLib.Error e)
         {
-          GLib.warning ("Unable to remove addressbook ‘%s’: %s",
-              this._addressbook_name, e.message);
+          GLib.error ("Unable to remove address book ‘%s’ source file ‘%s’: %s",
+              this._addressbook_name, this._source_file.get_path (), e.message);
         }
       finally
         {

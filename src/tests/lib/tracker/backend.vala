@@ -28,8 +28,8 @@ errordomain TrackerTest.BackendSetupError
 
 public class TrackerTest.Backend
 {
-  public static const string URN = "urn:contact";
-  public static const string URLS = "nco:urls";
+  public const string URN = "urn:contact";
+  public const string URLS = "nco:urls";
   public bool debug { get; set; }
   private GLib.List<Gee.HashMap<string, string>> _contacts;
   private Tracker.Sparql.Connection? _connection;
@@ -219,6 +219,10 @@ public class TrackerTest.Backend
         {
           GLib.warning ("Problem with the D-Bus connection : %s\n", e3.message);
         }
+      catch (GLib.Error e4)
+        {
+          GLib.warning ("Problem in general: %s", e4.message);
+        }
 
       return ret;
     }
@@ -291,6 +295,10 @@ public class TrackerTest.Backend
         {
           throw new BackendSetupError.ADD_CONTACT_FAILED
           ("Could not connect to D-Bus service : %s\n", e3.message);
+        }
+      catch (GLib.Error e4)
+        {
+          GLib.warning ("Problem in general: %s", e4.message);
         }
     }
 

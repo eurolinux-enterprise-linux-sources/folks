@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
 <include name="Folks" version="0.6"/>
+<include name="Tracker" version="1.0"/>
 <include name="Gee" version="0.8"/>
 <include name="GObject" version="2.0"/>
 <package name="folks-tracker"/>
@@ -41,7 +42,7 @@
 					<type name="utf8" c:type="const gchar*"/>
 				</parameter>
 				<parameter name="cursor" transfer-ownership="none" allow-none="1">
-					<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+					<type name="Tracker.Cursor" c:type="TrackerSparqlCursor*"/>
 				</parameter>
 			</parameters>
 		</constructor>
@@ -54,11 +55,11 @@
 			</return-value>
 		</method>
 		<property name="cursor" writable="1" construct-only="1">
-			<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+			<type name="Tracker.Cursor" c:type="TrackerSparqlCursor*"/>
 		</property>
 		<method name="get_cursor" c:identifier="trf_persona_get_cursor">
 			<return-value transfer-ownership="none" allow-none="1">
-				<type name="Tracker.SparqlCursor" c:type="TrackerSparqlCursor*"/>
+				<type name="Tracker.Cursor" c:type="TrackerSparqlCursor*"/>
 			</return-value>
 		</method>
 	</class>

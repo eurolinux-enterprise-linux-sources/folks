@@ -103,7 +103,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
   /**
    * The Telepathy account this store is based upon.
    */
-  [Property(nick = "basis account",
+  [Description(nick = "basis account",
       blurb = "Telepathy account this store is based upon")]
   public Account account
     {
@@ -395,8 +395,8 @@ public class Tpf.PersonaStore : Folks.PersonaStore
 
       /* We do not trust local-xmpp or IRC at all, since Persona UIDs can be
        * faked by just changing hostname/username or nickname. */
-      if (account.get_protocol () == "local-xmpp" ||
-          account.get_protocol () == "irc")
+      if (account.protocol_name == "local-xmpp" ||
+          account.protocol_name == "irc")
         this.trust_level = PersonaStoreTrust.NONE;
       else
         this.trust_level = PersonaStoreTrust.PARTIAL;
@@ -744,7 +744,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
       this._notify_connection_cb_async.begin ();
     }
 
-  private async void _notify_connection_cb_async () throws GLib.Error
+  private async void _notify_connection_cb_async ()
     {
       debug ("_notify_connection_cb_async() for Tpf.PersonaStore %p ('%s').",
           this, this.id);
@@ -753,14 +753,29 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           "(ID: %s)", this.id);
 
       /* Ensure the connection is prepared as necessary. */
-      yield this.account.connection.prepare_async ({
-          TelepathyGLib.Connection.get_feature_quark_contact_list (),
-          TelepathyGLib.Connection.get_feature_quark_contact_groups (),
-          TelepathyGLib.Connection.get_feature_quark_contact_info (),
-          TelepathyGLib.Connection.get_feature_quark_connected (),
-          TelepathyGLib.Connection.get_feature_quark_aliasing (),
-          0
-      });
+      try
+        {
+          yield this.account.connection.prepare_async ({
+              TelepathyGLib.Connection.get_feature_quark_contact_list (),
+              TelepathyGLib.Connection.get_feature_quark_contact_groups (),
+              TelepathyGLib.Connection.get_feature_quark_contact_info (),
+              TelepathyGLib.Connection.get_feature_quark_connected (),
+              TelepathyGLib.Connection.get_feature_quark_aliasing (),
+              0
+          });
+        }
+      catch (GLib.Error e)
+        {
+          debug ("Failed to connect CM for Tpf.PersonaStore %p ('%s'): %s",
+              this, this.id, e.message);
+
+          /* If we're disconnected, advertise personas from the cache
+           * instead. */
+          yield this._load_cache (null);
+          this._force_quiescent ();
+
+          return;
+        }
 
       if (!this.account.connection.has_interface_by_id (
           iface_quark_connection_interface_contact_list ()))
@@ -851,7 +866,7 @@ public class Tpf.PersonaStore : Folks.PersonaStore
           if ((ci_flags & ContactInfoFlags.CAN_SET) != 0)
             {
               var field_specs =
-                connection.get_contact_info_supported_fields ();
+                connection.dup_contact_info_supported_fields ();
               foreach (var field_spec in field_specs)
                 {
                   /* XXX: we ignore the maximum count for each type of

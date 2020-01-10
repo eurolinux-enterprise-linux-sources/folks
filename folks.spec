@@ -4,27 +4,25 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.10.1
-Release:        2%{?dist}
+Version:        0.11.3
+Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
-Group:          System Environment/Libraries
 License:        LGPLv2+
 URL:            http://telepathy.freedesktop.org/wiki/Folks
-Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.10/%{name}-%{version}.tar.xz
-Patch0:         folks-translations-3.14.patch
-Patch1:         translations.patch
+Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.11/%{name}-%{version}.tar.xz
 
 BuildRequires:  chrpath
 BuildRequires:  telepathy-glib-devel >= %{tp_glib_ver}
 BuildRequires:  telepathy-glib-vala
 BuildRequires:  glib2-devel
+BuildRequires:  gobject-introspection-devel
+BuildRequires:  intltool
 BuildRequires:  vala-devel >= 0.17.6
-BuildRequires:  vala-tools
+BuildRequires:  vala
 BuildRequires:  libxml2-devel
-BuildRequires:  gobject-introspection >= 0.9.12
 BuildRequires:  GConf2-devel
-BuildRequires:  evolution-data-server-devel >= 3.9.1
+BuildRequires:  evolution-data-server-devel >= 3.13.90
 BuildRequires:  readline-devel
 ## BuildRequires: tracker-devel >= 0.10
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.4
@@ -37,7 +35,6 @@ Facebook, etc.) to create meta-contacts.
 
 %package        tools
 Summary:        Tools for %{name}
-Group:          System Environment/Libraries
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    tools
@@ -46,7 +43,6 @@ Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %package        devel
 Summary:        Development files for %{name}
-Group:          Development/Libraries
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-tools%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -57,25 +53,32 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch0 -p1 -b .translations
-%patch1 -p1 -b .more-translations
+
 
 %build
-%configure --disable-static --enable-eds-backend --enable-vala --enable-inspect-tool --disable-libsocialweb-backend --disable-zeitgeist
+%configure \
+  --disable-static \
+  --disable-fatal-warnings \
+  --enable-eds-backend \
+  --enable-bluez-backend \
+  --disable-zeitgeist \
+  --enable-vala \
+  --enable-inspect-tool \
+  --disable-libsocialweb-backend
 make %{?_smp_mflags} V=1
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 # Remove lib64 rpaths
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/key-file/key-file.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/ofono/ofono.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/telepathy/telepathy.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/bluez/bluez.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/eds/eds.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/42/backends/dummy/dummy.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/key-file/key-file.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/ofono/ofono.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/telepathy/telepathy.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/bluez/bluez.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/eds/eds.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/folks/43/backends/dummy/dummy.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-dummy.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-eds.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libfolks-telepathy.so
@@ -100,7 +103,8 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %files -f %{name}.lang
-%doc AUTHORS COPYING README NEWS
+%license COPYING
+%doc AUTHORS README NEWS
 %{_libdir}/*.so.*
 %{_libdir}/folks
 %{_libdir}/girepository-1.0/Folks-0.6.typelib
@@ -128,6 +132,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed Sep 21 2016 Kalev Lember <klember@redhat.com> - 1:0.11.3-1
+- Update to 0.11.3
+- Resolves: #1386858
+
 * Wed Jun 29 2016 Matthias Clasen <mclasen@redhat.com> - 1:0.10.1-2
 - Update translations
 - Resolves: #1304298

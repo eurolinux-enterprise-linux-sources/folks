@@ -48,7 +48,6 @@ public abstract class Folks.TestCase : Object
        * tests. If the user’s already set those variables, though, don’t
        * overwrite them. */
       Environment.set_variable ("G_MESSAGES_DEBUG", "all", false);
-      Environment.set_variable ("FOLKS_DEBUG", "all", false);
 
       /* Turn off use of gvfs. If using GTestDBus it's unavailable,
        * and if not it's pointless: all we need is the local filesystem. */
@@ -366,6 +365,10 @@ public abstract class Folks.TestCase : Object
        * are OK. */
       Environment.set_variable ("FOLKS_TESTS_SANDBOXED_DBUS", "no-services",
           true);
+
+      /* Disable the GVFS remote volume monitor so we don’t have to mock the
+       * org.gtk.vfs.Daemon D-Bus service. */
+      Environment.set_variable ("GVFS_REMOTE_VOLUME_MONITOR_IGNORE", "1", true);
     }
 
   public void register ()
@@ -373,13 +376,14 @@ public abstract class Folks.TestCase : Object
       TestSuite.get_root ().add_suite (this._suite);
     }
 
-  public void add_test (string name, TestMethod test)
+  public void add_test (string name, owned TestMethod test)
     {
-      this._suite.add (add_test_helper (name, test));
+      this._suite.add (add_test_helper (name, (owned) test));
     }
 
   /* implemented in test-case-helper.c */
-  internal extern GLib.TestCase add_test_helper (string name, TestMethod test);
+  internal extern GLib.TestCase add_test_helper (string name,
+      owned TestMethod test);
 
   /**
    * Set up for one test. If you have more than one test, this will

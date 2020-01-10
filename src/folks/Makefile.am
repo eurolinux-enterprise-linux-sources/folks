@@ -55,6 +55,7 @@ libfolks_internal_la_CFLAGS = \
 libfolks_internal_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
 	$(CODE_COVERAGE_LDFLAGS) \
+	-no-undefined \
 	$(NULL)
 
 libfolks_internal_la_LIBADD = \
@@ -77,6 +78,7 @@ libfolks_la_SOURCES = \
 	backend-store.vala \
 	birthday-details.vala \
 	email-details.vala \
+	extended-info.vala \
 	favourite-details.vala \
 	folks-namespace.vala \
 	gender-details.vala \
@@ -104,6 +106,9 @@ libfolks_la_SOURCES = \
 	avatar-cache.vala \
 	object-cache.vala \
 	anti-linkable.vala \
+	query.vala \
+	search-view.vala \
+	simple-query.vala \
 	$(NULL)
 
 if ENABLE_EDS
@@ -160,7 +165,9 @@ libfolks_la_LIBADD = \
 libfolks_la_LDFLAGS = \
 	$(AM_LDFLAGS) \
 	$(CODE_COVERAGE_LDFLAGS) \
-	-version-info "$(LT_CURRENT)":"$(LT_REVISION)":"$(LT_AGE)"
+	-version-info "$(LT_CURRENT)":"$(LT_REVISION)":"$(LT_AGE)" \
+	-no-undefined \
+	$(NULL)
 
 folksdir = $(includedir)/folks
 folks_HEADERS = folks.h

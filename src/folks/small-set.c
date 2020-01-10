@@ -73,9 +73,6 @@ struct _FolksSmallSetIteratorClass {
     GObjectClass parent_class;
 };
 
-static void set_iface_init (GeeSetIface *iface);
-static void collection_iface_init (GeeCollectionIface *iface);
-static void iterable_iface_init (GeeIterableIface *iface);
 static void traversable_iface_init (GeeTraversableIface *iface);
 
 G_DEFINE_TYPE_WITH_CODE (FolksSmallSet, folks_small_set,
@@ -462,6 +459,30 @@ folks_small_set_finalize (GObject *obj)
   ((GObjectClass *) folks_small_set_parent_class)->finalize (obj);
 }
 
+static GType
+folks_small_set_get_g_type (GeeTraversable *traversable)
+{
+  FolksSmallSet *self = FOLKS_SMALL_SET (traversable);
+
+  return self->item_type;
+}
+
+static GBoxedCopyFunc
+folks_small_set_get_g_dup_func (GeeTraversable *traversable)
+{
+  FolksSmallSet *self = FOLKS_SMALL_SET (traversable);
+
+  return self->item_dup;
+}
+
+static GDestroyNotify
+folks_small_set_get_g_destroy_func (GeeTraversable *traversable)
+{
+  FolksSmallSet *self = FOLKS_SMALL_SET (traversable);
+
+  return self->item_free;
+}
+
 /*
  * Call @f for each element, until it returns %FALSE.
  *
@@ -495,6 +516,9 @@ folks_small_set_foreach (GeeTraversable *traversable,
 static void
 traversable_iface_init (GeeTraversableIface *iface)
 {
+  iface->get_g_type = folks_small_set_get_g_type;
+  iface->get_g_dup_func = folks_small_set_get_g_dup_func;
+  iface->get_g_destroy_func = folks_small_set_get_g_destroy_func;
   iface->foreach = folks_small_set_foreach;
 }
 
@@ -607,6 +631,7 @@ folks_small_set_class_init (FolksSmallSetClass *cls)
   GeeAbstractSetClass *as_class = GEE_ABSTRACT_SET_CLASS (cls);
   GeeAbstractCollectionClass *ac_class = GEE_ABSTRACT_COLLECTION_CLASS (cls);
 
+  object_class->dispose = folks_small_set_dispose;
   object_class->finalize = folks_small_set_finalize;
 
   ac_class->contains = folks_small_set_contains;

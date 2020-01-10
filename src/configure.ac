@@ -2,8 +2,8 @@
 m4_define([folks_released], [1])
 
 m4_define([folks_major_version], [0])
-m4_define([folks_minor_version], [10])
-m4_define([folks_micro_version], [1])
+m4_define([folks_minor_version], [11])
+m4_define([folks_micro_version], [3])
 m4_define([folks_nano_version], [0])
 
 # Core library LT version. When updating this, don't forget to bump the backend
@@ -24,34 +24,34 @@ m4_define([folks_nano_version], [0])
 # version number: a given libfolks.so will only load modules which were compiled
 # against a core with the same LT current number as itself. This allows the API
 # which is exposed to the modules to be changed.
-m4_define([folks_lt_current], [42])
+m4_define([folks_lt_current], [43])
 m4_define([folks_lt_revision], [3])
-m4_define([folks_lt_age], [17])
+m4_define([folks_lt_age], [18])
 
 # Each of the backend libraries (e.g. libfolks-eds.so; *not* the loadable
 # modules, eds.so) has its own LT version. These should be incremented when the
 # core folks_lt_* variables are incremented (as all the backend libraries are
 # binary-dependent on libfolks.so), but should also be incremented when
 # incompatible changes are made in the backend library APIs themselves.
-m4_define([folks_eds_lt_current], [42])
+m4_define([folks_eds_lt_current], [43])
 m4_define([folks_eds_lt_revision], [3])
-m4_define([folks_eds_lt_age], [17])
+m4_define([folks_eds_lt_age], [18])
 
-m4_define([folks_libsocialweb_lt_current], [42])
+m4_define([folks_libsocialweb_lt_current], [43])
 m4_define([folks_libsocialweb_lt_revision], [3])
-m4_define([folks_libsocialweb_lt_age], [17])
+m4_define([folks_libsocialweb_lt_age], [18])
 
-m4_define([folks_telepathy_lt_current], [42])
+m4_define([folks_telepathy_lt_current], [43])
 m4_define([folks_telepathy_lt_revision], [3])
-m4_define([folks_telepathy_lt_age], [17])
+m4_define([folks_telepathy_lt_age], [18])
 
-m4_define([folks_tracker_lt_current], [42])
+m4_define([folks_tracker_lt_current], [43])
 m4_define([folks_tracker_lt_revision], [3])
-m4_define([folks_tracker_lt_age], [17])
+m4_define([folks_tracker_lt_age], [18])
 
-m4_define([folks_dummy_lt_current], [42])
+m4_define([folks_dummy_lt_current], [43])
 m4_define([folks_dummy_lt_revision], [3])
-m4_define([folks_dummy_lt_age], [17])
+m4_define([folks_dummy_lt_age], [18])
 
 # Display the nano_version only if it's not '0'
 m4_define([folks_base_version],
@@ -258,13 +258,12 @@ AM_CONDITIONAL([ENABLE_LIBSOCIALWEB],
 # Dependencies
 # -----------------------------------------------------------
 
-GLIB_REQUIRED=2.38.2
+GLIB_REQUIRED=2.40.0
 VALA_REQUIRED=0.22.0.28-9090
 VALADOC_REQUIRED=0.3.1
 TRACKER_SPARQL_REQUIRED=0.15.2
-EBOOK_REQUIRED=3.8
-EBOOK_REQUIRED_FOR_BLUEZ=3.9.1
-EDATASERVER_REQUIRED=3.5.3.1
+EBOOK_REQUIRED=3.13.90
+EDATASERVER_REQUIRED=3.13.90
 ZEITGEIST_REQUIRED=0.9.14
 GEE_REQUIRED=0.8.4
 
@@ -278,7 +277,7 @@ PKG_CHECK_MODULES([DBUS_GLIB], [dbus-glib-1 dbus-1])
 
 PKG_CHECK_MODULES([GEE], [gee-0.8 >= $GEE_REQUIRED])
 
-TP_GLIB_REQUIRED=0.19.0
+TP_GLIB_REQUIRED=0.19.9
 
 AS_IF([test x$enable_telepathy_backend = xyes], [
         PKG_CHECK_MODULES([TP_GLIB], [telepathy-glib >= $TP_GLIB_REQUIRED])])
@@ -303,7 +302,7 @@ case "x$enable_zeitgeist" in
     AC_MSG_ERROR([Unknown --enable-zeitgeist argument: $enable_zeitgeist])
 esac
 
-AS_IF([test "x$have_zeitgeist" == "xyes"], [
+AS_IF([test "x$have_zeitgeist" = "xyes"], [
    ZEITGEIST_VALAFLAGS="-D HAVE_ZEITGEIST"
    AC_SUBST([ZEITGEIST_VALAFLAGS])
    ZEITGEIST_PKG="--pkg zeitgeist-2.0"
@@ -333,8 +332,6 @@ AS_IF([test x$enable_tracker_backend = xyes], [
 AC_SUBST([TRACKER_SPARQL_MAJOR])
 AC_DEFINE_UNQUOTED(TRACKER_SPARQL_MAJOR, ["$TRACKER_SPARQL_MAJOR"], [Tracker major version])
 
-AS_IF([test x$enable_bluez_backend = xyes], [EBOOK_REQUIRED=$EBOOK_REQUIRED_FOR_BLUEZ])
-
 AS_IF([test x$enable_eds_backend = xyes], [
         PKG_CHECK_MODULES([EBOOK], [libebook-1.2 >= $EBOOK_REQUIRED
                                     libebook-contacts-1.2 >= $EBOOK_REQUIRED])
@@ -360,6 +357,8 @@ AS_IF([test x$enable_bluez_backend = xyes], [
 
         AM_PROG_VALAC([0.22.0.45-383d-dirty],
                       [have_valac_0_22_2=yes], [have_valac_0_22_2=no])
+
+        LT_LIB_M
 ])
 
 # The BlueZ tests are conditional on several bleeding-edge dependencies.
@@ -378,6 +377,13 @@ AC_ARG_ENABLE([vala],
                              [Enable building from the Vala sources]),
               [enable_vala=$enableval],
               [enable_vala=no])
+
+# http://people.gnome.org/~walters/docs/build-api.txt
+#
+# We don't support separate builddir when building from git;
+# The automake vala rules run cd srcdir which screws up the
+# top_srcdir variable references.
+echo \#buildapi-variable-no-builddir >/dev/null
 
 # will be re-set as necessary below
 AM_CONDITIONAL([HAVE_INTROSPECTION], [test "x$enable_vala" = "xyes"])
@@ -451,7 +457,7 @@ AS_IF([test "x$enable_vala" = "xyes"], [
 
         AS_IF([test x$enable_telepathy_backend = xyes], [
           VALA_CHECK_PACKAGES([telepathy-glib])
-	  AS_IF([test "x$have_zeitgeist" == "xyes"], [
+	  AS_IF([test "x$have_zeitgeist" = "xyes"], [
 	      VALA_CHECK_PACKAGES([zeitgeist-2.0])
 	  ])
         ])
@@ -541,10 +547,25 @@ AM_CONDITIONAL([ENABLE_INSPECT_TOOL], [test "$with_inspect_tool" = "yes"])
 # Tests
 # -----------------------------------------------------------
 
-AC_ARG_ENABLE([tests],
-              AS_HELP_STRING([--enable-tests],[Enable building of tests]),
-              [enable_tests=$enableval], [enable_tests=yes])
-AM_CONDITIONAL([ENABLE_TESTS], [test x$enable_tests = xyes])
+AC_ARG_ENABLE([modular_tests],
+              AS_HELP_STRING([--disable-modular-tests],
+                             [Disable build of test programs (default: no)]),,
+              [enable_modular_tests=yes])
+AC_ARG_ENABLE([installed_tests],
+              AS_HELP_STRING([--enable-installed-tests],
+                             [Install test programs (default: no)]),,
+              [enable_installed_tests=no])
+
+AS_IF([test "$enable_modular_tests" = "yes" ||
+       test "$enable_installed_tests" = "yes"],
+      [enable_build_tests=yes],[enable_build_tests=no])
+AM_CONDITIONAL([ENABLE_BUILD_TESTS],
+               [test "$enable_build_tests" = "yes"])
+AC_SUBST([ENABLE_BUILD_TESTS],[$enable_build_tests])
+
+AM_CONDITIONAL([ENABLE_INSTALL_TESTS],
+               [test "$enable_installed_tests" = "yes"])
+AC_SUBST([ENABLE_INSTALL_TESTS],[$enable_installed_tests])
 
 # -----------------------------------------------------------
 # Documentation
@@ -828,5 +849,6 @@ Configure summary:
         Ofono backend...............:  ${enable_ofono_backend}
         BlueZ backend...............:  ${enable_bluez_backend}
         Zeitgeist support...........:  ${have_zeitgeist}
-        Build tests.................:  ${enable_tests}
+        Build tests.................:  ${enable_modular_tests}
+        Install tests...............:  ${enable_installed_tests}
 "

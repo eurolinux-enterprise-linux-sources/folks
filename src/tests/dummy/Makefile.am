@@ -21,13 +21,13 @@ LDADD = \
 	$(NULL)
 
 # in order from least to most complex
-TESTS = \
+all_test_programs = \
 	individual-retrieval \
 	add-persona \
 	linkable-properties \
+	search-view \
 	$(NULL)
-
-noinst_PROGRAMS = $(TESTS)
+installed_tests_subdirectory = dummy
 
 individual_retrieval_SOURCES = \
 	individual-retrieval.vala \
@@ -39,6 +39,10 @@ add_persona_SOURCES = \
 
 linkable_properties_SOURCES = \
 	linkable-properties.vala \
+	$(NULL)
+
+search_view_SOURCES = \
+	search-view.vala \
 	$(NULL)
 
 -include $(top_srcdir)/git.mk

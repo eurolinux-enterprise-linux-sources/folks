@@ -26,7 +26,7 @@ and/or use gtk-doc annotations.  -->
         </return-value>
       </constructor>
       <method name="add_account" c:identifier="tp_tests_backend_add_account">
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
         <parameters>
@@ -58,7 +58,10 @@ and/or use gtk-doc annotations.  -->
             <doc xml:space="preserve">the backend</doc>
             <type name="Backend" c:type="TpTestsBackend*"/>
           </instance-parameter>
-          <parameter name="handle" transfer-ownership="none">
+          <parameter name="handle"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -72,7 +75,10 @@ and/or use gtk-doc annotations.  -->
           <instance-parameter name="self" transfer-ownership="none">
             <type name="Backend" c:type="TpTestsBackend*"/>
           </instance-parameter>
-          <parameter name="handle" transfer-ownership="none">
+          <parameter name="handle"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -1299,7 +1305,7 @@ and/or use gtk-doc annotations.  -->
     <function name="object_new_static_class"
               c:identifier="tp_tests_object_new_static_class"
               introspectable="0">
-      <return-value>
+      <return-value transfer-ownership="none" nullable="1">
         <type name="gpointer" c:type="gpointer"/>
       </return-value>
       <parameters>
@@ -1317,7 +1323,10 @@ and/or use gtk-doc annotations.  -->
         <type name="none" c:type="void"/>
       </return-value>
       <parameters>
-        <parameter name="proxy" transfer-ownership="none">
+        <parameter name="proxy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>
@@ -1328,7 +1337,10 @@ and/or use gtk-doc annotations.  -->
         <type name="none" c:type="void"/>
       </return-value>
       <parameters>
-        <parameter name="proxy" transfer-ownership="none">
+        <parameter name="proxy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
         <parameter name="features" transfer-ownership="none">
@@ -1343,7 +1355,10 @@ and/or use gtk-doc annotations.  -->
         <type name="gboolean" c:type="gboolean"/>
       </return-value>
       <parameters>
-        <parameter name="proxy" transfer-ownership="none">
+        <parameter name="proxy"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
         <parameter name="features" transfer-ownership="none">
@@ -1362,7 +1377,10 @@ and/or use gtk-doc annotations.  -->
         <parameter name="res" transfer-ownership="none">
           <type name="Gio.AsyncResult" c:type="GAsyncResult*"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <type name="gpointer" c:type="gpointer"/>
         </parameter>
       </parameters>

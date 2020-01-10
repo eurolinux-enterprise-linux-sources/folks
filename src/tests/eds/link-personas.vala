@@ -47,7 +47,6 @@ public class LinkPersonasTests : EdsTest.TestCase
   private HashSet<Persona> _personas;
   private Gee.HashMap<string, string> _linking_props;
   private LinkingMethod _linking_method;
-  private int _test_num = -1;
 
   public LinkPersonasTests ()
     {
@@ -61,16 +60,6 @@ public class LinkPersonasTests : EdsTest.TestCase
           this.test_linking_personas_via_web_service_addresses);
       this.add_test ("test auto linking via e-mail address as IM address",
           this.test_linking_via_email_as_im_address);
-    }
-
-  public override void create_backend ()
-    {
-      /* Create a new backend (by name) each set up to guarantee we don't
-       * inherit state from the last test.
-       * FIXME: bgo#690830 */
-      this._test_num++;
-      this.eds_backend = new EdsTest.Backend ();
-      this.eds_backend.set_up (false, @"test$_test_num");
     }
 
   public void test_linking_personas_via_im_addresses ()
@@ -151,7 +140,7 @@ public class LinkPersonasTests : EdsTest.TestCase
         }
       catch (GLib.Error e)
         {
-          GLib.warning ("Error when calling prepare: %s\n", e.message);
+          GLib.error ("Error when calling prepare: %s\n", e.message);
         }
     }
 
@@ -274,18 +263,12 @@ public class LinkPersonasTests : EdsTest.TestCase
         }
       catch (Folks.IndividualAggregatorError e)
         {
-          GLib.warning ("[AddPersonaError] add_persona_from_details: %s\n",
+          GLib.error ("[AddPersonaError] add_persona_from_details: %s\n",
               e.message);
         }
     }
 
   private void _individuals_changed_cb (
-       MultiMap<Individual?, Individual?> changes)
-    {
-      this._individuals_changed_async (changes);
-    }
-
-  private void _individuals_changed_async (
        MultiMap<Individual?, Individual?> changes)
     {
       var added = changes.get_values ();
@@ -339,6 +322,7 @@ public class LinkPersonasTests : EdsTest.TestCase
             {
               var contact_id1 = ((Edsf.Persona) first_persona).iid;
               this._linking_props.set ("prop1", contact_id1);
+              debug ("Setting linking prop1 to %s", contact_id1);
             }
         }
       else if (i.full_name == this._persona_fullname_2 &&
@@ -350,6 +334,7 @@ public class LinkPersonasTests : EdsTest.TestCase
             {
               var contact_id2 = ((Edsf.Persona) first_persona).iid;
               this._linking_props.set ("prop2", contact_id2);
+              debug ("Setting linking prop2 to %s", contact_id2);
             }
         }
       else if (i.personas.size > 1)
@@ -365,10 +350,12 @@ public class LinkPersonasTests : EdsTest.TestCase
                       if (im_fd.value == this._linking_props.get ("prop1"))
                         {
                           this._linking_props.unset ("prop1");
+                          debug ("Unsetting linking prop1 due to IM address match");
                         }
                       else if (im_fd.value == this._linking_props.get ("prop2"))
                         {
                           this._linking_props.unset ("prop2");
+                          debug ("Unsetting linking prop2 due to IM address match");
                         }
                     }
                 }
@@ -377,13 +364,17 @@ public class LinkPersonasTests : EdsTest.TestCase
             {
               foreach (var local_id in i.local_ids)
                 {
+                  debug ("Trying local ID %s", local_id);
+
                   if (local_id == this._linking_props.get ("prop1"))
                     {
                       this._linking_props.unset ("prop1");
+                      debug ("Unsetting linking prop1 due to local ID match");
                     }
                   else if (local_id == this._linking_props.get ("prop2"))
                     {
                       this._linking_props.unset ("prop2");
+                      debug ("Unsetting linking prop2 due to local ID match");
                     }
                 }
             }
@@ -400,11 +391,13 @@ public class LinkPersonasTests : EdsTest.TestCase
                           ws_fd.equal (new WebServiceFieldDetails (prop1)))
                         {
                           this._linking_props.unset ("prop1");
+                          debug ("Unsetting linking prop1 due to web service match");
                         }
                       else if (prop2 != null &&
                           ws_fd.equal (new WebServiceFieldDetails (prop2)))
                         {
                           this._linking_props.unset ("prop2");
+                          debug ("Unsetting linking prop2 due to web service match");
                         }
                     }
                 }
@@ -412,12 +405,8 @@ public class LinkPersonasTests : EdsTest.TestCase
 
           if (this._linking_props.size == 0)
             {
-              /* FIXME: if the timeout is reached, should this just fail? */
-              Timeout.add_seconds (5, () =>
-                {
-                  this._main_loop.quit ();
-                  return false;
-                });
+              debug ("Quitting main loop due to empty linking props set");
+              this._main_loop.quit ();
             }
         }
 
@@ -433,7 +422,7 @@ public class LinkPersonasTests : EdsTest.TestCase
             }
           catch (GLib.Error e)
             {
-              GLib.warning ("link_personas: %s\n", e.message);
+              GLib.error ("link_personas: %s\n", e.message);
             }
         }
     }
@@ -459,6 +448,7 @@ public class LinkPersonasTests : EdsTest.TestCase
               if (email.value == this._auto_linkable_email)
                 {
                   this._linking_props.unset ("prop1");
+                  debug ("Unsetting linking prop1 due to e-mail address match");
                 }
             }
 
@@ -470,6 +460,7 @@ public class LinkPersonasTests : EdsTest.TestCase
                   if (im_fd1.value == this._auto_linkable_email)
                     {
                       this._linking_props.unset ("prop2");
+                      debug ("Unsetting linking prop2 due to e-mail address match");
                     }
                 }
             }
@@ -477,6 +468,7 @@ public class LinkPersonasTests : EdsTest.TestCase
 
       if (this._linking_props.size == 0)
         {
+          debug ("Quitting main loop due to empty linking props set");
           this._main_loop.quit ();
         }
     }

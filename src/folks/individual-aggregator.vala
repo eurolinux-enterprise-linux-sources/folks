@@ -148,8 +148,8 @@ public class Folks.IndividualAggregator : Object
   private Debug _debug;
   private string _configured_primary_store_type_id;
   private string _configured_primary_store_id;
-  private static const string _FOLKS_GSETTINGS_SCHEMA = "org.freedesktop.folks";
-  private static const string _PRIMARY_STORE_CONFIG_KEY = "primary-store";
+  private const string _FOLKS_GSETTINGS_SCHEMA = "org.freedesktop.folks";
+  private const string _PRIMARY_STORE_CONFIG_KEY = "primary-store";
 
   /* The number of persona stores and backends we're waiting to become
    * quiescent. Once these both reach 0, we should be in a quiescent state.
@@ -167,7 +167,7 @@ public class Folks.IndividualAggregator : Object
    * reach quiescence. */
   private uint _quiescent_timeout_id = 0;
 
-  private static const uint _QUIESCENT_TIMEOUT = 30; /* seconds */
+  private const uint _QUIESCENT_TIMEOUT = 30; /* seconds */
 
   /* We use this to know if the primary PersonaStore has been explicitly
    * set by the user (either via GSettings or an env variable). If that is the
@@ -498,12 +498,12 @@ public class Folks.IndividualAggregator : Object
               this._configured_primary_store_id = "";
             }
 
-          _primary_store_setting = new Settings (
+          this._primary_store_setting = new Settings (
               IndividualAggregator._FOLKS_GSETTINGS_SCHEMA);
-          _primary_store_setting.changed[IndividualAggregator._PRIMARY_STORE_CONFIG_KEY].connect (
+          this._primary_store_setting.changed[IndividualAggregator._PRIMARY_STORE_CONFIG_KEY].connect (
               this._primary_store_setting_changed_cb);
-		  this._primary_store_setting_changed_cb (_primary_store_setting,
-			  IndividualAggregator._PRIMARY_STORE_CONFIG_KEY);
+          this._primary_store_setting_changed_cb (_primary_store_setting,
+              IndividualAggregator._PRIMARY_STORE_CONFIG_KEY);
         }
 
       debug ("Primary store IDs are '%s' and '%s'.",
@@ -553,7 +553,7 @@ public class Folks.IndividualAggregator : Object
             var store_full_id = this._get_store_full_id (
                 this._configured_primary_store_type_id,
                 this._configured_primary_store_id);
-            if (store_full_id in this._stores)
+            if (this._stores.has_key (store_full_id))
               {
                   var selected_store = this._stores.get (store_full_id);
                   this._set_primary_store (selected_store);
@@ -903,7 +903,7 @@ public class Folks.IndividualAggregator : Object
       return matches;
     }
 
-  private async void _add_backend (Backend backend)
+  private void _add_backend (Backend backend)
     {
       if (!this._backends.contains (backend))
         {
@@ -921,9 +921,9 @@ public class Folks.IndividualAggregator : Object
            */
           var stores = backend.persona_stores.values.to_array ();
           foreach (var persona_store in stores)
-              {
-                this._backend_persona_store_added_cb (backend, persona_store);
-              }
+            {
+              this._backend_persona_store_added_cb (backend, persona_store);
+            }
         }
     }
 
@@ -949,7 +949,7 @@ public class Folks.IndividualAggregator : Object
             }
         }
 
-      this._add_backend.begin (backend);
+      this._add_backend (backend);
     }
 
   private void _set_primary_store (PersonaStore store)
@@ -1286,7 +1286,6 @@ public class Folks.IndividualAggregator : Object
                    * prop_name ends up as NULL. bgo#628336 */
                   unowned string prop_name = foo;
 
-                  /* FIXME: can't be var because of bgo#638208 */
                   unowned ObjectClass pclass = persona.get_class ();
                   if (pclass.find_property (prop_name) == null)
                     {
@@ -1560,7 +1559,6 @@ public class Folks.IndividualAggregator : Object
 
               debug ("        %s", prop_name);
 
-              /* FIXME: can't be var because of bgo#638208 */
               unowned ObjectClass pclass = persona.get_class ();
               if (pclass.find_property (prop_name) == null)
                 {

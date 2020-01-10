@@ -42,7 +42,10 @@ and/or use gtk-doc annotations.  -->
           <doc xml:space="preserve">function to call on completion</doc>
           <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
         </parameter>
-        <parameter name="user_data" transfer-ownership="none">
+        <parameter name="user_data"
+                   transfer-ownership="none"
+                   nullable="1"
+                   allow-none="1">
           <doc xml:space="preserve">user data to pass to @callback</doc>
           <type name="gpointer" c:type="gpointer"/>
         </parameter>

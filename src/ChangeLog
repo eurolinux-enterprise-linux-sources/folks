@@ -1,3 +1,2276 @@
+commit 4603e7796b9b6a9e98c1931e290e538f9e1d46e5
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Sep 20 14:00:10 2016 -0700
+
+    tracker: Fix assignment of owned value to unowned variable
+
+    Vala has (rightfully) got more strict about this. This should
+    work with
+    older Vala releases too.
+
+ backends/tracker/lib/trf-util.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 14e22d6b8b186d3068be3479cf8be0d41dfcbf32
+Author: Rico Tzschichholz <ricotz@ubuntu.com>
+Date:   Wed Sep 14 08:46:25 2016 +0200
+
+    Fix 'static const' warnings with vala 0.33.1
+
+ backends/eds/eds-backend.vala                      |   2 +-
+ backends/eds/lib/edsf-persona-store.vala           |   2 +-
+ backends/eds/lib/edsf-persona.vala                 |  20 ++--
+ backends/key-file/kf-persona-store.vala            |   2 +-
+ .../telepathy/lib/tpf-persona-store-cache.vala     |   2 +-
+ backends/tracker/lib/trf-persona-store.vala        |   4 +-
+ backends/tracker/lib/trf-util.vala                 | 120
+ ++++++++++-----------
+ folks/abstract-field-details.vala                  |   8 +-
+ folks/build-conf.vapi                              |  26 ++---
+ folks/individual-aggregator.vala                   |   6 +-
+ folks/individual.vala                              |   2 +-
+ folks/object-cache.vala                            |   4 +-
+ folks/persona-store.vala                           |   2 +-
+ folks/query.vala                                   |   6 +-
+ folks/url-details.vala                             |   8 +-
+ tests/folks/backend-loading.vala                   |   2 +-
+ tests/lib/libsocialweb/backend.vala                |   6 +-
+ tests/lib/tracker/backend.vala                     |   4 +-
+ tests/libsocialweb/aggregation.vala                |   4 +-
+ tools/import.vala                                  |   4 +-
+ 20 files changed, 117 insertions(+), 117 deletions(-)
+
+commit 75d25816f4739debfe0d3f0a112cf4c46e953f32
+Author: Baurzhan Muftakhidinov <baurthefirst@gmail.com>
+Date:   Sun Sep 11 09:05:28 2016 +0000
+
+    Added Kazakh translation
+
+ po/LINGUAS |   1 +
+ po/kk.po   | 843
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 844 insertions(+)
+
+commit 89b5e9ae1aabc06c7bfcab414479857574073b68
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Thu Sep 8 03:14:16 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 79b6f627f623c7183a968cd40089c7c0d54488a0
+Author: David King <amigadave@amigadave.com>
+Date:   Wed Sep 7 22:29:20 2016 +0200
+
+    Update British English translation
+
+ po/en_GB.po | 440
+ +++++++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 316 insertions(+), 124 deletions(-)
+
+commit 01b0868e875cf1f4c085567e7b40daa88cee5114
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Mon Aug 22 19:02:24 2016 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 128
+ +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 62 insertions(+), 66 deletions(-)
+
+commit 6710a68a34320414ffc352fceea13b4caf7c2ea7
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Mon Aug 15 15:10:56 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 69
+ ++++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 46 insertions(+), 23 deletions(-)
+
+commit 7d7fd922009ea2fc2c40884e6b9be1261b245949
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Mon Aug 15 11:51:39 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 42 +++++++++++++++++++++++++++---------------
+ 1 file changed, 27 insertions(+), 15 deletions(-)
+
+commit 90a8ead6381312927746953da13da78c1f077e1a
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Fri Aug 12 08:56:07 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
+
+commit a7cc9cae6d809a7f046c8eaf1c18e04e6ab3b427
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Fri Aug 12 08:40:57 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 72
+ +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 36 insertions(+), 36 deletions(-)
+
+commit 3e9ec06b964e8e65a014b447c2d797dc8d93f4a2
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Fri Aug 12 08:14:22 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 48 +++++++++++++++++++++++++-----------------------
+ 1 file changed, 25 insertions(+), 23 deletions(-)
+
+commit f613ef6cc3484a6cba268d4e665be9c81864beb8
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Fri Aug 12 05:40:25 2016 +0000
+
+    Updated Friulian translation
+
+ po/fur.po | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+commit abaf24d26e9890fc3abce89ed86a50af10461db7
+Author: Fabio Tomat <f.t.public@gmail.com>
+Date:   Fri Aug 12 05:30:36 2016 +0000
+
+    Added Friulian translation
+
+ po/LINGUAS |   1 +
+ po/fur.po  | 852
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 853 insertions(+)
+
+commit b24db4ee56c76ee2bc00c549e9fb206831b204d6
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Tue Aug 2 16:45:01 2016 +0200
+
+    Updated Spanish translation
+
+ po/es.po | 90
+ ++++++++++++++++++++++++++++++----------------------------------
+ 1 file changed, 42 insertions(+), 48 deletions(-)
+
+commit 5412b814e487c15d8d4c1b38afe736340b0e59b1
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Sat Jul 16 17:39:45 2016 +0200
+
+    Add Language headers to po files
+
+    Future versions of gettext will fail if this header is missing.
+
+ po/bn_IN.po       | 2 +-
+ po/ca@valencia.po | 2 +-
+ po/de.po          | 2 +-
+ po/es.po          | 2 +-
+ po/it.po          | 2 +-
+ po/nb.po          | 2 +-
+ po/sr@latin.po    | 2 +-
+ po/tg.po          | 2 +-
+ po/ug.po          | 2 +-
+ po/zh_HK.po       | 2 +-
+ 10 files changed, 10 insertions(+), 10 deletions(-)
+
+commit 918b012be9c9415bae3fe746736f371983e30da9
+Author: Cédric Valmary <cvalmary@yahoo.fr>
+Date:   Mon May 30 16:47:44 2016 +0000
+
+    Updated Occitan translation
+
+ po/oc.po | 14 +++-----------
+ 1 file changed, 3 insertions(+), 11 deletions(-)
+
+commit 6722a9323e0635903c13b47a6a82f30b55d5e683
+Author: Cédric Valmary <cvalmary@yahoo.fr>
+Date:   Sun May 8 19:08:17 2016 +0000
+
+    Updated Occitan translation
+
+ po/oc.po | 247
+ +++++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 152 insertions(+), 95 deletions(-)
+
+commit f89f602add2346c145ead3de16f7d287f46e5252
+Author: Travis Reitter <travis.reitter@collabora.co.uk>
+Date:   Thu Apr 28 08:29:13 2016 -0700
+
+    Add spacing to make a comment easier to read
+
+ configure.ac | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit cce39b78b3d3b4ec8f320b7a6ee6563acf2a6c30
+Author: Reinout van Schouwen <reinouts@gnome.org>
+Date:   Fri Mar 25 23:12:43 2016 +0100
+
+    Initial Dutch translation by Nathan Follens
+
+ po/LINGUAS |   1 +
+ po/nl.po   | 895
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 896 insertions(+)
+
+commit 0f8398425d6fce4531b795e6516822e4e85fa736
+Author: Cédric Valmary <cvalmary@yahoo.fr>
+Date:   Sun Mar 13 12:48:33 2016 +0000
+
+    Updated Occitan translation
+
+ po/oc.po | 312
+ +++++++++++++++++++++++++++------------------------------------
+ 1 file changed, 131 insertions(+), 181 deletions(-)
+
+commit c16c3d9918ab243a0cf08fe3b1c40ec903160dbc
+Author: Cédric Valmary <cvalmary@yahoo.fr>
+Date:   Fri Feb 26 20:10:15 2016 +0000
+
+    Added Occitan translation
+
+ po/LINGUAS |   1 +
+ po/oc.po   | 931
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 932 insertions(+)
+
+commit 6c1a249efc56d7a39467303948d02cd87e23239c
+Author: coypu <coypu@sdf.org>
+Date:   Wed Jan 27 18:21:18 2016 +0200
+
+    build: Use portable test for zeitgeist
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=761192
+
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 93c21df096cfc2747ff3420fdc8c8f8c32338f3b
+Author: Aurimas Černius <aurisc4@gmail.com>
+Date:   Sun Jan 10 17:45:30 2016 +0200
+
+    Updated Lithuanian translation
+
+ po/lt.po | 104
+ ++++++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 49 insertions(+), 55 deletions(-)
+
+commit 4e1d57e6fbc6ec0aa068fa30de1aa29e6514327f
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Mon Jan 4 22:46:38 2016 +0000
+
+    inspect: Remove conditional compilation in favour of ‘var’
+
+    This copies the array but at least it compiles happily on all versions
+    of Vala.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=758741
+
+ tools/inspect/utils.vala | 27 ++++++---------------------
+ 1 file changed, 6 insertions(+), 21 deletions(-)
+
+commit 50df98c9f12081f3bbb5f664b0dd3b0d6a151f10
+Author: Rico Tzschichholz <ricotz@ubuntu.com>
+Date:   Fri Nov 27 16:06:02 2015 +0100
+
+    inpect: Fix build with vala git master
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=758741
+
+ tools/inspect/utils.vala | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+commit 1c44c2cc4c6ab5b4348fcdf7545623eb3f903f8f
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Nov 27 14:14:08 2015 +0000
+
+    Post-release version bump
+
+ NEWS         | 12 ++++++++++++
+ configure.ac |  4 ++--
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+commit 4d1be679bbb7f0d12b1b0987500c0d47ad663643
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Nov 27 14:12:54 2015 +0000
+
+    Release version 0.11.2
+
+ NEWS         |  8 ++++----
+ configure.ac | 14 +++++++-------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
+
+commit 24103cfc2ac425b4c64b6462142498b2d601abbb
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Sun Nov 15 19:39:40 2015 +0100
+
+    Updated Norwegian bokmål translation.
+
+ po/nb.po | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 8beb4056b80c9c9c5d72fd490ba81a03e76dfed4
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Sun Oct 18 19:21:44 2015 +0200
+
+    Updated Norwegian bokmål translation.
+
+ po/nb.po | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit e5533ac8656e953c1a5c9990937d680f31d346d7
+Author: Jiri Grönroos <jiri.gronroos@iki.fi>
+Date:   Tue Oct 6 17:47:44 2015 +0000
+
+    Updated Finnish translation
+
+ po/fi.po | 381
+ +++++++++++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 273 insertions(+), 108 deletions(-)
+
+commit c068dfd3858082dc08dafb3bdd8b4a360ddd63c6
+Author: Милош Поповић <gpopac@gmail.com>
+Date:   Tue Sep 22 12:47:56 2015 +0000
+
+    Updated Serbian Latin translation
+
+ po/sr@latin.po | 177
+ ++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 112 insertions(+), 65 deletions(-)
+
+commit 8474dd4bc159ad827eacc24e45301b7ed4585326
+Author: Милош Поповић <gpopac@gmail.com>
+Date:   Tue Sep 22 12:47:03 2015 +0000
+
+    Updated Serbian translation
+
+ po/sr.po | 177
+ ++++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 112 insertions(+), 65 deletions(-)
+
+commit 46e5abf53da9c41e67279d1d3682c9b53ac7ad41
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Sun Sep 20 12:49:03 2015 +0200
+
+    Updated Norwegian bokmål translation.
+
+ po/nb.po | 88
+ ++++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 44 insertions(+), 44 deletions(-)
+
+commit 1c595f13460e3c68a313d0b8e8ca67837d2291b5
+Author: Arash Mousavi <mousavi.arash@gmail.com>
+Date:   Sun Sep 13 23:49:31 2015 +0430
+
+    Update Persian translations
+
+ po/fa.po | 503
+ ++++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 335 insertions(+), 168 deletions(-)
+
+commit 65499ba109d6a019baabfa3adba610507ba9257f
+Author: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>
+Date:   Tue Aug 25 22:36:17 2015 +0000
+
+    Updated Chinese (Taiwan) translation
+
+ po/zh_TW.po | 161
+ +++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 100 insertions(+), 61 deletions(-)
+
+commit 3704ecd2e3e255eb6f985dc720dbb0b202ea9f5e
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Tue Aug 25 15:42:23 2015 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 203
+ +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 100 insertions(+), 103 deletions(-)
+
+commit 366b5ed1094d070ab9dbcd01965e4f5bfab70694
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Aug 19 16:03:48 2015 +0100
+
+    telepathy: Improve error handling on connection failure of a CM
+
+    If a CM is initially offline when the Tpf.PersonaStore is created,
+    calling this.account.connection.prepare_async() will start trying to
+    connect it. If the host is unreachable, this will result in waiting
+    for
+    a network timeout before Telepathy can declare failure.
+
+    There are two problems here:
+     • This network timeout may be longer than the quiescence timeout
+     built
+    in to the IndividualAggregator. There’s not much we can do about
+    that.
+     • The GError was not previously handled properly, so the
+     PersonaStore
+    would never reach quiescence anyway.
+
+    Fix this by falling back to loading the cache if connecting fails.
+
+ backends/telepathy/lib/tpf-persona-store.vala | 33
+ +++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 9 deletions(-)
+
+commit 5fce44554b319916041e84a46e89356f6e074762
+Author: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>
+Date:   Sat Aug 15 02:17:01 2015 +0200
+
+    Updated Esperanto translation
+
+ po/eo.po | 751
+ ++++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 450 insertions(+), 301 deletions(-)
+
+commit 79cecfd9dac7ad36fb07c8354a93432354ac2c74
+Author: Anders Jonsson <anders.jonsson@norsjovallen.se>
+Date:   Mon Aug 10 15:58:27 2015 +0000
+
+    Updated Swedish translation
+
+ po/sv.po | 172
+ +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 86 insertions(+), 86 deletions(-)
+
+commit 409401d64083a0b73eee7151865f4f43d43dfbd1
+Author: Necdet Yücel <necdetyucel@gmail.com>
+Date:   Sun Aug 9 15:34:48 2015 +0000
+
+    Updated Turkish translation
+
+ po/tr.po | 174
+ ++++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 106 insertions(+), 68 deletions(-)
+
+commit a651587c52e2833f4d0b1c0a62a4a671dcdf39e2
+Author: Andika Triwidada <andika@gmail.com>
+Date:   Mon Aug 3 05:38:03 2015 +0000
+
+    Updated Indonesian translation
+
+ po/id.po | 121
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 80 insertions(+), 41 deletions(-)
+
+commit c033780fef529fbfdd3f2e462779ea171bd5dd6c
+Author: Pedro Albuquerque <palbuquerque73@gmail.com>
+Date:   Tue Jul 28 06:14:29 2015 +0000
+
+    Updated Portuguese translation
+
+ po/pt.po | 69
+ +++++++++++++++++++++++++++++-----------------------------------
+ 1 file changed, 31 insertions(+), 38 deletions(-)
+
+commit f535eae06e9980e94d940bde34956ef43e0b4ca2
+Author: Pedro Albuquerque <palbuquerque73@gmail.com>
+Date:   Mon Jun 29 22:45:10 2015 +0000
+
+    Updated Portuguese translation
+
+ po/pt.po | 292
+ +++++++++++++++++++++++++++++++++++++--------------------------
+ 1 file changed, 171 insertions(+), 121 deletions(-)
+
+commit de179f668e6907e075c1ad6626a4f84f4e0371f0
+Author: Bernd Homuth <dev@hmt.im>
+Date:   Fri Jun 19 16:44:04 2015 +0000
+
+    Updated German translation
+
+ po/de.po | 392
+ ++++++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 185 insertions(+), 207 deletions(-)
+
+commit 790cd8e507f6e0d7febb0e7ba13b1c5f19c2e4ac
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:16:33 2015 +0100
+
+    tests: Combine and update EDS property setter tests
+
+    Combine all the simple set-* tests into a single set-properties test,
+    eliminating a lot of redundant code.
+
+    Fix the remaining code to correctly avoid race conditions, as
+    in commit
+    023a563.
+
+ tests/eds/Makefile.am               |  56 +----
+ tests/eds/set-avatar.vala           | 301 -------------------------
+ tests/eds/set-birthday.vala         | 141 ------------
+ tests/eds/set-gender.vala           | 141 ------------
+ tests/eds/set-is-favourite.vala     | 141 ------------
+ tests/eds/set-names.vala            | 181 ---------------
+ tests/eds/set-notes.vala            | 143 ------------
+ tests/eds/set-phones.vala           | 163 --------------
+ tests/eds/set-postal-addresses.vala | 156 -------------
+ tests/eds/set-properties.vala       | 426
+ ++++++++++++++++++++++++++++++++++++
+ tests/eds/set-roles.vala            | 140 ------------
+ tests/eds/set-structured-name.vala  | 139 ------------
+ tests/eds/set-urls.vala             | 187 ----------------
+ 13 files changed, 429 insertions(+), 1886 deletions(-)
+
+commit 023a56394101738c57d9b3aa3698bc58f62b66a9
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:11:16 2015 +0100
+
+    tests: Simplify EDS details tests
+
+    Drastically simplify the tests for retrieving persona details from
+    Edsf.Personas, by using some of the newer test utility functions in
+    libfolks. This has the useful side effect of fixing a common race
+    condition where the test’s individuals-changed callback would
+    be called
+    during test teardown, and assertions in it would fail because
+    it didn’t
+    expect any personas to be removed.
+
+ tests/eds/avatar-details.vala         | 111 ++++++---------------
+ tests/eds/email-details.vala          | 157
+ ++++++++----------------------
+ tests/eds/im-details.vala             | 124 ++++++-----------------
+ tests/eds/link-personas.vala          |   6 --
+ tests/eds/name-details.vala           | 178
+ ++++++++++++----------------------
+ tests/eds/phone-details.vala          | 159
+ ++++++++++--------------------
+ tests/eds/postal-address-details.vala | 143 +++++++++------------------
+ 7 files changed, 264 insertions(+), 614 deletions(-)
+
+commit 7612d6720bab91b7a397036e6a22203b2f7093e6
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:18:21 2015 +0100
+
+    tests: Allow data to be stored in unit test closures
+
+    Previously, unit test closures had to be entirely pure — now
+    they can
+    store data. This will be useful for adding unit tests dynamically.
+
+ tests/lib/test-case-helper.c | 25 ++++++++++++++++++++-----
+ tests/lib/test-case.vala     |  7 ++++---
+ 2 files changed, 24 insertions(+), 8 deletions(-)
+
+commit 70327ca30815038f5736e10f8d731fdc0fa171d7
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:18:04 2015 +0100
+
+    tests: Improve debug output from the EDS test utilities
+
+ tests/lib/eds/backend.vala | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit 2244e263e394a66db97df383eb67697a126dee38
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:17:45 2015 +0100
+
+    tests: Add a synchronous commit helper method to the EDS test
+    utilities
+
+ tests/lib/eds/backend.vala | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+commit ae8b9e9eae3e1fa998eabdf380c0e26061725689
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 17:10:12 2015 +0100
+
+    tests: Add some more debug output to test utilities
+
+    For debugging timeout problems.
+
+ tests/lib/test-utils.vala | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 5fe655759f0e43a57f77ab4bb910112c09c9cdb9
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jun 17 09:18:14 2015 +0100
+
+    tests: Fix a race condition in setting up for EDS tests
+
+    Previously, we spawned the EDS source registry process, then created a
+    .source file to it to use. However, it looks like sometimes it can
+    notice the file part-way through us writing to it, load it, then
+    fail to
+    parse it.
+
+    Fix that by writing out the file before spawning the EDS source
+    registry
+    process.
+
+ tests/lib/eds/backend.vala | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit b5070cec811e68f5b8f8029119a059d3c3eb2ce9
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 17:58:15 2015 +0100
+
+    eds: Eliminate another race condition when committing contacts
+
+    We can’t connect to the objects_modified signal, as we can’t
+    guarantee
+    whether the handler installed in _commit_modified_property() or the
+    _contacts_changed_cb() handler will be called first. Since they both
+    enqueue to the idle queue in order, the callback from
+    _commit_modified_property() will still operate on an outdated
+    Edsf.Persona if it is called first.
+
+    This race condition can only happen when _commit_modified_property()
+    is
+    called with a null property_name, which happens for custom properties
+    and extended fields.
+
+    Fix this by listening for changes to the Edsf.Persona.contact property
+    instead of objects_modified. This is always guaranteed to change
+    when a
+    Persona is updated (because it represents the current vCard),
+    and fixes
+    the ordering problem, because the Persona’s properties will
+    have been
+    updated by the time the contact property is notified (see
+    Edsf.Persona._update() for details).
+
+ backends/eds/lib/edsf-persona-store.vala | 61
+ +++++---------------------------
+ 1 file changed, 9 insertions(+), 52 deletions(-)
+
+commit cce549de95c9faa621b39960ca741cb397cfe7c5
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 17:47:42 2015 +0100
+
+    tests: Eliminate non-fatal timeouts from the EDS tests
+
+    Consistently use TestUtils.loop_run_with_timeout() instead of
+    TestUtils.loop_run_with_non_fatal_timeout(). Fix a number of race
+    conditions where (for example) individuals-changed can be emitted as
+    part of teardown of the test, while the test’s signal handler
+    is still
+    connected to it, resulting in an assertion failure because the handler
+    does not expect personas to be removed.
+
+    This should also speed the tests up a bit, because they’re no longer
+    waiting for a timeout before checking for success. They now quit the
+    main loop on success.
+
+ tests/eds/avatar-details.vala       |  5 +++--
+ tests/eds/email-details.vala        |  9 +++++++--
+ tests/eds/individual-retrieval.vala |  5 +++--
+ tests/eds/name-details.vala         | 17 +++++++++--------
+ tests/eds/persona-store-tests.vala  | 35
+ ++++++++++++++++++++++++++++-------
+ tests/eds/phone-details.vala        |  6 ++++--
+ tests/eds/removing-contacts.vala    |  7 +++++--
+ 7 files changed, 59 insertions(+), 25 deletions(-)
+
+commit 1c6f6fd2ffdb08b3d64179bd65d1d9379cf71f2d
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 16:55:31 2015 +0100
+
+    tests: Add support for the latest version of the EDS source API
+
+ tests/lib/eds/test-case.vala | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 15f16c61af28fa81dc21ce9996faaa6d72a301ae
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 16:19:17 2015 +0100
+
+    tools: Stop using deprecated GIO API
+
+    The bindings for file attributes were changed in Vala 0.16 (we
+    depend on
+    Vala 0.22), so it’s safe to port from the deprecated API to
+    the latest.
+
+ tools/import-pidgin.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 70870b1ea242f8fbbab1f7a6e337fa32f5e63926
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 16:18:35 2015 +0100
+
+    tests: Handle some extra errors in the Tracker tests’ backend
+
+    The latest version of valac picks up the omission of the catch
+    block for
+    generic GLib.Error.
+
+ tests/lib/tracker/backend.vala | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+commit 01ad839337bbb2db66c3bcbd9097b24fd2565a37
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jun 16 14:42:08 2015 +0100
+
+    eds: Do not pass empty vCard attribute groups to EDS
+
+    Older version of EDS do not treat the following two calls as
+    equivalent:
+       new VCardAttribute (null, "X-HELLO")
+       new VCardAttribute ("", "X-HELLO")
+    when they should be. Work around that by always passing null anyway.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=751044
+
+ backends/eds/lib/edsf-persona-store.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit 41729cb44496f80e6d7847312a960e7b8c0d7543
+Author: Gianvito Cavasoli <gianvito@gmx.it>
+Date:   Mon Jun 1 12:10:58 2015 +0000
+
+    Updated Italian translation
+
+ po/it.po | 126
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 83 insertions(+), 43 deletions(-)
+
+commit 1a165b5e34d9caa79439929883b6994761bb1176
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Mon May 25 22:31:05 2015 +0100
+
+    Post-release version bump
+
+ NEWS         | 11 +++++++++++
+ configure.ac |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+commit c901c367c4791e5b9071e96a5a8b3bfd6de1a701
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Mon May 25 22:29:37 2015 +0100
+
+    Release version 0.11.1
+
+ NEWS         |  9 +++++----
+ configure.ac | 14 +++++++-------
+ 2 files changed, 12 insertions(+), 11 deletions(-)
+
+commit ae039b6078ea0f3454ddfb1074730076da43d061
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Mon May 25 21:18:54 2015 +0100
+
+    Revert "build: Disable libsocialweb backend on distcheck"
+
+    This reverts commit cdd1ff41c6b58841f3be29845ccab2668e35c0db.
+
+    It turns out it’s more pain to disable libsocialweb and try to
+    fight the
+    irrepressible combination of automake and Vala than it is to just
+    un-break libsocialweb to get distcheck to pass. Turns out that it’s
+    basically impossible to stop automake trying to generate C files from
+    .vala files, even if those .vala files are listed in EXTRA_DIST
+    and not
+    SOURCES, or are hidden behind an if ENABLE_LIBSOCIALWEB.
+
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit ad95d641b62955a2f228968f4a141a80c053180a
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Mon May 25 18:53:56 2015 +0100
+
+    build: Tidy up GITIGNOREFILES in the docs directory
+
+    folks-dummy was missing from it; it should have been referencing
+    $(distclean_dirs) all along anyway.
+
+ docs/Makefile.am | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+commit f2b54418bd5839586ca360642a76b47ca070eaed
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon May 25 16:52:39 2015 +0100
+
+    docs: Fix incorrect @since lines in documentation comments
+
+ backends/eds/lib/edsf-persona.vala |  6 +++---
+ folks/extended-info.vala           | 16 ++++++++--------
+ folks/individual.vala              |  6 +++---
+ folks/persona-store.vala           |  2 +-
+ folks/query.vala                   | 12 ++++++------
+ folks/search-view.vala             | 22 +++++++++++-----------
+ folks/simple-query.vala            | 10 +++++-----
+ 7 files changed, 37 insertions(+), 37 deletions(-)
+
+commit f91438a0ad3a4099e28182834d9200234a130150
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Thu May 14 16:51:27 2015 +0200
+
+    Updated Norwegian bokmål translation.
+
+ po/nb.po | 135
+ ++++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 87 insertions(+), 48 deletions(-)
+
+commit 077b9a73b5c0a92f45483a6c666d79009f9a007b
+Author: Seong-ho Cho <shcho@gnome.org>
+Date:   Sun May 10 08:33:14 2015 +0900
+
+    Updated Korean translation
+
+ po/ko.po | 185
+ ++++++++++++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 112 insertions(+), 73 deletions(-)
+
+commit f100b5961943954462d1a7a3845647fd9870a777
+Author: Alexandre Franke <alexandre.franke@gmail.com>
+Date:   Sat May 9 09:05:14 2015 +0000
+
+    Updated French translation
+
+ po/fr.po | 134
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 88 insertions(+), 46 deletions(-)
+
+commit 90bf4d8403494040b10ddee97f78007fa816c965
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Apr 27 16:59:58 2015 +0100
+
+    inspect: Return error codes on failure in non-interactive mode
+
+    If the user runs folks-inspect and it fails (for example, because the
+    individual ID they’ve specified doesn’t exist), return a
+    non-zero exit
+    status, rather than returning zero and pretending everything is
+    perfect.
+
+    Interactive mode continues to return zero.
+
+ tools/inspect/command-backends.vala       |  6 ++++--
+ tools/inspect/command-debug.vala          |  3 ++-
+ tools/inspect/command-help.vala           | 13 ++++++++++---
+ tools/inspect/command-individuals.vala    |  6 ++++--
+ tools/inspect/command-linking.vala        | 20 ++++++++++++--------
+ tools/inspect/command-persona-stores.vala |  6 ++++--
+ tools/inspect/command-personas.vala       | 15 ++++++++++++++-
+ tools/inspect/command-quit.vala           |  2 +-
+ tools/inspect/command-search.vala         |  4 +++-
+ tools/inspect/command-set.vala            | 15 ++++++++-------
+ tools/inspect/command-signals.vala        | 12 +++++++-----
+ tools/inspect/inspect.vala                | 23 +++++++++++++++--------
+ 12 files changed, 84 insertions(+), 41 deletions(-)
+
+commit 77585ebbcfb3a67404e91e36ca690b0252022902
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Apr 27 16:58:41 2015 +0100
+
+    tracker: Handle GLib.Error from
+    Tracker.SparqlConnection.update_async()
+
+    This seems to have been added in recent versions of Tracker, or just
+    exposed in the introspected bindings.
+
+ backends/tracker/lib/trf-persona-store.vala | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+commit 6d9068cf8797683314a8f8dfd687c532220dbb5d
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Apr 27 16:57:21 2015 +0100
+
+    bluez: Fix [DBus] attribute capitalisation in OBEX interface
+
+    This fixes a number of compiler warnings.
+
+ backends/bluez/org-bluez-obex-client.vala | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+commit 75a6f37d7c0516accbbaed9f1a98009c39b96212
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Thu Apr 23 10:46:01 2015 +0200
+
+    Updated Spanish translation
+
+ po/es.po | 164
+ ++++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 105 insertions(+), 59 deletions(-)
+
+commit 731615faec69519834b23cbd6adbd5f12011edb8
+Author: Rafael Ferreira <rafael.f.f1@gmail.com>
+Date:   Thu Apr 16 18:17:13 2015 +0000
+
+    Updated Brazilian Portuguese translation
+
+ po/pt_BR.po | 135
+ +++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 88 insertions(+), 47 deletions(-)
+
+commit 12fa665ae06a3b20ccc75ad57ebc8981402e9978
+Author: Ask Hjorth Larsen <asklarsen@gmail.com>
+Date:   Mon Apr 13 19:20:24 2015 +0200
+
+    Updated Danish translation
+
+ po/da.po | 121
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 80 insertions(+), 41 deletions(-)
+
+commit d758f53400934d671baab26fb69b350c126ba8b5
+Author: Gábor Kelemen <kelemeng@openscope.org>
+Date:   Sun Apr 12 09:48:29 2015 +0000
+
+    Updated Hungarian translation
+
+ po/hu.po | 168
+ ++++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 106 insertions(+), 62 deletions(-)
+
+commit f559b51691767e401917a35d29ce5fe9ae545f69
+Author: Anders Jonsson <anders.jonsson@norsjovallen.se>
+Date:   Sun Apr 12 07:20:06 2015 +0000
+
+    Updated Swedish translation
+
+ po/sv.po | 155
+ +++++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 97 insertions(+), 58 deletions(-)
+
+commit 28f20c07112639dd97a91f5a7aed5ac3d6259b51
+Author: Aurimas Černius <aurisc4@gmail.com>
+Date:   Sat Apr 11 15:39:38 2015 +0300
+
+    Updated Lithuanian translation
+
+ po/lt.po | 141
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 93 insertions(+), 48 deletions(-)
+
+commit eb22405b5f8baed9e99a5d0c91c66875cc4b3a4d
+Author: Efstathios Iosifidis <eiosifidis@gnome.org>
+Date:   Wed Apr 8 12:28:01 2015 +0000
+
+    Updated Greek translation
+
+ po/el.po | 146
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 96 insertions(+), 50 deletions(-)
+
+commit cc9fd0571349ea7fe14b3a9b94c9280a19d8c429
+Author: Inaki Larranaga Murgoitio <dooteo@zundan.com>
+Date:   Sat Apr 4 13:10:20 2015 +0200
+
+    Updated Basque language
+
+ po/eu.po | 133
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 86 insertions(+), 47 deletions(-)
+
+commit 0ddccd7d324c3da1306e8ea6efc5b75ee90ff6db
+Author: Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+Date:   Fri Apr 3 20:21:34 2015 +0300
+
+    Updated Latvian translation
+
+ po/lv.po | 146
+ ++++++++++++++++++++++++++++++++++++++++-----------------------
+ 1 file changed, 92 insertions(+), 54 deletions(-)
+
+commit d9dd6774c46af394f8923be1bf63b1f1dce55694
+Author: Trần Ngọc Quân <vnwildman@gmail.com>
+Date:   Thu Apr 2 08:06:23 2015 +0700
+
+    Updated Vietnamese translation
+
+    Signed-off-by: Trần Ngọc Quân <vnwildman@gmail.com>
+
+ po/vi.po | 608
+ +++++++++++++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 417 insertions(+), 191 deletions(-)
+
+commit b2656c842215a00fc40c3603d4c0b84fb00613df
+Author: Fran Dieguez <frandieguez@gnome.org>
+Date:   Wed Apr 1 14:28:40 2015 +0000
+
+    Updated Galician translation
+
+ po/gl.po | 145
+ ++++++++++++++++++++++++++++++++++++++++++---------------------
+ 1 file changed, 97 insertions(+), 48 deletions(-)
+
+commit f1829898f4216783a09104af1f953dae03dcf90d
+Author: Marek Černocký <marek@manet.cz>
+Date:   Wed Apr 1 11:06:40 2015 +0200
+
+    Udated Czech translation
+
+ po/cs.po | 155
+ +++++++++++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 97 insertions(+), 58 deletions(-)
+
+commit 3574cadc56e2215e7d1d9e9b457b248a3df080b4
+Author: Matej Urbančič <mateju@svn.gnome.org>
+Date:   Tue Mar 31 21:08:33 2015 +0200
+
+    Updated Slovenian translation
+
+ po/sl.po | 362
+ +++++++++++++++++++++++++--------------------------------------
+ 1 file changed, 143 insertions(+), 219 deletions(-)
+
+commit 2e23f48cfebe7c4cda71c47c73f758a0629a2440
+Author: Stas Solovey <whats_up@tut.by>
+Date:   Tue Mar 31 09:46:45 2015 +0000
+
+    Updated Russian translation
+
+ po/ru.po | 155
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 101 insertions(+), 54 deletions(-)
+
+commit 282e17787c3f0d899ac086fc9b218ae81ed4d8cc
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Mon Mar 30 20:45:48 2015 +0000
+
+    Updated Slovak translation
+
+ po/sk.po | 127
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 83 insertions(+), 44 deletions(-)
+
+commit 5085489c486561c16222b45002f4fe1521e61f66
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Mon Mar 30 17:26:46 2015 +0200
+
+    Updated Polish translation
+
+ po/pl.po | 137
+ +++++++++++++++++++++++++++++++++++++++++----------------------
+ 1 file changed, 90 insertions(+), 47 deletions(-)
+
+commit 5a58b7b07a69663a0feba14bfc4e51623750fea5
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Sat Mar 28 15:36:01 2015 +0000
+
+    eds: Handle removed contacts in objects-added signal handler
+
+    This is a very unlikely situation, but it may be possible for
+    a contact
+    with the same UID as an existing one in the store to be received from
+    the server in an objects-added signal. If so, folks' internal state
+    would previously be corrupted. Fix this by signalling removal of the
+    previous persona before adding the new one for that UID.
+
+ backends/eds/lib/edsf-persona-store.vala | 29
+ +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+commit 0c9ab5e415e1deae30d0cf7c4b5660752c77b8fb
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Sat Mar 28 15:32:48 2015 +0000
+
+    eds: Fix race condition when adding contacts
+
+    Similarly to with property modifications, there is a race condition
+    when
+    adding contacts to EDS: the EBookClient.add_contact() method returns
+    once the EDS server has allocated a UID for the contact, but this
+    may be
+    before folks has received the objects-added signal with the new
+    contact's updated vCard. This vCard has potentially been modified
+    by the
+    server (e.g. by adding a VERSION property) from the version initially
+    submitted by folks; so it is important that folks uses this to create
+    its Edsf.Persona. It was not doing so previously — there were
+    two code
+    paths adding the Edsf.Persona to the store, which would race with
+    slightly different results.
+
+    The fix is to factor out the add_contact() call and yield until
+    the new
+    contact is seen in an objects-added signal emission.
+
+ backends/eds/lib/edsf-persona-store.vala | 263
+ ++++++++++++++++++++++++++-----
+ 1 file changed, 220 insertions(+), 43 deletions(-)
+
+commit 12badbdffbdf791f9e6bfbd2c4f15baae73749e7
+Author: Bernd Homuth <dev@hmt.im>
+Date:   Sun Mar 22 16:08:41 2015 +0000
+
+    Updated German translation
+
+ po/de.po | 119
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 61 insertions(+), 58 deletions(-)
+
+commit 170cb8287a8d4623858a0d8cc9d5d513074b78ea
+Author: Gianvito Cavasoli <gianvito@gmx.it>
+Date:   Sun Mar 22 11:35:58 2015 +0000
+
+    Updated Italian translation
+
+ po/it.po | 113
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 58 insertions(+), 55 deletions(-)
+
+commit 6b035e257dfa922d4c5f0e4c5bd506e7670a0a4e
+Author: Inaki Larranaga Murgoitio <dooteo@zundan.com>
+Date:   Sat Mar 21 16:46:47 2015 +0100
+
+    Updated Basque language
+
+ po/eu.po | 118
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 61 insertions(+), 57 deletions(-)
+
+commit adeeff2fa3afb4d2f1e043b80f7146e22f46b7b6
+Author: Ask H. Larsen <asklarsen@gmail.com>
+Date:   Sat Mar 21 16:27:36 2015 +0100
+
+    Updated Danish translation
+
+ po/da.po | 117
+ +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 58 insertions(+), 59 deletions(-)
+
+commit 953a05e2b7b90dd7ffda6a1d1b1bf13f09f79a24
+Author: Andika Triwidada <andika@gmail.com>
+Date:   Sat Mar 21 12:38:59 2015 +0000
+
+    Updated Indonesian translation
+
+ po/id.po | 114
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 59 insertions(+), 55 deletions(-)
+
+commit cbdde5cfaa1e36ddc7a99de7732146af9bb21e3b
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:05:32 2015 +0000
+
+    eds: Pass contact update notifications through idle queue
+
+    This is a follow-up to commit
+    e397d869d8f84641825252657aa34ae8487dd526.
+    If the main context queue was non-empty, the idle callback from
+    _contacts_changed_cb() would be queued for a while, whereas the
+    callback
+    in _commit_modified_property() would be executed immediately. This
+    means
+    _commit_modified_property() would finish yielding before the
+    contact in
+    question had been updated from EDS (the updated vCard would be sitting
+    in the idle queue at this point), which is wrong.
+
+    Fix that by queueing the callback in _commit_modified_property()
+    in the
+    idle queue, to keep it in order with the _contacts_changed_cb()
+    callback.
+
+ backends/eds/lib/edsf-persona-store.vala | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+commit 1c6266fe3409b6076bdf557275c91f2f4417294e
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:05:12 2015 +0000
+
+    tests: Add a test for setting an EDS extended info field
+
+    This is a unit test for commit
+    e397d869d8f84641825252657aa34ae8487dd526.
+
+ tests/eds/extended-info.vala | 88
+ ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
+
+commit 9a7bc6d438fc822a9b7b3ecc30cd5869a2e0504d
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:04:47 2015 +0000
+
+    tests: Error on failure instead of warning in extended-info test
+
+ tests/eds/extended-info.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 110915f8be2ac3f0e193f636545ca051c027cb8e
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:04:22 2015 +0000
+
+    tests: Eliminate use of deprecated IndividualAggregator API
+
+    In the extended-info test.
+
+ tests/eds/extended-info.vala | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+commit 83987e055de4e2ff4983ba692ee7528a5de6d15b
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:03:46 2015 +0000
+
+    tests: Clear aggregator on end of extended-info test
+
+    Don’t have it hanging around. Could cause problems if another
+    test were
+    to be added.
+
+ tests/eds/extended-info.vala | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit ed86baf140df2c59a46eb15d5afc588feac707b3
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Mar 19 11:03:16 2015 +0000
+
+    tests: Switch EDS extended-info test to use a const string
+
+    Rather than a variable which is set once only.
+
+ tests/eds/extended-info.vala | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+commit 523c9d7406448f987f9f9c5db4b89cad845bd51d
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Mar 17 15:17:29 2015 +0000
+
+    core: Accept FOLKS_DEBUG_NO_COLOR as an alternative to the UK spelling
+
+    Embarrassingly, I have mistyped this one too many times.
+
+ folks/backend-store.vala | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+commit e397d869d8f84641825252657aa34ae8487dd526
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Mar 17 14:40:41 2015 +0000
+
+    eds: Yield for longer in Edsf.Persona.change_extended_field()
+
+    …and .remove_extended_field(). Previously these two functions
+    yielded
+    until the updated vCard had been submitted to EDS, but not until
+    EDS had
+    sent back a change notification to folks. All other properties
+    correctly
+    yield until the latter, meaning that code like:
+        yield persona.change_some_property ("new-value");
+        assert (persona.get_some_property () == "new-value");
+    is guaranteed not to race. This was not the case for EDS extended
+    fields, which would return stale values until the updated vCard
+    finished
+    its round trip through EDS and reached folks again.
+
+    This also adds the timeout machinery from
+    Edsf.PersonaStore._commit_modified_property() to extended fields,
+    so if
+    the modification times out, the client will not yield forever.
+
+ backends/eds/lib/edsf-persona-store.vala | 79
+ +++++++++++++++++++++-----------
+ 1 file changed, 52 insertions(+), 27 deletions(-)
+
+commit 3ab1a7361eaa3c26f42188150fdff01e62d2987e
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Mar 17 14:07:51 2015 +0000
+
+    core: Fix get_extended_field() to check all Personas
+
+    Individual.get_extended_field() should check all Personas for
+    the first
+    non-null value before bailing out, rather than returning the property
+    from the first Persona it finds, null or otherwise.
+
+ folks/individual.vala | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 6f068f2d7174de8b3327f86c0c93b2e1b4afb6b4
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Mar 17 08:47:17 2015 +0000
+
+    core: Remove final references to FOLKS_DEBUG environment variable
+
+    We have been using G_MESSAGES_DEBUG exclusively for quite a while now.
+
+ folks/debug.vala         | 4 ++--
+ tests/lib/test-case.vala | 1 -
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+commit aec374ba7a1f9e04266392a24a6724bd9d26fc41
+Author: Samir Ribic <samir.ribic@etf.unsa.ba>
+Date:   Fri Mar 13 20:44:37 2015 +0000
+
+    Added Bosnian translation
+
+ po/LINGUAS |   1 +
+ po/bs.po   | 848
+ +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 849 insertions(+)
+
+commit 7e85a9943043db9f99406ef28350bdaff7e4d3a3
+Author: Stas Solovey <whats_up@tut.by>
+Date:   Fri Mar 13 10:03:51 2015 +0000
+
+    Updated Russian translation
+
+ po/ru.po | 114
+ ++++++++++++++++++++++++++++++---------------------------------
+ 1 file changed, 54 insertions(+), 60 deletions(-)
+
+commit 6e5bb0b616c03c6ac204c4ee67b497199f8c25c6
+Author: Rūdolfs Mazurs <rudolfsm@src.gnome.org>
+Date:   Thu Mar 12 21:56:16 2015 +0200
+
+    Updated Latvian translation
+
+ po/lv.po | 107
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 55 insertions(+), 52 deletions(-)
+
+commit 177528b0ad3ad51d103f77eb0c246c5699760f01
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Mar 9 16:14:26 2015 +0000
+
+    tests: Fix race condition in multi-store EDS tests
+
+    If a single EDS test used multiple persona stores (i.e. address books,
+    each of which is a single ESource), it was possible for creation
+    of the
+    ESources to race so that the ESourceRegistry notified of creation
+    of the
+    sources in a different order from the calls to Eds.Backend.set_up().
+    This caused Eds.Backend.set_up() to return prematurely for some of the
+    persona stores, causing failures later on.
+
+    Check the UID of ESources which have been signalled as created
+    to ensure
+    the correct one is chosen for each set_up() call.
+
+ tests/lib/eds/backend.vala | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 1fd8dbb86c0435f8f0926cf8e2f6ced9f503b931
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Mar 9 16:13:45 2015 +0000
+
+    tests: Clean up EDS backend testing library API
+
+    The address book name should be a construction time parameter, not a
+    setup parameter.
+
+    This introduces no functional changes.
+
+ tests/eds/enable-disable-stores.vala     | 4 ++--
+ tests/eds/link-personas-diff-stores.vala | 9 +++++----
+ tests/lib/eds/backend.vala               | 8 +++-----
+ tests/lib/eds/test-case.vala             | 5 +++--
+ 4 files changed, 13 insertions(+), 13 deletions(-)
+
+commit 2a2d18ead40de3e8b72f52dc35f0661e6b7a4bf9
+Author: Seong-ho Cho <shcho@gnome.org>
+Date:   Sun Mar 8 02:43:00 2015 +0900
+
+    Updated Korean translation
+
+ po/ko.po | 104
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 54 insertions(+), 50 deletions(-)
+
+commit cdd1ff41c6b58841f3be29845ccab2668e35c0db
+Author: Philip Withnall <philip@tecnocode.co.uk>
+Date:   Sat Nov 1 15:59:13 2014 +0000
+
+    build: Disable libsocialweb backend on distcheck
+
+    libsocialweb is effectively dead upstream, with no releases or
+    meaningful code changes in two years. I can no longer build it on a
+    modern GNOME development system, and it’s unlikely that it works as
+    described any more due to changes in the web services.
+
+    If users or packagers want to re-enable the backend, they will have to
+    build from source with configure flags:
+        --enable-vala --enable-libsocialweb-backend
+    and with a Vala compiler available.
+
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0fd3638077caaee42da6fc56b1985ffe0d60c6c6
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Mar 4 13:50:47 2015 +0000
+
+    tests: Add more debug output to EDS link-personas test
+
+ tests/eds/link-personas.vala | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+commit 6b99c505ac13c2cf8edae61da868fb815275a130
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Mar 4 13:09:40 2015 +0000
+
+    tests: Remove unnecessary timeout from link-personas
+
+    This is redundant with the addition of the generic test code which
+    empties the main context at the end of each test.
+
+ tests/eds/link-personas.vala | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+commit f4a1d69dac40de54f4d2491d7287b2789e61f846
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Mar 4 13:09:26 2015 +0000
+
+    tests: Use errors instead of warnings in link-personas
+
+ tests/eds/link-personas.vala | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit 994b2f200494727e6cb496cfb9a9298ebee26dec
+Author: Мирослав Николић <miroslavnikolic@rocketmail.com>
+Date:   Tue Mar 3 19:20:08 2015 +0100
+
+    Updated Serbian translation
+
+ po/sr.po       | 112
+ +++++++++++++++++++++++++++++----------------------------
+ po/sr@latin.po | 112
+ +++++++++++++++++++++++++++++----------------------------
+ 2 files changed, 114 insertions(+), 110 deletions(-)
+
+commit 2a0fd6f9d89288326d3f3037bf09d5a48c002c46
+Author: Piotr Drąg <piotrdrag@gmail.com>
+Date:   Mon Mar 2 19:50:34 2015 +0100
+
+    Updated Polish translation
+
+ po/pl.po | 110
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 58 insertions(+), 52 deletions(-)
+
+commit c48518931ff9144d78497903b94921f886ab6a01
+Author: Dušan Kazik <prescott66@gmail.com>
+Date:   Sat Feb 28 11:48:31 2015 +0000
+
+    Updated Slovak translation
+
+ po/sk.po | 305
+ +++++++++++++++++++++++----------------------------------------
+ 1 file changed, 111 insertions(+), 194 deletions(-)
+
+commit e8a4a5a13df8a9d867b5aa08a232326dd89a20e3
+Author: Aurimas Černius <aurisc4@gmail.com>
+Date:   Sat Feb 28 00:09:22 2015 +0200
+
+    Updated Lithuanian translation
+
+ po/lt.po | 108
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 55 insertions(+), 53 deletions(-)
+
+commit 22a878c2124778ed9f331b7e67ee870885803e92
+Author: Rafael Ferreira <rafael.f.f1@gmail.com>
+Date:   Thu Feb 26 20:42:19 2015 +0000
+
+    Updated Brazilian Portuguese translation
+
+ po/pt_BR.po | 236
+ ++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 109 insertions(+), 127 deletions(-)
+
+commit f0021c4a8c68ccda1242655c81d2d5b669dbb136
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Feb 25 14:59:43 2015 +0000
+
+    inspect: Ensure terminal state is restored if PAGER cannot be spawned
+
+    If $PAGER cannot be spawned (e.g. due to not existing, or due to the
+    user not having permission to run it), we would previously leave the
+    terminal with the readline handler uninstalled. Correctly restore the
+    readline state instead, and redisplay the current prompt.
+
+    This avoids leaving the user with no way to enter text or kill
+    folks-inspect in cases similar to
+        PAGER=really-doesnt-exist folks-inspect
+
+ tools/inspect/inspect.vala | 22 +++++++++++++++++++---
+ 1 file changed, 19 insertions(+), 3 deletions(-)
+
+commit 4584a3e74ba0c32553ba3d0de277808d137faad4
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Feb 25 14:59:26 2015 +0000
+
+    inspect: Fix capitalisation in some help text
+
+ tools/inspect/command-set.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit fa4f3ea1d7b1799caf7fd02b198cd9217992cc4d
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Feb 25 14:58:53 2015 +0000
+
+    inspect: Split out validation of subcommands from a few commands
+
+    And expand the help output to list the expected subcommands.
+
+ tools/inspect/command-linking.vala | 20 ++++++++++----------
+ tools/inspect/command-set.vala     | 16 ++++++++--------
+ tools/inspect/command-signals.vala | 13 ++++++++-----
+ tools/inspect/utils.vala           | 21 +++++++++++++++++++++
+ 4 files changed, 47 insertions(+), 23 deletions(-)
+
+commit 29a0a0251e33cfe0fc4be078b987b48926cfb8b5
+Author: Alexandre Franke <alexandre.franke@gmail.com>
+Date:   Tue Feb 24 00:37:48 2015 +0000
+
+    Updated French translation
+
+ po/fr.po | 102
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 53 insertions(+), 49 deletions(-)
+
+commit 9407c207466477b8b0ac19563c0c453cba17f430
+Author: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>
+Date:   Sat Feb 21 11:14:30 2015 +0000
+
+    Updated Chinese (Taiwan) translation
+
+ po/zh_TW.po | 106
+ +++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 54 insertions(+), 52 deletions(-)
+
+commit b17a3c0a8af0db35bcc2681dccd9abd20a2266d2
+Author: Efstathios Iosifidis <iefstathios@gmail.com>
+Date:   Fri Feb 20 21:29:40 2015 +0000
+
+    Updated Greek translation
+
+ po/el.po | 111
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 59 insertions(+), 52 deletions(-)
+
+commit 27b1a9ddb99c2cbb099c91bcce0b5217f7de4d93
+Author: Anders Jonsson <anders.jonsson@norsjovallen.se>
+Date:   Thu Feb 19 16:55:26 2015 +0000
+
+    Updated Swedish translation
+
+ po/sv.po | 89
+ ++++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 47 insertions(+), 42 deletions(-)
+
+commit 8417df892ce2fb4eba274b16c536b2da1bb94a1b
+Author: Fran Dieguez <fran.dieguez@mabishu.com>
+Date:   Thu Feb 19 10:50:07 2015 +0100
+
+    Updated Galician translations
+
+ po/gl.po | 108
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 56 insertions(+), 52 deletions(-)
+
+commit 8e7b403fd1ee413c0b9c62d3835010ba95c71f5e
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Feb 17 09:18:53 2015 +0000
+
+    tests: Fix UTF-8 encoding of the letter énye in test vectors
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=646808
+
+ tests/dummy/search-view.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit ef48e74dac960c2c64d4eb341e04979b187c507e
+Author: Matej Urbančič <mateju@svn.gnome.org>
+Date:   Sun Feb 15 21:11:31 2015 +0100
+
+    Updated Slovenian translation
+
+ po/sl.po | 104
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 54 insertions(+), 50 deletions(-)
+
+commit fac412ac7b79872d61aa1da1844cb08e0306c095
+Author: Muhammet Kara <muhammetk@gmail.com>
+Date:   Fri Feb 13 18:58:25 2015 +0000
+
+    Updated Turkish translation
+
+ po/tr.po | 296
+ +++++++++++++++++++++++++++++++++++----------------------------
+ 1 file changed, 164 insertions(+), 132 deletions(-)
+
+commit e6402767a0e6fd4548785c9eece9e90471c93523
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Feb 13 12:29:39 2015 +0000
+
+    Post-release version bump
+
+ NEWS         | 11 +++++++++++
+ configure.ac |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+commit 2450b2f7cb042b55cddcbb1c6b85e49a9897b39e
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Feb 13 12:28:18 2015 +0000
+
+    Release version 0.11.0
+
+ NEWS         |  2 ++
+ configure.ac | 38 +++++++++++++++++++-------------------
+ 2 files changed, 21 insertions(+), 19 deletions(-)
+
+commit 9384164754d972498b807c0526a81238c518b5cf
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Feb 13 12:09:42 2015 +0000
+
+    tests: Add test data to EXTRA_DIST
+
+    The all_test_data variable should be added to EXTRA_DIST where
+    the files
+    are not auto-generated.
+
+ tests/data/Makefile.am      | 2 ++
+ tests/telepathy/Makefile.am | 2 ++
+ 2 files changed, 4 insertions(+)
+
+commit fd251e1410f32d17a832b69364af923938b3d974
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Feb 13 11:53:41 2015 +0000
+
+    tests: Add .service files for latest EDS APIs
+
+    Changing API version numbers is like changing clothes in the morning.
+
+ tests/lib/eds/test-case.vala | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit b4c33754dc69b7f1b0d360346e4fe0c8e48284cc
+Author: Alvaro Soliverez <alvaro.soliverez@collabora.co.uk>
+Date:   Wed Aug 28 16:50:35 2013 -0300
+
+    inspect: Add search option to folks-inspect
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=646808
+
+ tools/inspect/Makefile.am         |  1 +
+ tools/inspect/command-search.vala | 83
+ +++++++++++++++++++++++++++++++++++++++
+ tools/inspect/inspect.vala        |  1 +
+ 3 files changed, 85 insertions(+)
+
+commit 8a07a8c29f473826264d53615cce821129cc6ae2
+Author: Travis Reitter <travis.reitter@collabora.co.uk>
+Date:   Thu Jan 22 16:26:10 2015 +0000
+
+    core: Implement base classes for searching
+
+    This bumps our GLib dependency to 2.40.0 for use of
+    g_str_tokenize_and_fold() to perform the fuzzy search matching.
+
+    This adds the following new API allowing for dynamic search views over
+    an IndividualAggregator:
+     • Query interface
+     • SimpleQuery class
+     • SearchView class
+
+    It includes a fairly comprehensive test suite.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=646808
+
+ NEWS                         |   6 +
+ configure.ac                 |   2 +-
+ folks/Makefile.am            |   3 +
+ folks/query.vala             | 140 ++++++++
+ folks/search-view.vala       | 538 ++++++++++++++++++++++++++++++
+ folks/simple-query.vala      | 522 +++++++++++++++++++++++++++++
+ tests/dummy/Makefile.am      |   5 +
+ tests/dummy/search-view.vala | 778
+ +++++++++++++++++++++++++++++++++++++++++++
+ 8 files changed, 1993 insertions(+), 1 deletion(-)
+
+commit 3871174d33e834087e81be25ca77f3dea11d8650
+Author: Kjartan Maraas <kmaraas@gnome.org>
+Date:   Wed Feb 11 16:31:23 2015 +0100
+
+    Updated Norwegian bokmål translation.
+
+ po/nb.po | 105
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 55 insertions(+), 50 deletions(-)
+
+commit 8b1a717c6d66cb7b60ea82d906fae9646bb90b19
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Feb 6 12:16:45 2015 +0000
+
+    core: Remove a couple of FIXMEs for a Vala bug
+
+    The bug, https://bugzilla.gnome.org/show_bug.cgi?id=638208, is now
+    fixed, so we can remove the FIXMEs. Can’t change the code because
+    ‘var’
+    is always owned, and Vala now throws a warning when copying classes
+    around, which is expected.
+
+ folks/individual-aggregator.vala | 2 --
+ 1 file changed, 2 deletions(-)
+
+commit ef70ba956a1acb07a26928a52bd5def466102733
+Author: Milan Crha <mcrha@redhat.com>
+Date:   Wed Feb 4 07:44:00 2015 +0000
+
+    build: Drop outdated BlueZ conditional dependency checks
+
+    Since our overall EDS dependency is now higher than that needed
+    for the
+    BlueZ backend, we can drop the conditional EDS version checks which
+    could previously disable building the BlueZ backend.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743934
+
+ configure.ac | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit baa67c2bd6f07180921fd917f9aecc1e2082ac17
+Author: Milan Crha <mcrha@redhat.com>
+Date:   Tue Feb 3 17:10:00 2015 +0000
+
+    eds: Update to new EDS address book timeout API
+
+    Add a timeout parameter to handle the new EDS authentication process.
+    This means that folks no longer triggers authentication dialogues from
+    EDS, which will prevent them popping up unexpectedly (particularly
+    from
+    GNOME Shell). However, it does mean that external processes using
+    folks
+    which _do_ want to display authentication dialogues should manually
+    create an ECredentialsPrompter and use that to display the dialogues.
+
+    This bumps the EDS dependency to 3.13.90 unconditionally.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743934
+
+ NEWS                                       | 2 ++
+ backends/eds/lib/edsf-persona-store.vala   | 2 +-
+ configure.ac                               | 6 +++---
+ tests/eds/helper-create-many-contacts.vala | 2 +-
+ tests/eds/helper-delete-contacts.vala      | 2 +-
+ tests/lib/eds/backend.vala                 | 2 +-
+ 6 files changed, 9 insertions(+), 7 deletions(-)
+
+commit 016b1059e61cabe18ecd150989a3e80de51bccd9
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Feb 3 15:36:42 2015 +0000
+
+    telepathy: Fix use of deprecated telepathy-glib API
+
+    get_valid_accounts() was deprecated in 0.19.9.
+
+ backends/telepathy/tp-backend.vala | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+commit cf822bea376bb985d9039da9039471a5758aa5c1
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Feb 2 17:55:53 2015 +0000
+
+    core: Fix some Valadoc comments to use namespaces correctly
+
+ folks/avatar-cache.vala | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+commit 44308b7eb6ff90c5a01b1c94643b94ce8e7c48d8
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Feb 2 16:35:06 2015 +0000
+
+    tests: Disable the GVFS remote volume monitor when running tests
+
+    We don’t need it, and it can cause GVFS to emit a warning about not
+    being able to spawn org.gtk.vfs.Daemon, which will cause our tests to
+    fail.
+
+ tests/lib/test-case.vala | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+commit a012e6061396687bd169d07242f1d5e59bad46df
+Author: Balázs Úr <urbalazs@gmail.com>
+Date:   Fri Jan 30 21:24:38 2015 +0000
+
+    Updated Hungarian translation
+
+ po/hu.po | 113
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 57 insertions(+), 56 deletions(-)
+
+commit 8d3cc124c5694b47288d70ba9d4441642caed1ba
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 15:01:45 2015 +0000
+
+    telepathy: Update a deprecated Vala attribute
+
+    ‘Property’ became ‘Description’ sometime very early on
+    in Vala’s
+    lifetime. We never caught up.
+
+ backends/telepathy/lib/tpf-persona-store.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c9b639b12082af78d34fc06d71d2be7dd79c8aa7
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 15:01:36 2015 +0000
+
+    docs: Update NEWS file
+
+ NEWS | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit cc091166c138310f06297803fd3991f119624fb6
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 15:00:40 2015 +0000
+
+    telepathy: Fix use of deprecated Telepathy API
+
+    This bumps our telepathy-glib dependency from 0.19.0 to 0.19.9, which
+    should be fine — it’s a micro version bump, and all distributions
+    which
+    ship telepathy-glib have shipped something newer than 0.20.0 for ages.
+
+ NEWS                                          |  1 +
+ backends/telepathy/lib/tpf-persona-store.vala |  6 +++---
+ backends/telepathy/lib/tpf-persona.vala       | 16 +++++++++++-----
+ configure.ac                                  |  2 +-
+ 4 files changed, 16 insertions(+), 9 deletions(-)
+
+commit 4a6db9226dc9396830985f0f36e00aa0179303d2
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 14:58:21 2015 +0000
+
+    inspect: Fix use of deprecated Vala API
+
+    This wasn’t fixed before because there was apparently no way of
+    specifying the base to use for the conversion. Then I realised that
+    hexadecimal can be forced by ensuring the string has a ‘0x’
+    prefix,
+    which it does.
+
+ tools/inspect/command-signals.vala | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+commit 69030c4037fe02d98d1dafc330a3c556c6653814
+Author: Colin Walters <walters@verbum.org>
+Date:   Fri Jan 23 14:31:17 2015 +0000
+
+    build: Mark as not supporting srcdir != builddir
+
+    Basically automake's vala rules cd $(srcdir), which breaks variable
+    references like $(top_srcdir), since they're relative to the build
+    directory.
+
+ configure.ac | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+commit bc77be3eac424004ff4571a3df6c24bdebce9714
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 11:19:35 2015 +0000
+
+    tests: Port to use installed-tests
+
+    Port the unit tests to follow the installed-tests standard, installing
+    the test binaries and generated .test metadata files.
+
+    This removes the existing --enable-tests configure option,
+    replacing it
+    with the standard:
+     • --enable-modular-tests
+     • --enable-installed-tests
+    options. --enable-modular-tests is a direct replacement for
+    --enable-tests, controlling whether tests are built at compile
+    time, or
+    only when run under `make check`. --enable-installed-tests controls
+    whether tests will be installed on the system.
+
+    If the tests are installed, use
+        gnome-desktop-testing-runner folks
+    to run them all.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743398
+
+ Makefile.am                    |  2 +-
+ NEWS                           |  3 +++
+ configure.ac                   | 26 +++++++++++++++++++++-----
+ folks/build-conf.vapi          |  6 ++++++
+ tests/bluez/Makefile.am        |  5 ++---
+ tests/data/Makefile.am         |  5 ++++-
+ tests/dummy/Makefile.am        |  5 ++---
+ tests/eds/Makefile.am          |  7 +++----
+ tests/folks/Makefile.am        |  5 ++---
+ tests/key-file/Makefile.am     |  5 ++---
+ tests/lib/Makefile.am          |  2 ++
+ tests/lib/test-utils.vala      | 14 +++++++-------
+ tests/libsocialweb/Makefile.am |  5 ++---
+ tests/telepathy/Makefile.am    |  9 ++++-----
+ tests/test.mk                  | 39
+ +++++++++++++++++++++++++++++++++++++++
+ tests/tracker/Makefile.am      |  5 ++---
+ 16 files changed, 102 insertions(+), 41 deletions(-)
+
+commit 98fe7836cd9cbb8bc3fd61e5c65df236dd9e5da2
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 12:57:15 2015 +0000
+
+    tests: Fix load path for a Telepathy test file
+
+    The path works fine when running the tests in the source directory,
+    but
+    not for installed tests. Also, it seems a bit pointless to keep
+    the file
+    in its own subdirectory; and this will cause problems when
+    installing it
+    for installed-tests.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743398
+
+ tests/lib/telepathy/test-case.vala           | 2 +-
+ tests/telepathy/Makefile.am                  | 2 +-
+ tests/telepathy/data/relationships-empty.ini | 0
+ tests/telepathy/relationships-empty.ini      | 0
+ 4 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 324f8687f1bc547b87600d1ccf845065e6fad117
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 12:42:18 2015 +0000
+
+    tests: Allow pkg-config calls to be overridden by environment
+    variables
+
+    When running installed tests, the pkg-config files for our
+    dependencies
+    might not be available, so the runtime pkg-config calls will fail and
+    hence the tests will fail.
+
+    Allow overriding the pkg-config calls with environment variables which
+    will be set in the .test files for the installed tests.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743398
+
+ tests/lib/eds/test-case.vala     | 21 ++++++++++++++++++---
+ tests/lib/tracker/test-case.vala | 21 ++++++++++++++++++---
+ 2 files changed, 36 insertions(+), 6 deletions(-)
+
+commit 3a95647776cf5f1a42b433bf013a2cc29aa64b98
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 11:29:38 2015 +0000
+
+    build: Local change to git.mk to ignore installed-test metadata files
+
+    Submitted upstream as: https://github.com/behdad/git.mk/pull/28/.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=743398
+
+ git.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 1ecb3346985a0b155f074810da848a9de3b55770
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 12:58:34 2015 +0000
+
+    tests: Upgrade a warning to an error
+
+    If this fails, the test cannot complete successfully, so we might as
+    well make sure the warning message doesn’t get buried by subsequent
+    log
+    output.
+
+ tests/lib/test-utils.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 3f10d0a18966aac296336364812bbc0eb0f942ec
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Fri Jan 23 11:24:40 2015 +0000
+
+    build: Update git.mk from upstream
+
+ git.mk | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
+
+commit 56ae93e3e655c9b2a42d71807ba22b828bfcf25e
+Author: Daniel Mustieles <daniel.mustieles@gmail.com>
+Date:   Fri Jan 23 11:42:37 2015 +0100
+
+    Updated Spanish translation
+
+ po/es.po | 108
+ ++++++++++++++++++++++++++++++++-------------------------------
+ 1 file changed, 55 insertions(+), 53 deletions(-)
+
+commit bd4b1b31d34ef6fa6a6a9f06825a99b55c58a64c
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 17:35:52 2015 +0000
+
+    tests: Factor out common database disambiguation in EDS tests
+
+    Why not just make all the tests use unique databases?
+
+ tests/eds/anti-linking.vala  | 11 -----------
+ tests/eds/link-personas.vala | 11 -----------
+ tests/eds/perf.vala          |  9 ---------
+ tests/eds/set-avatar.vala    |  9 ---------
+ tests/lib/eds/test-case.vala |  5 ++++-
+ 5 files changed, 4 insertions(+), 41 deletions(-)
+
+commit 09bc2de85f6d32af895843362ad7f0c3ca8f1c0a
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 17:32:02 2015 +0000
+
+    tests: Fix EDS set-avatar test
+
+    The same address book database was being re-used between unit tests,
+    causing the second one to fail with a duplicate contact UID.
+
+ tests/eds/set-avatar.vala | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+commit 8db58cfc01436ffdcf7ca0b338d645299b1fcc66
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:29:14 2015 +0000
+
+    build: Add a missing backslash in a file list
+
+    It was at the end of the list, so this doesn’t actually change
+    anything.
+    Just fixes an automake warning.
+
+ tests/eds/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bdf03cf9633689a162bb235df3a617a0b562fead
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:19:33 2015 +0000
+
+    core: Indentation fix
+
+ folks/individual-aggregator.vala | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+commit a446d66e6b93d50bb157703b648f3dcb6dce6af2
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:19:03 2015 +0000
+
+    core: Unmark a private method as async
+
+    It does not use any async features or yields, so there’s no point
+    in it
+    being async.
+
+ folks/individual-aggregator.vala | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit f78bee03297a2d886ba0a0535498d87d238bcf9f
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:18:39 2015 +0000
+
+    core: Remove use of a deprecated libgee API
+
+ folks/individual-aggregator.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit 0dfb4b67733343e0d06dfd34dc9728265c465a5b
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:16:50 2015 +0000
+
+    dummy: Set DummyPersona.property_change_delay default value
+
+    To zero, so persona property changes are queued in an idle callback.
+    This is not a functional change, as the property would have previously
+    been implicitly zero-initialised.
+
+ backends/dummy/lib/dummy-persona.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit d040ce6cbad9bad8c25f052254f3df6d9535a9a3
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:15:49 2015 +0000
+
+    core: Hook up the FolksSmallSet.dispose vfunc
+
+    It was accidentally not hooked up before, which was a potential memory
+    leak if read-only views are used.
+
+ folks/small-set.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit 0db4ad513b0141e5a0862954db74439ebb175bcc
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:14:55 2015 +0000
+
+    core: Implement more vfuncs in FolksSmallSet
+
+    Implement the generic type vfuncs, which are needed for some of the
+    search code.
+
+ folks/small-set.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+commit 537063c475d3347369abca001721603c0cd6d883
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Thu Jan 22 16:14:31 2015 +0000
+
+    core: Remove unused function declarations from FolksSmallSet
+
+ folks/small-set.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+commit a0e8278131dd7fde01b6ef456da5e2761de93787
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jan 21 14:51:47 2015 +0000
+
+    tests: Skip primary-store-changes test if running uninstalled
+
+    It requires the folks GSettings schema to be installed, which
+    might not
+    be the case if running the unit tests without installing.
+
+ tests/folks/primary-store-changes.vala | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
+
+commit b9f79746b4d56569f498c2e45a245bbbde194578
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Wed Jan 21 14:12:05 2015 +0000
+
+    core: Fix some code formatting
+
+    This introduces no functional changes.
+
+ folks/individual-aggregator.vala | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+commit 9421fb70ac4a3a21051cfd0547ecbb0b31913951
+Author: Marek Černocký <marek@manet.cz>
+Date:   Wed Jan 21 07:57:09 2015 +0100
+
+    Updated Czech translation
+
+ po/cs.po | 107
+ +++++++++++++++++++++++++++++++++------------------------------
+ 1 file changed, 56 insertions(+), 51 deletions(-)
+
+commit 171adc50db474ee11ebcad293371700ccda2189a
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jan 20 17:47:08 2015 +0000
+
+    build: Bump version to 0.11.0
+
+    Since we’re now adding API, this is the 0.11.0 unstable branch.
+
+ NEWS         | 7 ++++++-
+ configure.ac | 4 ++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+commit 699bf9a70f2ba7b80e20e16820b04db21c62a79b
+Author: Rodrigo Moya <rodrigo@gnome-db.org>
+Date:   Tue Jan 20 12:36:35 2015 +0000
+
+    eds: Implement ExtendedInfo interface
+
+    Store extended info fields as arbitrary vCard properties.
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=641211
+
+ backends/eds/lib/edsf-persona-store.vala |  64 +++++++++++++++
+ backends/eds/lib/edsf-persona.vala       |  32 ++++++++
+ tests/eds/Makefile.am                    |   5 ++
+ tests/eds/extended-info.vala             | 136
+ +++++++++++++++++++++++++++++++
+ tests/lib/eds/backend.vala               |  13 ++-
+ 5 files changed, 249 insertions(+), 1 deletion(-)
+
+commit 31018a77990ee1ecdf696fd679cb83d711524b23
+Author: Rodrigo Moya <rodrigo@gnome-db.org>
+Date:   Tue Jan 20 12:07:28 2015 +0000
+
+    core: Add an ExtendedInfo interface for storing arbitrary fields
+
+    This adds a new interface which allows clients to store arbitrary
+    fields
+    in backends. No backends currently implement it, but that will change.
+
+    See the documentation for reasoning about when it’s appropriate
+    to use
+    this interface.
+
+    New API:
+     • ExtendedInfo interface
+     • ExtendedFieldDetails class
+     • Individual now implements ExtendedInfo
+
+    https://bugzilla.gnome.org/show_bug.cgi?id=641211
+
+ folks/Makefile.am        |   1 +
+ folks/extended-info.vala | 151
+ +++++++++++++++++++++++++++++++++++++++++++++++
+ folks/individual.vala    | 119 ++++++++++++++++++++++++++++++++++++-
+ folks/persona-store.vala |  10 +++-
+ po/POTFILES.in           |   1 +
+ po/POTFILES.skip         |   1 +
+ 6 files changed, 281 insertions(+), 2 deletions(-)
+
+commit 4bda16a913d00b44ada0111f89dfc6548a550625
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jan 20 12:09:11 2015 +0000
+
+    doc: Fix a typo in HACKING
+
+ HACKING | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b2660ca904e31b62ad0418327af3c8ce9aecb244
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jan 20 10:31:42 2015 +0000
+
+    build: Add -no-undefined to all LDFLAGS
+
+    Let’s not get caught by the linker failing on undefined symbols
+    again.
+
+ backends/backend-library.mk | 1 +
+ backends/backend.mk         | 1 +
+ folks/Makefile.am           | 5 ++++-
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+
+commit 6bfdae26b5311d280f2e566d05534b0ddf57603b
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jan 20 10:27:36 2015 +0000
+
+    build: Fix LIBADD for libsocialweb backend
+
+    The variable was accidentally completely empty, which was causing
+    build
+    failures when compiling with -no-undefined. Fix that by populating
+    LIBADD correctly.
+
+ backends/libsocialweb/lib/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit bc9e0684504c32b71ee2913d48ee8298e8468d46
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Tue Jan 20 10:26:50 2015 +0000
+
+    build: Add dependency on libm for the BlueZ backend
+
+    It uses Math.pow().
+
+ backends/bluez/Makefile.am | 1 +
+ configure.ac               | 2 ++
+ 2 files changed, 3 insertions(+)
+
+commit 916eaa6eff3d3fa416d2fb8d8f1dc5cd39ad872a
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Jan 19 20:38:25 2015 +0000
+
+    Post-release version bump
+
+ NEWS         | 11 +++++++++++
+ configure.ac |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+commit bde07a22c23b2c49d370c793dab5dce3da1d11f9
+Author: Philip Withnall <philip.withnall@collabora.co.uk>
+Date:   Mon Jan 19 20:37:14 2015 +0000
+
+    Release version 0.10.1
+
+ NEWS         |  7 +------
+ configure.ac | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 13 deletions(-)
+
 commit 256fa1ea13e5145272192ed6848bda99fcc72e1a
 Author: Philip Withnall <philip.withnall@collabora.co.uk>
 Date:   Mon Jan 19 19:19:43 2015 +0000

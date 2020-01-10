@@ -24,6 +24,11 @@ using GLib;
 
 private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
 {
+  private const string[] _valid_subcommands =
+    {
+      "alias",
+    };
+
   public override string name
     {
       get { return "set"; }
@@ -33,7 +38,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
     {
       get
         {
-          return "set an individual's attributes";
+          return "Set an individual's properties";
         }
     }
 
@@ -51,7 +56,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
       base (client);
     }
 
-  public override async void run (string? command_string)
+  public override async int run (string? command_string)
     {
       string[] parts = {};
 
@@ -61,13 +66,9 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
           parts = command_string.split (" ");
         }
 
-      if (parts.length < 1 ||
-          (parts[0] != "alias"))
-        {
-          Utils.print_line ("Unrecognised 'set' command '%s'.",
-            command_string);
-          return;
-        }
+      if (!Utils.validate_subcommand (this.name, command_string, parts[0],
+              Set._valid_subcommands))
+          return 1;
 
       if (parts[0] == "alias")
         {
@@ -76,7 +77,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
               Utils.print_line ("Must pass at least one individual ID and a new alias to an " +
                   "'alias' subcommand.");
 
-              return;
+              return 1;
             }
 
           /* To set an attribute on an individual, we must have at least one. */
@@ -85,7 +86,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
               Utils.print_line ("Unrecognised individual ID '%s'.",
                   parts[1]);
 
-              return;
+              return 1;
             }
 
           var id = parts[1].strip ();
@@ -94,7 +95,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
           if (individual == null)
             {
               Utils.print_line ("Unrecognized individual ID '%s'.", id);
-              return;
+              return 1;
             }
             
           try
@@ -110,14 +111,15 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
             {
               Utils.print_line ("Setting of individual's alias to '%s' failed.",
                   parts[2]);
+              return 1;
             }
-
-          return;
         }
       else
         {
           assert_not_reached ();
         }
+
+      return 0;
     }
 
   /* FIXME: These can't be in the subcommand_name_completion_cb() function
@@ -158,8 +160,7 @@ private class Folks.Inspect.Commands.Set : Folks.Inspect.Command
             }
           else
             {
-              subcommand_completions =
-                  { "alias", null };
+              subcommand_completions = Set._valid_subcommands;
               prefix = "";
             }
 

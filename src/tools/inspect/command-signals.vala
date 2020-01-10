@@ -44,6 +44,12 @@ using GLib;
 
 private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
 {
+  private const string[] _valid_subcommands =
+    {
+      "connect",
+      "disconnect",
+    };
+
   public override string name
     {
       get { return "signals"; }
@@ -94,7 +100,7 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
       base (client);
     }
 
-  public override async void run (string? command_string)
+  public override async int run (string? command_string)
     {
       if (command_string == null)
         {
@@ -106,12 +112,9 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
           /* Parse subcommands */
           string[] parts = command_string.split (" ", 2);
 
-          if (parts.length < 1)
-            {
-              Utils.print_line ("Unrecognised 'signals' command '%s'.",
-                command_string);
-              return;
-            }
+          if (!Utils.validate_subcommand (this.name, command_string, parts[0],
+                 Signals._valid_subcommands))
+              return 1;
 
           Type class_type;
           Object class_instance;
@@ -125,14 +128,14 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
                 {
                   Utils.print_line ("Unrecognised signal identifier '%s'.",
                       parts[1]);
-                  return;
+                  return 1;
                 }
 
               if (this.parse_signal_id (parts[1].strip (), out class_type,
                   out class_instance, out signal_name,
                   out detail_string) == false)
                 {
-                  return;
+                  return 1;
                 }
 
               /* FIXME: Handle "disconnect <signal ID>" */
@@ -161,7 +164,7 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
                   out class_instance, out signal_name,
                   out detail_string) == false)
                 {
-                  return;
+                  return 1;
                 }
 
               if (signal_name == null)
@@ -180,6 +183,8 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
                 }
             }
         }
+
+      return 0;
     }
 
   public override string[]? complete_subcommand (string subcommand)
@@ -229,8 +234,9 @@ private class Folks.Inspect.Commands.Signals : Folks.Inspect.Command
       if (class_name_or_instance.length > 2 &&
           class_name_or_instance[0] == '0' && class_name_or_instance[1] == 'x')
         {
-          /* We have a class instance */
-          ulong address = class_name_or_instance.to_ulong (null, 16);
+          /* We have a class instance. The ‘0x’ prefix ensures it will be
+           * parsed in base 16. */
+          var address = uint64.parse (class_name_or_instance);
           class_instance = (Object) address;
           assert (class_instance.get_type ().is_object ());
         }
