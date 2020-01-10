@@ -5,7 +5,7 @@
 Name:           folks
 Epoch:          1
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GObject contact aggregation library
 
 Group:          System Environment/Libraries
@@ -13,6 +13,7 @@ License:        LGPLv2+
 URL:            http://telepathy.freedesktop.org/wiki/Folks
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/%{name}/0.10/%{name}-%{version}.tar.xz
 Patch0:         folks-translations-3.14.patch
+Patch1:         translations.patch
 
 BuildRequires:  chrpath
 BuildRequires:  telepathy-glib-devel >= %{tp_glib_ver}
@@ -57,6 +58,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1 -b .translations
+%patch1 -p1 -b .more-translations
 
 %build
 %configure --disable-static --enable-eds-backend --enable-vala --enable-inspect-tool --disable-libsocialweb-backend --disable-zeitgeist
@@ -126,6 +128,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed Jun 29 2016 Matthias Clasen <mclasen@redhat.com> - 1:0.10.1-2
+- Update translations
+- Resolves: #1304298
+
 * Mon Mar 23 2015 Richard Hughes <rhughes@redhat.com> - 1:0.10.1-1
 - Update to 0.10.1
 - Resolves: #1174528
